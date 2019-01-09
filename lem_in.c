@@ -25,6 +25,8 @@ void	ft_lem_in_usage(void)
 	exit(1);
 }
 
+void	ft_parse_ants()
+
 void	ft_lem_in_parse(t_lem_in *lem_in);
 {
 	while (get_next_line(0, &lem_in->line) == 1)
