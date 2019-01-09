@@ -25,26 +25,6 @@ void	ft_lem_in_usage(void)
 	exit(1);
 }
 
-void	ft_parse_ants()
-
-void	ft_lem_in_parse(t_lem_in *lem_in);
-{
-	while (get_next_line(0, &lem_in->line) == 1)
-	{
-		if ()
-			ft_parse_ants(lem_in->line);
-		else if ()
-			ft_parse_comment(lem_in->line);
-		else if ()
-			ft_parse_room(lem_in->line);
-		else if ()
-			ft_parse_link(lem_in->line);
-		else
-			ft_lem_in_error(/*lem_in*/);
-		ft_freestr(lem_in->line);
-	}
-}
-
 int		main(int argc, char **argv)
 {
 	char	**str;//
