@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:40:52 by dfinnis          ###   ########.fr       */
+/*   Created: 2018/11/09 13:06:21 by dfinnis           #+#    #+#             */
+/*   Updated: 2018/11/09 13:06:24 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-void	ft_lem_in_usage(void)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	ft_putstr("usage:	./lem-in < map.map\n");
-	exit(1);
-}
+	size_t	i;
 
-// void	ft_lem_in_parse();
-
-int		main(int argc, char **argv)
-{
-	if (argc == 1)
-		ft_lem_in_usage();
-//	ft_lem_in_initialize(/*struct*/);
-//	ft_lem_in_parse();
-//	ft_lem_in_free(/*struct*/);
-	return (0);
+	i = 0;
+	if (size)
+	{
+		size--;
+		while (size && src[i] != '\0')
+		{
+			dst[i] = src[i];
+			i++;
+			size--;
+		}
+		dst[i] = '\0';
+	}
+	return (ft_strlen(src));
 }

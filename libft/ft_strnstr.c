@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:40:52 by dfinnis          ###   ########.fr       */
+/*   Created: 2018/11/05 15:27:11 by dfinnis           #+#    #+#             */
+/*   Updated: 2018/11/05 15:27:12 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-void	ft_lem_in_usage(void)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	ft_putstr("usage:	./lem-in < map.map\n");
-	exit(1);
-}
+	size_t	i;
+	int		j;
 
-// void	ft_lem_in_parse();
-
-int		main(int argc, char **argv)
-{
-	if (argc == 1)
-		ft_lem_in_usage();
-//	ft_lem_in_initialize(/*struct*/);
-//	ft_lem_in_parse();
-//	ft_lem_in_free(/*struct*/);
-	return (0);
+	if (needle[0] == '\0')
+		return ((char*)haystack);
+	i = 0;
+	while (haystack[i] && i < len)
+	{
+		j = 0;
+		while (haystack[i + j] == needle[j] && (i + j) < len)
+		{
+			j++;
+			if (needle[j] == '\0')
+				return ((char*)(haystack + i));
+		}
+		i++;
+	}
+	return (NULL);
 }

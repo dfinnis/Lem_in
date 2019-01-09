@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:40:52 by dfinnis          ###   ########.fr       */
+/*   Created: 2018/11/05 15:27:50 by dfinnis           #+#    #+#             */
+/*   Updated: 2018/11/05 15:27:52 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-void	ft_lem_in_usage(void)
+char	*ft_strrchr(const char *s, int c)
 {
-	ft_putstr("usage:	./lem-in < map.map\n");
-	exit(1);
-}
+	char	*needle;
 
-// void	ft_lem_in_parse();
-
-int		main(int argc, char **argv)
-{
-	if (argc == 1)
-		ft_lem_in_usage();
-//	ft_lem_in_initialize(/*struct*/);
-//	ft_lem_in_parse();
-//	ft_lem_in_free(/*struct*/);
-	return (0);
+	needle = NULL;
+	while (*s)
+	{
+		if (*s == c)
+			needle = (char*)s;
+		s++;
+	}
+	if (*s == c)
+		needle = (char*)s;
+	return (needle);
 }

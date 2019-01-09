@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:40:52 by dfinnis          ###   ########.fr       */
+/*   Created: 2019/01/07 11:02:22 by dfinnis           #+#    #+#             */
+/*   Updated: 2019/01/07 11:02:29 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-void	ft_lem_in_usage(void)
+size_t	ft_strlen(const char *s)
 {
-	ft_putstr("usage:	./lem-in < map.map\n");
-	exit(1);
-}
+	size_t	i;
 
-// void	ft_lem_in_parse();
-
-int		main(int argc, char **argv)
-{
-	if (argc == 1)
-		ft_lem_in_usage();
-//	ft_lem_in_initialize(/*struct*/);
-//	ft_lem_in_parse();
-//	ft_lem_in_free(/*struct*/);
-	return (0);
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }

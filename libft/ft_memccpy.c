@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:40:52 by dfinnis          ###   ########.fr       */
+/*   Created: 2018/11/06 06:48:18 by dfinnis           #+#    #+#             */
+/*   Updated: 2018/11/06 06:48:21 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-void	ft_lem_in_usage(void)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	ft_putstr("usage:	./lem-in < map.map\n");
-	exit(1);
-}
+	unsigned char	*ptr_dst;
+	unsigned char	*ptr_src;
+	size_t			i;
 
-// void	ft_lem_in_parse();
-
-int		main(int argc, char **argv)
-{
-	if (argc == 1)
-		ft_lem_in_usage();
-//	ft_lem_in_initialize(/*struct*/);
-//	ft_lem_in_parse();
-//	ft_lem_in_free(/*struct*/);
-	return (0);
+	ptr_dst = (unsigned char*)dst;
+	ptr_src = (unsigned char*)src;
+	i = 0;
+	while (i < n)
+	{
+		*ptr_dst = *ptr_src;
+		if (*ptr_dst == (unsigned char)c)
+		{
+			ptr_dst++;
+			return (ptr_dst);
+		}
+		ptr_dst++;
+		ptr_src++;
+		i++;
+	}
+	return (NULL);
 }

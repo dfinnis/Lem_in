@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   ft_itoa_unsigned.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:40:52 by dfinnis          ###   ########.fr       */
+/*   Created: 2018/12/17 17:07:00 by dfinnis           #+#    #+#             */
+/*   Updated: 2018/12/17 17:07:04 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-void	ft_lem_in_usage(void)
+static int	ft_find_len(uintmax_t n)
 {
-	ft_putstr("usage:	./lem-in < map.map\n");
-	exit(1);
+	int			len;
+
+	len = 1;
+	while ((n /= 10) > 0)
+		len++;
+	return (len);
 }
 
-// void	ft_lem_in_parse();
-
-int		main(int argc, char **argv)
+char		*ft_itoa_unsigned(uintmax_t n)
 {
-	if (argc == 1)
-		ft_lem_in_usage();
-//	ft_lem_in_initialize(/*struct*/);
-//	ft_lem_in_parse();
-//	ft_lem_in_free(/*struct*/);
-	return (0);
+	char	*fresh;
+	int		len;
+
+	if (n == 0)
+		return (ft_strdup("0"));
+	len = ft_find_len(n);
+	if (!(fresh = ft_strnew(len + 1)))
+		return (NULL);
+	fresh[len + 1] = '\0';
+	while (n > 0)
+	{
+		fresh[--len] = (n % 10) + '0';
+		n = n / 10;
+	}
+	return (fresh);
 }

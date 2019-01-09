@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   binary.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:36:00 by dfinnis          ###   ########.fr       */
+/*   Created: 2018/12/18 11:34:54 by svaskeli          #+#    #+#             */
+/*   Updated: 2018/12/18 11:42:29 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "ft_printf.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include "libft/libft.h"
-
-typedef struct	s_lem_in
+void	ft_binary(t_print *all, va_list ap)
 {
-	
-}				t_lem_in;
+	uintmax_t	num;
+	char		*num_str;
 
-typedef struct	s_room
-{
-	
-}				t_room;
-
-#endif
+	num = ft_unsigned_len(all, ap);
+	if (!(num_str = ft_itoa_base(num, 2, all->type)))
+		ft_error(NULL, all->form);
+	ft_justify(num_str, all);
+}

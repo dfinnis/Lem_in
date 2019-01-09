@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:40:52 by dfinnis          ###   ########.fr       */
+/*   Created: 2018/11/09 11:39:30 by dfinnis           #+#    #+#             */
+/*   Updated: 2018/11/09 11:39:32 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
-
-void	ft_lem_in_usage(void)
+char	*ft_strrev(char *str)
 {
-	ft_putstr("usage:	./lem-in < map.map\n");
-	exit(1);
-}
+	int i;
+	int	j;
+	int swap;
 
-// void	ft_lem_in_parse();
-
-int		main(int argc, char **argv)
-{
-	if (argc == 1)
-		ft_lem_in_usage();
-//	ft_lem_in_initialize(/*struct*/);
-//	ft_lem_in_parse();
-//	ft_lem_in_free(/*struct*/);
-	return (0);
+	j = 0;
+	while (str[j])
+		j++;
+	i = -1;
+	while (++i < --j)
+	{
+		swap = str[i];
+		str[i] = str[j];
+		str[j] = swap;
+	}
+	return (str);
 }

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:40:52 by dfinnis          ###   ########.fr       */
+/*   Created: 2018/11/06 09:15:10 by dfinnis           #+#    #+#             */
+/*   Updated: 2018/11/06 09:15:12 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-void	ft_lem_in_usage(void)
+char	*ft_strtrim(char const *s)
 {
-	ft_putstr("usage:	./lem-in < map.map\n");
-	exit(1);
-}
+	char	*fresh;
+	size_t	sta;
+	size_t	end;
 
-// void	ft_lem_in_parse();
-
-int		main(int argc, char **argv)
-{
-	if (argc == 1)
-		ft_lem_in_usage();
-//	ft_lem_in_initialize(/*struct*/);
-//	ft_lem_in_parse();
-//	ft_lem_in_free(/*struct*/);
-	return (0);
+	if (!s)
+		return (0);
+	sta = 0;
+	end = ft_strlen(s) - 1;
+	while (s[sta] && (s[sta] == ' ' || s[sta] == '\n' || s[sta] == '\t'))
+		sta++;
+	while (sta < end && (s[end] == ' ' || s[end] == '\n' || s[end] == '\t'))
+		end--;
+	fresh = ft_strsub(s, sta, (end - sta + 1));
+	return (fresh);
 }

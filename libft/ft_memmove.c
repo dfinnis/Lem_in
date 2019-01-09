@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:40:52 by dfinnis          ###   ########.fr       */
+/*   Created: 2018/11/06 06:51:18 by dfinnis           #+#    #+#             */
+/*   Updated: 2018/11/06 06:51:20 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-void	ft_lem_in_usage(void)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	ft_putstr("usage:	./lem-in < map.map\n");
-	exit(1);
-}
+	const char	*a;
+	char		*b;
 
-// void	ft_lem_in_parse();
-
-int		main(int argc, char **argv)
-{
-	if (argc == 1)
-		ft_lem_in_usage();
-//	ft_lem_in_initialize(/*struct*/);
-//	ft_lem_in_parse();
-//	ft_lem_in_free(/*struct*/);
-	return (0);
+	b = (char*)dst;
+	a = (const char*)src;
+	if (a > b)
+		ft_memcpy(b, a, n);
+	else
+	{
+		while (n)
+		{
+			n--;
+			b[n] = a[n];
+		}
+	}
+	return (dst);
 }
