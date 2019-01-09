@@ -13,14 +13,14 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
+# include "libft/ft_printf/ft_printf.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include "libft/libft.h"
 
 typedef struct	s_lem_in
 {
-	
+	char	*line;
 }				t_lem_in;
 
 typedef struct	s_room
