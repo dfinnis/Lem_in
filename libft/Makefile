@@ -6,7 +6,7 @@
 #    By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 10:44:13 by dfinnis           #+#    #+#              #
-#    Updated: 2019/01/09 13:52:16 by svaskeli         ###   ########.fr        #
+#    Updated: 2019/01/09 18:35:52 by svaskeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,12 +95,21 @@ OBJ = $(SRCS:.c=.o)
 
 INC = libft.h
 
+G = -g
+FSAN = -fsanitize=address
 FLAGS = -Wall -Werror -Wextra
-D_G = -g
-D_FS = -fsanitize=address
-DEBUG = $(D_G) $(D_FS)
 
 all: $(NAME)
+
+g:
+	@gcc -c -I $(INC) -I $(FLAGS) $(G) $(SRCS)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
+
+fsanitize:
+	@gcc -c -I $(INC) -I $(FLAGS) $(G) $(FSAN) $(SRCS)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
@@ -117,4 +126,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re g fsanitize

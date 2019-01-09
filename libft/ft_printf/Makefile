@@ -6,7 +6,7 @@
 #    By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 10:44:29 by dfinnis           #+#    #+#              #
-#    Updated: 2019/01/09 13:53:17 by svaskeli         ###   ########.fr        #
+#    Updated: 2019/01/09 18:45:40 by svaskeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,14 +113,25 @@ OBJ = $(SRCS:.c=.o)
 LIB_O = $(LIB_C:.c=.o)
 LIB_PATH = $(addprefix $(LIB_DIR), $(LIB_O))
 
+G = -g
+FSAN = -fsanitize=address
 FLAGS = -Wall -Werror -Wextra
-D_G = -g
-D_FS = -fsantize=address
-DEBUG = $(D_G) $(D_FS)
 
 INC = ft_printf.h
 
 all: lib $(NAME)
+
+g:
+	@make -C ../ g
+	@gcc -c $(FLAGS) $(G) $(SRCS) -I $(INC)
+	@ar rc $(NAME) $(OBJ) $(LIB_PATH)
+	@ranlib $(NAME)
+
+fsanitize:
+	@make -C ../ fsanitize
+	@gcc -c $(FLAGS) $(G) $(FSAN) $(SRCS) -I $(INC)
+	@ar rc $(NAME) $(OBJ) $(LIB_PATH)
+	@ranlib $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ) $(LIB_PATH)
@@ -146,4 +157,4 @@ fclean: clean libfclean
 
 re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re g fsanitize

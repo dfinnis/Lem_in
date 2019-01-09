@@ -6,14 +6,14 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:36:00 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/01/09 18:23:39 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# include "libft/ft_printf/ft_printf.h"
+# include "../libft/ft_printf/ft_printf.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
