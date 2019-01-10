@@ -67,14 +67,14 @@ void	ft_parse_room(t_lem_in *lem_in)
 	if (lem_in->start_flag)
 	{
 		// if (lem_in->start)//already a start;
-		// 	ft_lem_in_error(lem_in);
+		// 	ft_lem_in_error(/*lem_in*/);
 		lem_in->start = new;
 		lem_in->start_flag = 0;
 	}
 	else if (lem_in->end_flag)
 	{
 		// if (lem_in->end)//already an end
-		// 	ft_lem_in_error(lem_in);
+		// 	ft_lem_in_error(/*lem_in*/);
 		lem_in->end = new;
 		lem_in->end_flag = 0;
 	}
@@ -113,6 +113,9 @@ void	ft_parse_link(t_lem_in *lem_in)
 
 void	ft_lem_in_parse(t_lem_in *lem_in)
 {
+	get_next_line(0, &lem_in->line);
+	ft_parse_ants(lem_in);
+	ft_freestr(lem_in->line);
 	while (get_next_line(0, &lem_in->line) == 1)
 	{
 		if (lem_in->line[0] == '#')
@@ -122,7 +125,7 @@ void	ft_lem_in_parse(t_lem_in *lem_in)
 		else if (ft_strchr(lem_in->line, '-'))
 			ft_parse_link(lem_in);
 		else
-			ft_parse_ants(lem_in);
+			ft_lem_in_error(lem_in);
 		ft_freestr(lem_in->line);
 	}
 }
