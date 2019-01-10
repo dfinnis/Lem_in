@@ -23,10 +23,12 @@ typedef struct		s_lem_in
 	char			**argv;
 	char			*line;
 	int				ant_count;
-	struct s_room	*start;
-	struct s_room	*end;
+	struct s_room	*room;
 	int				start_flag;
 	int				end_flag;
+	struct s_room	*start;
+	struct s_room	*end;
+	struct s_link	*link;
 }					t_lem_in;
 
 typedef struct		s_room
@@ -59,7 +61,7 @@ int					main(int argc, char **argv);
 void				ft_parse_ants(t_lem_in *lem_in);
 void				ft_parse_comment(t_lem_in *lem_in);
 void				ft_parse_room(t_lem_in *lem_in);
-// void				ft_parse_link(t_lem_in *lem_in);
+void				ft_parse_link(t_lem_in *lem_in);
 void				ft_lem_in_parse(t_lem_in *lem_in);
 
 /*

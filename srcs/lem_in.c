@@ -19,8 +19,12 @@ t_lem_in	*ft_lem_in_initialize(t_lem_in *lem_in)
 	lem_in->argv = NULL;
 	lem_in->line = NULL;
 	lem_in->ant_count = 0;
+	lem_in->room = NULL;
+	lem_in->start_flag = 0;
+	lem_in->end_flag = 0;
 	lem_in->start = NULL;
 	lem_in->end = NULL;
+	lem_in->link = NULL;
 	return (lem_in);
 }
 
