@@ -31,6 +31,14 @@ typedef struct		s_lem_in
 	struct s_link	*link;
 }					t_lem_in;
 
+// typedef struct		s_parse
+// {
+// 	int				line_count;
+// 	char			*line;
+// 	char			*type;
+// 	struct s_parse	*next;
+// }
+
 typedef struct		s_room
 {
 	char			*name;
