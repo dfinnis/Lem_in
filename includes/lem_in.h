@@ -73,6 +73,14 @@ void				ft_parse_link(t_lem_in *lem_in);
 void				ft_lem_in_parse(t_lem_in *lem_in);
 
 /*
+**		display.c
+*/
+
+void				ft_display_ants(t_lem_in *lem_in);
+void				ft_display_rooms(t_lem_in *lem_in);
+void				ft_display_links(t_lem_in *lem_in);
+
+/*
 **		error.c
 */
 

@@ -24,7 +24,7 @@ INC = includes/
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
 
-SRCS_FILES = lem_in.c parse.c error.c
+SRCS_FILES = lem_in.c parse.c error.c display.c
 SRCS_PATH = $(SRCS_FILES:%=$(SRCS_DIR)%)
 
 OBJS = $(SRCS_FILES:%.c=%.o)
