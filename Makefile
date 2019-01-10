@@ -6,7 +6,7 @@
 #    By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 10:32:17 by dfinnis           #+#    #+#              #
-#    Updated: 2019/01/10 14:27:54 by svaskeli         ###   ########.fr        #
+#    Updated: 2019/01/10 14:36:28 by svaskeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ g:
 	gcc $(FLAGS) $(G) -c $(SRCS_PATH) -I $(INC)
 	mkdir -p $(OBJS_DIR)
 	mv $(OBJS) $(OBJS_DIR)
-	gcc $(FLAGS) $(G) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) #$(INC)
+	gcc $(FLAGS) $(G) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) -I $(INC)
 
 fsanitize:
 	@echo $(RED)"Compiling all with -g and -fsanitize:" $(LEM_IN) $(DEFAULT)
@@ -53,11 +53,11 @@ fsanitize:
 	gcc $(FLAGS) $(G) $(FSAN) -c $(SRCS_PATH) -I $(INC)
 	mkdir -p $(OBJS_DIR)
 	mv $(OBJS) $(OBJS_DIR)
-	gcc $(FLAGS) $(G) $(FSAN) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) #$(INC)
+	gcc $(FLAGS) $(G) $(FSAN) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) -I $(INC)
 
 $(LEM_IN): $(LIBFT_A) $(OBJS_DIR) $(OBJS_PATH)
 	@echo "Compiling:" $(GREEN) $(LEM_IN) $(DEFAULT)
-	gcc $(FLAGS) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) #$(INC)
+	gcc $(FLAGS) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) -I $(INC)
 
 $(LIBFT_A):
 	@echo "Compiling:" $(GREEN) Libft $(DEFAULT)

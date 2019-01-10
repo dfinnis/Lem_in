@@ -6,11 +6,11 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:41:28 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 18:51:24 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/10 14:35:56 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include "lem_in.h"
 
 void	ft_lem_in_error(/*t_lem_in *lem_in*/)
 {

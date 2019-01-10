@@ -6,11 +6,11 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/09 13:40:52 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/01/10 14:35:35 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include "lem_in.h"
 
 t_lem_in	*ft_lem_in_initialize(t_lem_in *lem_in)
 {
