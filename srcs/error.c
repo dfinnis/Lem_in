@@ -12,7 +12,7 @@
 
 #include "../includes/lem_in.h"
 
-void	ft_lem_in_error(/*struct*/)
+void	ft_lem_in_error(/*t_lem_in *lem_in*/)
 {
 	ft_putstr("ERROR\n");
 //	free everything

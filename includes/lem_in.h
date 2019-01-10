@@ -20,17 +20,53 @@
 
 typedef struct		s_lem_in
 {
+	char			**argv;
 	char			*line;
 	int				ant_count;
 	struct s_room	*start;
 	struct s_room	*end;
+	int				start_flag;
+	int				end_flag;
 }					t_lem_in;
 
-typedef struct	s_room
+typedef struct		s_room
 {
-	char	*name;
-//	int		x;
-//	int		y;
-}				t_room;
+	char			*name;
+//	int				x;
+//	int				y;
+	struct s_room	*next;
+}					t_room;
+
+typedef struct 		s_link
+{
+	char			*from;
+	char			*to;
+	struct s_link	*next;
+}					t_link;
+
+/*
+**		lem_in.c
+*/
+
+t_lem_in			*ft_lem_in_initialize(t_lem_in *lem_in);
+void				ft_lem_in_usage(void);
+int					main(int argc, char **argv);
+
+/*
+**		parse.c
+*/
+
+void				ft_parse_ants(t_lem_in *lem_in);
+void				ft_parse_comment(t_lem_in *lem_in);
+void				ft_parse_room(t_lem_in *lem_in);
+// void				ft_parse_link(t_lem_in *lem_in);
+void				ft_lem_in_parse(t_lem_in *lem_in);
+
+/*
+**		error.c
+*/
+
+void				ft_lem_in_error(/*t_lem_in *lem_in*/);
+
 
 #endif

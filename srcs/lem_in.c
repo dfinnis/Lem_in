@@ -10,13 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 t_lem_in	*ft_lem_in_initialize(t_lem_in *lem_in)
 {
 	if(!(lem_in = (t_lem_in *)malloc(sizeof(t_lem_in))))
 		ft_lem_in_error(/*lem_in*/);
+	lem_in->argv = NULL;
 	lem_in->line = NULL;
+	lem_in->ant_count = 0;
+	lem_in->start = NULL;
+	lem_in->end = NULL;
+	return (lem_in);
 }
 
 void	ft_lem_in_usage(void)
@@ -27,14 +32,12 @@ void	ft_lem_in_usage(void)
 
 int		main(int argc, char **argv)
 {
-	char	**str;//
 	t_lem_in	lem_in;
 
-	lem_in = NULL;
-	str = argv;//
 	if (argc == 1)
 		ft_lem_in_usage();
-	lem_in = ft_lem_in_initialize(lem_in);
+	lem_in = *ft_lem_in_initialize(&lem_in);
+	lem_in.argv = argv;
 //	ft_lem_in_parse();
 //	ft_lem_in_solve();
 //	ft_lem_in_free(/*struct*/);
