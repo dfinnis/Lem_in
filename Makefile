@@ -6,7 +6,7 @@
 #    By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 10:32:17 by dfinnis           #+#    #+#              #
-#    Updated: 2019/01/09 18:53:27 by svaskeli         ###   ########.fr        #
+#    Updated: 2019/01/10 14:27:54 by svaskeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ INC = includes/
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
 
-SRCS_FILES = lem_in.c parse_lem_in.c error.c
+SRCS_FILES = lem_in.c parse.c error.c
 SRCS_PATH = $(SRCS_FILES:%=$(SRCS_DIR)%)
 
 OBJS = $(SRCS_FILES:%.c=%.o)
@@ -45,7 +45,7 @@ g:
 	gcc $(FLAGS) $(G) -c $(SRCS_PATH) -I $(INC)
 	mkdir -p $(OBJS_DIR)
 	mv $(OBJS) $(OBJS_DIR)
-	gcc $(FLAGS) $(G) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) $(INC)
+	gcc $(FLAGS) $(G) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) #$(INC)
 
 fsanitize:
 	@echo $(RED)"Compiling all with -g and -fsanitize:" $(LEM_IN) $(DEFAULT)
@@ -53,11 +53,11 @@ fsanitize:
 	gcc $(FLAGS) $(G) $(FSAN) -c $(SRCS_PATH) -I $(INC)
 	mkdir -p $(OBJS_DIR)
 	mv $(OBJS) $(OBJS_DIR)
-	gcc $(FLAGS) $(G) $(FSAN) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) $(INC)
+	gcc $(FLAGS) $(G) $(FSAN) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) #$(INC)
 
 $(LEM_IN): $(LIBFT_A) $(OBJS_DIR) $(OBJS_PATH)
 	@echo "Compiling:" $(GREEN) $(LEM_IN) $(DEFAULT)
-	gcc $(FLAGS) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) $(INC)
+	gcc $(FLAGS) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) #$(INC)
 
 $(LIBFT_A):
 	@echo "Compiling:" $(GREEN) Libft $(DEFAULT)
