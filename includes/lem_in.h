@@ -18,14 +18,19 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-typedef struct	s_lem_in
+typedef struct		s_lem_in
 {
-	char	*line;
-}				t_lem_in;
+	char			*line;
+	int				ant_count;
+	struct s_room	*start;
+	struct s_room	*end;
+}					t_lem_in;
 
 typedef struct	s_room
 {
-	
+	char	*name;
+//	int		x;
+//	int		y;
 }				t_room;
 
 #endif

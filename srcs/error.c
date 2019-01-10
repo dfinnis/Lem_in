@@ -14,7 +14,7 @@
 
 void	ft_lem_in_error(/*struct*/)
 {
-	ft_putstr("Error\n");
+	ft_putstr("ERROR\n");
 //	free everything
 	exit(-1);
 }
