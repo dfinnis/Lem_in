@@ -19,9 +19,11 @@ void	ft_parse_ants(t_lem_in *lem_in)
 	i = -1;
 	while (lem_in->line[++i])
 		if (!(ft_isdigit(lem_in->line[i])))
-			ft_lem_in_error(/*lem_in*/);
-	if (!(lem_in->ant_count = ft_atoi(lem_in->line)))//correct atoi??
-		ft_lem_in_error(/*lem_in*/);
+			ft_lem_in_error(/*lem_in*/"invalid first line: number of ants");
+	if (!(lem_in->ant_count = ft_atoi_intmax(lem_in->line)))//correct atoi??
+		ft_lem_in_error(/*lem_in*/"invalid first line: number of ants");
+	if (lem_in->ant_count < 1)
+		ft_lem_in_error(/*lem_in*/"number of ants out of acceptable range");
 }//all final error handling
 
 void	ft_parse_comment(t_lem_in *lem_in)
@@ -37,10 +39,10 @@ void	ft_add_room(t_lem_in *lem_in, t_room **new)
 	t_room	*tmp;
 
 	if (!((*new) = (t_room *)malloc(sizeof(t_room))))
-		ft_lem_in_error(/*lem_in*/);
+		ft_lem_in_error(/*lem_in*/"malloc room fail");
 	(*new)->name = NULL;
-//	new->x = 0;
-//	new->y = 0;
+	(*new)->x = 0;
+	(*new)->y = 0;
 	(*new)->next = NULL;
 	tmp = lem_in->room;
 	if (tmp)
@@ -60,10 +62,37 @@ void	ft_parse_room(t_lem_in *lem_in)
 
 	n = 0;
 	ft_add_room(lem_in, &new);
-	while (lem_in->line[n] && (lem_in->line[n] != ' '))
-		n++;
-	if (!(new->name = ft_strndup(lem_in->line, n)))
-		ft_lem_in_error(lem_in);
+	if (NAME_SPACE)
+	{
+		while (lem_in->line[n])
+			n++;
+		n--;
+		while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
+			n--;
+		new->y = ft_atoi(lem_in->line + ++n);
+		n -= 2;
+		while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
+			n--;
+		new->x = ft_atoi(lem_in->line + ++n);
+		n--;
+		if (!(new->name = ft_strndup(lem_in->line, n)))
+			ft_lem_in_error(/*lem_in*/"strdup room name fail");
+	}
+	else
+	{
+		while (lem_in->line[n] && (lem_in->line[n] != ' '))
+			n++;
+		if (!(new->name = ft_strndup(lem_in->line, n)))
+			ft_lem_in_error(/*lem_in*/"strdup room name fail");
+		new->x = ft_atoi(lem_in->line + ++n);
+		while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
+			n++;
+		new->y = ft_atoi(lem_in->line + ++n);
+		while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
+			n++;
+		if (lem_in->line[n])
+			ft_lem_in_error(/*lem_in, */"room formatted incorrectly (want to accept spaces in names? #define NAME_SPACE 1)");
+	}
 	if (lem_in->start_flag)
 	{
 		// if (lem_in->start)//already a start;
@@ -85,7 +114,7 @@ void	ft_add_link(t_lem_in *lem_in, t_link **new)
 	t_link	*tmp;
 
 	if (!((*new) = (t_link *)malloc(sizeof(t_link))))
-		ft_lem_in_error(/*lem_in*/);
+		ft_lem_in_error(/*lem_in*/"malloc link fail");
 	(*new)->from = NULL;
 	(*new)->to = NULL;
 	(*new)->next = NULL;
@@ -103,13 +132,18 @@ void	ft_add_link(t_lem_in *lem_in, t_link **new)
 void	ft_parse_link(t_lem_in *lem_in)
 {
 	t_link	*new;
-	char	*dash;
+	char	*link;
 
 	ft_add_link(lem_in, &new);
-	dash = ft_strchr(lem_in->line, '-');
-	new->from = ft_strndup(lem_in->line, dash - lem_in->line);
-	new->to = ft_strdup((dash + 1));
+	link = ft_strchr(lem_in->line, '-');
+	new->from = ft_strndup(lem_in->line, link - lem_in->line);
+	new->to = ft_strdup((link + 1));
 }
+
+// void	ft_ft_parse_error(t_lem_in *lem_in)
+// {
+
+// }
 
 void	ft_lem_in_parse(t_lem_in *lem_in)
 {
@@ -125,7 +159,8 @@ void	ft_lem_in_parse(t_lem_in *lem_in)
 		else if (ft_strchr(lem_in->line, '-'))
 			ft_parse_link(lem_in);
 		else
-			ft_lem_in_error(lem_in);
+			ft_lem_in_error(/*lem_in*/"line not comment, command, room or link");
 		ft_freestr(lem_in->line);
 	}
+//	ft_parse_error(t_lem_in *lem_in);
 }

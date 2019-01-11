@@ -15,7 +15,7 @@
 t_lem_in	*ft_lem_in_initialize(t_lem_in *lem_in)
 {
 	if(!(lem_in = (t_lem_in *)malloc(sizeof(t_lem_in))))
-		ft_lem_in_error(/*lem_in*/);
+		ft_lem_in_error(/*lem_in*/"malloc lem_in fail");
 	lem_in->argv = NULL;
 	lem_in->line = NULL;
 	lem_in->ant_count = 0;

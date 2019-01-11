@@ -12,9 +12,10 @@
 
 #include "lem_in.h"
 
-void	ft_lem_in_error(/*t_lem_in *lem_in*/)
+void	ft_lem_in_error(/*t_lem_in *lem_in, */char *err_message)
 {
-	ft_putstr("ERROR\n");
+	ft_printf("ERROR %s\n", err_message);
+//	ft_putstr("ERROR\n");
 //	free everything
 	exit(-1);
 }

@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+#define NAME_SPACE 0
+
 typedef struct		s_lem_in
 {
 	char			**argv;
@@ -42,9 +44,10 @@ typedef struct		s_lem_in
 typedef struct		s_room
 {
 	char			*name;
-//	int				x;
-//	int				y;
+	int				x;
+	int				y;
 	struct s_room	*next;
+//	link to hashtable/graph which contains all links to other rooms;
 }					t_room;
 
 typedef struct 		s_link
@@ -55,7 +58,7 @@ typedef struct 		s_link
 }					t_link;
 
 /*
-**		lem_in.c
+**		lem_in.cgit statu
 */
 
 t_lem_in			*ft_lem_in_initialize(t_lem_in *lem_in);
@@ -68,7 +71,11 @@ int					main(int argc, char **argv);
 
 void				ft_parse_ants(t_lem_in *lem_in);
 void				ft_parse_comment(t_lem_in *lem_in);
+
+void				ft_add_room(t_lem_in *lem_in, t_room **new);
 void				ft_parse_room(t_lem_in *lem_in);
+
+void				ft_add_link(t_lem_in *lem_in, t_link **new);
 void				ft_parse_link(t_lem_in *lem_in);
 void				ft_lem_in_parse(t_lem_in *lem_in);
 
