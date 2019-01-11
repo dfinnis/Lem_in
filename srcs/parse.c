@@ -55,6 +55,8 @@ void	ft_add_room(t_lem_in *lem_in, t_room **new)
 		lem_in->room = *new;
 }
 
+
+
 void	ft_parse_room(t_lem_in *lem_in)
 {
 	int		n;
@@ -62,37 +64,43 @@ void	ft_parse_room(t_lem_in *lem_in)
 
 	n = 0;
 	ft_add_room(lem_in, &new);
-	if (NAME_SPACE)
-	{
-		while (lem_in->line[n])
-			n++;
+	// if (NAME_SPACE)
+	// {
+	while (lem_in->line[n])
+		n++;
+	n--;
+	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
 		n--;
-		while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
-			n--;
-		new->y = ft_atoi(lem_in->line + ++n);
-		n -= 2;
-		while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
-			n--;
-		new->x = ft_atoi(lem_in->line + ++n);
+	new->y = ft_atoi(lem_in->line + ++n);
+	n -= 2;
+	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
 		n--;
-		if (!(new->name = ft_strndup(lem_in->line, n)))
-			ft_lem_in_error(/*lem_in*/"strdup room name fail");
-	}
-	else
-	{
-		while (lem_in->line[n] && (lem_in->line[n] != ' '))
-			n++;
-		if (!(new->name = ft_strndup(lem_in->line, n)))
-			ft_lem_in_error(/*lem_in*/"strdup room name fail");
-		new->x = ft_atoi(lem_in->line + ++n);
-		while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
-			n++;
-		new->y = ft_atoi(lem_in->line + ++n);
-		while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
-			n++;
-		if (lem_in->line[n])
-			ft_lem_in_error(/*lem_in, */"room formatted incorrectly (want to accept spaces in names? #define NAME_SPACE 1)");
-	}
+	new->x = ft_atoi(lem_in->line + ++n);
+	n--;
+	if (!(new->name = ft_strndup(lem_in->line, n)))
+		ft_lem_in_error(/*lem_in*/"strdup room name fail");
+	if (!NAME_SPACE && ft_strchr(new->name, ' '))
+		ft_lem_in_error(/*lem_in, */"room formatted incorrectly (want to accept spaces in names? #define NAME_SPACE 1)");
+//	}
+	// else
+	// {
+	// 	while (lem_in->line[n] && (lem_in->line[n] != ' '))
+	// 		n++;
+	// 	if (!(new->name = ft_strndup(lem_in->line, n)))
+	// 		ft_lem_in_error(/*lem_in*/"strdup room name fail");
+	// 	new->x = ft_atoi(lem_in->line + ++n);//fix over max int bug
+	// 	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
+	// 		n++;
+	// 	new->y = ft_atoi(lem_in->line + ++n);//fix over max int bug
+	// 	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
+	// 		n++;
+	// 	if (lem_in->line[n])
+	// 		ft_lem_in_error(/*lem_in, */"room formatted incorrectly
+	// 		(want to accept spaces in names? #define NAME_SPACE 1)");
+	// }
+
+	// if (ft_is_duplicate(t_lem_in *lem_in));
+	// 	ft_lem_in_error(/*lem_in, */"duplicate room information");
 	if (lem_in->start_flag)
 	{
 		// if (lem_in->start)//already a start;
@@ -154,10 +162,10 @@ void	ft_lem_in_parse(t_lem_in *lem_in)
 	{
 		if (lem_in->line[0] == '#')
 			ft_parse_comment(lem_in);
-		else if (ft_strchr(lem_in->line, ' '))
-			ft_parse_room(lem_in);
 		else if (ft_strchr(lem_in->line, '-'))
 			ft_parse_link(lem_in);
+		else if (ft_strchr(lem_in->line, ' '))
+			ft_parse_room(lem_in);
 		else
 			ft_lem_in_error(/*lem_in*/"line not comment, command, room or link");
 		ft_freestr(lem_in->line);

@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-#define NAME_SPACE 0
+#define NAME_SPACE 1
 
 typedef struct		s_lem_in
 {
