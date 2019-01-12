@@ -47,6 +47,7 @@ typedef struct		s_room
 	int				x;
 	int				y;
 	struct s_room	*next;
+//	char			**array_of_links
 	// struct s_tube   *tubes;
 	// int				occupied;
 //	link to hashtable/graph which contains all links to other rooms;
@@ -66,7 +67,7 @@ typedef struct 		s_link
 }					t_link;
 
 /*
-**		lem_in.cgit statu
+**		lem_in.c
 */
 
 t_lem_in			*ft_lem_in_initialize(t_lem_in *lem_in);
@@ -79,13 +80,19 @@ int					main(int argc, char **argv);
 
 void				ft_parse_ants(t_lem_in *lem_in);
 void				ft_parse_comment(t_lem_in *lem_in);
-
-void				ft_add_room(t_lem_in *lem_in, t_room **new);
 void				ft_parse_room(t_lem_in *lem_in);
-
-void				ft_add_link(t_lem_in *lem_in, t_link **new);
 void				ft_parse_link(t_lem_in *lem_in);
 void				ft_lem_in_parse(t_lem_in *lem_in);
+
+/*
+**		parse_support.c
+*/
+
+void				ft_add_room(t_lem_in *lem_in, t_room **new);
+void				ft_check_duplicate(t_lem_in *lem_in, t_room	*new);
+void				ft_start_end(t_lem_in *lem_in, t_room *new);
+void				ft_add_link(t_lem_in *lem_in, t_link **new);
+void				ft_is_room(t_lem_in *lem_in, char *link);
 
 /*
 **		display.c
@@ -99,7 +106,8 @@ void				ft_display_links(t_lem_in *lem_in);
 **		error.c
 */
 
-void				ft_lem_in_error(/*t_lem_in *lem_in*/);
+void				ft_lem_in_error(/*t_lem_in *lem_in, */char *err_message);
+void				ft_parse_error(t_lem_in *lem_in);
 
 
 #endif
