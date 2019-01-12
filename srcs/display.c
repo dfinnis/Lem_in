@@ -14,7 +14,7 @@
 
 void	ft_display_ants(t_lem_in *lem_in)
 {
-	ft_printf("Number of ants:\n%d\n\n", lem_in->ant_count);
+	ft_printf("Number of ants:\n %d\n\n", lem_in->ant_count);
 }
 
 void	ft_display_rooms(t_lem_in *lem_in)
@@ -23,7 +23,7 @@ void	ft_display_rooms(t_lem_in *lem_in)
 
 	tmp = lem_in->room;
 	ft_printf("Rooms:\n");
-	ft_printf("%-12s| %-12s| %-10s| %s\n", " X", " Y", "Start/End", "Name");
+	ft_printf("\x1b[4m%-12s| %-12s| %-10s| %-12s\x1b[0m\n", " X", " Y", "Start/End", "Name");
 	while (tmp)
 	{
 		if (tmp == lem_in->start)
@@ -43,9 +43,23 @@ void	ft_display_links(t_lem_in *lem_in)
 
 	tmp = lem_in->link;
 	ft_printf("Links:\n");
+	ft_printf("\x1b[4m %24s - %-24s\x1b[0m\n", "From room", "To room");
 	while (tmp)
 	{
-		ft_printf("%s-%s\n", tmp->from, tmp->to);
+		if ((ft_strcmp(tmp->from, lem_in->start->name) == 0) && (ft_strcmp(tmp->to, lem_in->end->name) == 0))
+			ft_printf("\x1B[32m %24s - \x1B[31m%s\x1B[0m\n", tmp->from, tmp->to);
+		else if ((ft_strcmp(tmp->from, lem_in->end->name) == 0) && (ft_strcmp(tmp->to, lem_in->start->name) == 0))
+			ft_printf("\x1B[31m %24s - \x1B[32m%s\x1B[0m\n", tmp->from, tmp->to);
+		else if (ft_strcmp(tmp->from, lem_in->start->name) == 0)
+			ft_printf("\x1B[32m %24s\x1B[0m - %s\n", tmp->from, tmp->to);
+		else if (ft_strcmp(tmp->to, lem_in->start->name) == 0)
+			ft_printf(" %24s - \x1B[32m%s\x1B[0m\n", tmp->from, tmp->to);
+		else if (ft_strcmp(tmp->from, lem_in->end->name) == 0)
+			ft_printf("\x1B[31m %24s\x1B[0m - %s\n", tmp->from, tmp->to);
+		else if (ft_strcmp(tmp->to, lem_in->end->name) == 0)
+			ft_printf(" %24s - \x1B[31m%s\x1B[0m\n", tmp->from, tmp->to);
+		else
+			ft_printf(" %24s - %s\n", tmp->from, tmp->to);
 		tmp = tmp->next;
 	}
 	ft_printf("\n");

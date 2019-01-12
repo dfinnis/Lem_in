@@ -28,7 +28,7 @@ t_lem_in	*ft_lem_in_initialize(t_lem_in *lem_in)
 	return (lem_in);
 }
 
-void	ft_lem_in_usage(void)
+void		ft_lem_in_usage(void)
 {
 	ft_putstr("usage:	./lem-in < map.map\n");
 	exit(1);
@@ -43,7 +43,7 @@ void	ft_lem_in_usage(void)
 // 		ft_putstr(array[i]);
 // }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_lem_in	lem_in;
 
@@ -57,6 +57,6 @@ int		main(int argc, char **argv)
 	ft_display_links(&lem_in);
 	// ft_putarray(argv);
 //	ft_lem_in_solve();
-//	ft_lem_in_free(/*struct*/);
+//	ft_lem_in_free(/*lem_in*/);
 	return (0);
 }

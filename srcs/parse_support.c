@@ -96,7 +96,7 @@ void	ft_is_room(t_lem_in *lem_in, char *link)
 
 	found = 0;
 	tmp = lem_in->room;
-	while (tmp && tmp->next)
+	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, link) == 0)
 		{
@@ -105,9 +105,6 @@ void	ft_is_room(t_lem_in *lem_in, char *link)
 		}
 		tmp = tmp->next;
 	}
-	if (tmp)
-		if (ft_strcmp(tmp->name, link) == 0)
-			found = 1;
 	if (!found)
 		ft_lem_in_error(/*lem_in, */"link to unknown room");
 }
