@@ -34,15 +34,6 @@ void		ft_lem_in_usage(void)
 	exit(1);
 }
 
-// void	ft_putarray(char **array)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (array[++i])
-// 		ft_putstr(array[i]);
-// }
-
 int			main(int argc, char **argv)
 {
 	t_lem_in	lem_in;
@@ -50,12 +41,12 @@ int			main(int argc, char **argv)
 	if (argc < 0)
 		ft_lem_in_usage();
 	lem_in = *ft_lem_in_initialize(&lem_in);
-	lem_in.argv = argv;
+	lem_in.argv = argv;//useless
 	ft_lem_in_parse(&lem_in);
+	ft_display_mirror(&lem_in);
 	ft_display_ants(&lem_in);
 	ft_display_rooms(&lem_in);
 	ft_display_links(&lem_in);
-	// ft_putarray(argv);
 //	ft_lem_in_solve();
 //	ft_lem_in_free(/*lem_in*/);
 	return (0);

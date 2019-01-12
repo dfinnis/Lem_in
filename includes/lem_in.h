@@ -18,11 +18,11 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-#define NAME_SPACE 0
+#define NAME_SPACE 1
 
 typedef struct		s_lem_in
 {
-	char			**argv;
+	char			**argv;//
 	char			*line;
 	int				ant_count;
 	struct s_room	*room;
@@ -101,6 +101,7 @@ void				ft_is_room(t_lem_in *lem_in, char *link);
 void				ft_display_ants(t_lem_in *lem_in);
 void				ft_display_rooms(t_lem_in *lem_in);
 void				ft_display_links(t_lem_in *lem_in);
+void				ft_display_mirror(t_lem_in *lem_in);
 
 /*
 **		error.c
