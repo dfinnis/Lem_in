@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/10 14:35:35 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:38:30 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int			main(int argc, char **argv)
 	lem_in.argv = argv;//useless
 	ft_lem_in_parse(&lem_in);
 	ft_display_mirror(&lem_in);
+	ft_build_graph(&lem_in);
 	ft_display_ants(&lem_in);
 	ft_display_rooms(&lem_in);
 	ft_display_links(&lem_in);

@@ -6,7 +6,7 @@
 #    By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 10:32:17 by dfinnis           #+#    #+#              #
-#    Updated: 2019/01/10 14:36:28 by svaskeli         ###   ########.fr        #
+#    Updated: 2019/01/12 15:42:04 by svaskeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ INC = includes/
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
 
-SRCS_FILES = lem_in.c parse.c parse_support.c error.c display.c
+SRCS_FILES = lem_in.c parse.c parse_support.c error.c display.c build_graph.c
+
 SRCS_PATH = $(SRCS_FILES:%=$(SRCS_DIR)%)
 
 OBJS = $(SRCS_FILES:%.c=%.o)
