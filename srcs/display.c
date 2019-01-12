@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 14:19:07 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/10 14:19:08 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/01/12 17:16:56 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,22 @@ void	ft_display_links(t_lem_in *lem_in)
 	ft_printf("\x1b[4m %24s - %-24s\x1b[0m\n", "From room", "To room");
 	while (tmp)
 	{
-		if ((ft_strcmp(tmp->from, lem_in->start->name) == 0) && (ft_strcmp(tmp->to, lem_in->end->name) == 0))
-			ft_printf("\x1B[32m %24s - \x1B[31m%s\x1B[0m\n", tmp->from, tmp->to);
-		else if ((ft_strcmp(tmp->from, lem_in->end->name) == 0) && (ft_strcmp(tmp->to, lem_in->start->name) == 0))
-			ft_printf("\x1B[31m %24s - \x1B[32m%s\x1B[0m\n", tmp->from, tmp->to);
-		else if (ft_strcmp(tmp->from, lem_in->start->name) == 0)
-			ft_printf("\x1B[32m %24s\x1B[0m - %s\n", tmp->from, tmp->to);
-		else if (ft_strcmp(tmp->to, lem_in->start->name) == 0)
-			ft_printf(" %24s - \x1B[32m%s\x1B[0m\n", tmp->from, tmp->to);
-		else if (ft_strcmp(tmp->from, lem_in->end->name) == 0)
-			ft_printf("\x1B[31m %24s\x1B[0m - %s\n", tmp->from, tmp->to);
-		else if (ft_strcmp(tmp->to, lem_in->end->name) == 0)
-			ft_printf(" %24s - \x1B[31m%s\x1B[0m\n", tmp->from, tmp->to);
+		if ((ft_strcmp(tmp->from->name, lem_in->start->name) == 0) && 
+				(ft_strcmp(tmp->to->name, lem_in->end->name) == 0))
+			ft_printf("\x1B[32m %24s - \x1B[31m%s\x1B[0m\n", tmp->from->name, tmp->to->name);
+		else if ((ft_strcmp(tmp->from->name, lem_in->end->name) == 0) && 
+				(ft_strcmp(tmp->to->name, lem_in->start->name) == 0))
+			ft_printf("\x1B[31m %24s - \x1B[32m%s\x1B[0m\n", tmp->from->name, tmp->to->name);
+		else if (ft_strcmp(tmp->from->name, lem_in->start->name) == 0)
+			ft_printf("\x1B[32m %24s\x1B[0m - %s\n", tmp->from->name, tmp->to->name);
+		else if (ft_strcmp(tmp->to->name, lem_in->start->name) == 0)
+			ft_printf(" %24s - \x1B[32m%s\x1B[0m\n", tmp->from->name, tmp->to->name);
+		else if (ft_strcmp(tmp->from->name, lem_in->end->name) == 0)
+			ft_printf("\x1B[31m %24s\x1B[0m - %s\n", tmp->from->name, tmp->to->name);
+		else if (ft_strcmp(tmp->to->name, lem_in->end->name) == 0)
+			ft_printf(" %24s - \x1B[31m%s\x1B[0m\n", tmp->from->name, tmp->to->name);
 		else
-			ft_printf(" %24s - %s\n", tmp->from, tmp->to);
+			ft_printf(" %24s - %s\n", tmp->from->name, tmp->to->name);
 		tmp = tmp->next;
 	}
 	ft_printf("\n");
@@ -85,7 +87,7 @@ void	ft_display_mirror(t_lem_in *lem_in)
 	}
 	while (tmp_link)
 	{
-		ft_printf("%s-%s\n", tmp_link->from, tmp_link->to);
+		ft_printf("%s-%s\n", tmp_link->from->name, tmp_link->to->name);
 		tmp_link = tmp_link->next;
 	}
 	ft_printf("\n");

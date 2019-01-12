@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/12 15:43:03 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/12 17:57:14 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct		s_room
 	int				y;
 	struct s_room	*next;
 	struct s_room	**links;
-	// struct s_tube   *tubes;
-	// int				occupied;
+// struct s_tube   *tubes;
+// int				occupied;
 //	link to hashtable/graph which contains all links to other rooms;
 }					t_room;
 	
@@ -61,8 +61,10 @@ typedef struct		s_room
 
 typedef struct 		s_link
 {
-	char			*from;
-	char			*to;
+//	char			*from;
+//	char			*to;
+	struct s_room	*from;
+	struct s_room	*to;
 	struct s_link	*next;
 }					t_link;
 
