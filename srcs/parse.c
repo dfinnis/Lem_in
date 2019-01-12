@@ -55,7 +55,23 @@ void	ft_add_room(t_lem_in *lem_in, t_room **new)
 		lem_in->room = *new;
 }
 
+void	ft_check_duplicate(t_lem_in *lem_in, t_room	*new)
+{
+	t_room	*tmp;
 
+	tmp = lem_in->room;
+	while (tmp && tmp != new)
+	{
+		if ((ft_strcmp(tmp->name, new->name) == 0) &&
+			(tmp->x == new->x && tmp->y == new->y))
+			ft_lem_in_error(/*lem_in, */"duplicate room name and coordinates");
+		if (ft_strcmp(tmp->name, new->name) == 0)
+			ft_lem_in_error(/*lem_in, */"duplicate room name");
+		if (tmp->x == new->x && tmp->y == new->y)
+			ft_lem_in_error(/*lem_in, */"duplicate room coordinates");
+		tmp = tmp->next;
+	}
+}
 
 void	ft_parse_room(t_lem_in *lem_in)
 {
@@ -69,10 +85,14 @@ void	ft_parse_room(t_lem_in *lem_in)
 	while (lem_in->line[n])
 		n++;
 	n--;
+	if (!ft_isdigit(lem_in->line[n]))
+		ft_lem_in_error(/*lem_in*/"y coordinate not digit");
 	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
 		n--;
 	new->y = ft_atoi(lem_in->line + ++n);
 	n -= 2;
+	if (!ft_isdigit(lem_in->line[n]))
+		ft_lem_in_error(/*lem_in*/"x coordinate not digit");
 	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
 		n--;
 	new->x = ft_atoi(lem_in->line + ++n);
@@ -99,8 +119,7 @@ void	ft_parse_room(t_lem_in *lem_in)
 	// 		(want to accept spaces in names? #define NAME_SPACE 1)");
 	// }
 
-	// if (ft_is_duplicate(t_lem_in *lem_in));
-	// 	ft_lem_in_error(/*lem_in, */"duplicate room information");
+	ft_check_duplicate(lem_in, new);
 	if (lem_in->start_flag)
 	{
 		// if (lem_in->start)//already a start;
@@ -137,6 +156,29 @@ void	ft_add_link(t_lem_in *lem_in, t_link **new)
 		lem_in->link = *new;
 }
 
+void	ft_is_room(t_lem_in *lem_in, char *link)
+{
+	t_room	*tmp;
+	int		found;
+
+	found = 0;
+	tmp = lem_in->room;
+	while (tmp && tmp->next)
+	{
+		if (ft_strcmp(tmp->name, link) == 0)
+		{
+			found = 1;
+			break;
+		}
+		tmp = tmp->next;
+	}
+	if (tmp)
+		if (ft_strcmp(tmp->name, link) == 0)
+			found = 1;
+	if (!found)
+		ft_lem_in_error(/*lem_in, */"link to unknown room");
+}
+
 void	ft_parse_link(t_lem_in *lem_in)
 {
 	t_link	*new;
@@ -146,12 +188,17 @@ void	ft_parse_link(t_lem_in *lem_in)
 	link = ft_strchr(lem_in->line, '-');
 	new->from = ft_strndup(lem_in->line, link - lem_in->line);
 	new->to = ft_strdup((link + 1));
+	ft_is_room(lem_in, new->from);//check if new->from/to name is a real room
+	ft_is_room(lem_in, new->to);
 }
 
-// void	ft_ft_parse_error(t_lem_in *lem_in)
-// {
-
-// }
+void	ft_parse_error(t_lem_in *lem_in)
+{
+	if (!lem_in->start)
+		ft_lem_in_error(/*lem_in*/"no start");
+	if (!lem_in->end)
+		ft_lem_in_error(/*lem_in*/"no end");
+}
 
 void	ft_lem_in_parse(t_lem_in *lem_in)
 {
@@ -170,5 +217,5 @@ void	ft_lem_in_parse(t_lem_in *lem_in)
 			ft_lem_in_error(/*lem_in*/"line not comment, command, room or link");
 		ft_freestr(lem_in->line);
 	}
-//	ft_parse_error(t_lem_in *lem_in);
+	ft_parse_error(lem_in);
 }

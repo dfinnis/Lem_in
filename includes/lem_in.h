@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-#define NAME_SPACE 1
+#define NAME_SPACE 0
 
 typedef struct		s_lem_in
 {
@@ -47,8 +47,16 @@ typedef struct		s_room
 	int				x;
 	int				y;
 	struct s_room	*next;
+	// struct s_tube   *tubes;
+	// int				occupied;
 //	link to hashtable/graph which contains all links to other rooms;
 }					t_room;
+	
+// typedef struct		s_tube
+// {
+// 	struct s_room	*to_room;
+// 	struct s_tube	*next_tube;
+// }					t_room;
 
 typedef struct 		s_link
 {
