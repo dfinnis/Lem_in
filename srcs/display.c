@@ -14,7 +14,7 @@
 
 void	ft_display_ants(t_lem_in *lem_in)
 {
-	ft_printf("Number of ants:\n%d\n\n", lem_in->ant_count);
+	ft_printf("Number of ants:\n %d\n\n", lem_in->ant_count);
 }
 
 void	ft_display_rooms(t_lem_in *lem_in)
@@ -43,9 +43,10 @@ void	ft_display_links(t_lem_in *lem_in)
 
 	tmp = lem_in->link;
 	ft_printf("Links:\n");
+	ft_printf(" %-25s| %s\n", "From room", "To room");
 	while (tmp)
 	{
-		ft_printf("%s-%s\n", tmp->from, tmp->to);
+		ft_printf(" %-25s| %s\n", tmp->from, tmp->to);
 		tmp = tmp->next;
 	}
 	ft_printf("\n");
