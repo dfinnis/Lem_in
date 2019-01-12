@@ -22,6 +22,7 @@ void	ft_add_room(t_lem_in *lem_in, t_room **new)
 	(*new)->x = 0;
 	(*new)->y = 0;
 	(*new)->next = NULL;
+	(*new)->links = NULL;
 	tmp = lem_in->room;
 	if (tmp)
 	{

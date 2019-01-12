@@ -54,10 +54,10 @@ void		ft_build_graph(t_lem_in *lem_in)
 		link = lem_in->link;
 		while (link)
 		{
-			if (link->to == room)
+			if (link->from == room)
 			{
-				ft_add_tubes(link->from, room);
-				ft_add_tubes(room, link->from);
+				ft_add_tubes(link->to, room);
+				ft_add_tubes(room, link->to);
 			}
 			link = link->next;
 		}
