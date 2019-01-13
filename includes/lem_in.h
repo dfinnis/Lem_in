@@ -22,7 +22,6 @@
 
 typedef struct		s_lem_in
 {
-	char			**argv;//
 	char			*line;
 	int				ant_count;
 	struct s_room	*room;
@@ -31,6 +30,12 @@ typedef struct		s_lem_in
 	struct s_room	*start;
 	struct s_room	*end;
 	struct s_link	*link;
+	int				flag_a;
+	int				flag_r;
+	int				flag_l;
+	int				flag_rl;
+	int				flag_p;
+	int				flag_all;
 }					t_lem_in;
 
 // typedef struct		s_parse
@@ -71,7 +76,7 @@ typedef struct 		s_link
 /*
 ** 		build_graph.c
 */
-
+void				ft_print_room_links(t_lem_in *lem_in);
 void				ft_build_graph(t_lem_in *lem_in);
 
 /*
@@ -80,6 +85,8 @@ void				ft_build_graph(t_lem_in *lem_in);
 
 t_lem_in			*ft_lem_in_initialize(t_lem_in *lem_in);
 void				ft_lem_in_usage(void);
+void				ft_read_flags(t_lem_in *lem_in, int argc, char **argv);
+void				ft_display_bonus(t_lem_in *lem_in);
 int					main(int argc, char **argv);
 
 /*
