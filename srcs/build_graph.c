@@ -1,15 +1,5 @@
 #include "lem_in.h"
 
-// static void	ft_print_room_links(t_room *room)
-// {
-// 	int i;
-
-// 	i = -1;
-// 	while (room->links[++i])
-// 		ft_printf("%s\n", room->links[i]->name);
-// 	ft_printf("-------------------------\n");
-// }
-
 static void	ft_print_room_links_slave(t_lem_in *lem_in, t_room *tmp)
 {
 	if (tmp == lem_in->start && (ft_strcmp(tmp->links[0]->name, lem_in->end->name) == 0))
@@ -111,8 +101,7 @@ void		ft_build_graph(t_lem_in *lem_in)
 			}
 			link = link->next;
 		}
-		ft_print_room_links(room);
+//		ft_print_room_links(room);
 		room = room->next;
 	}
-//	ft_print_room_links(lem_in);
 }
