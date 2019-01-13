@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/12 18:15:03 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/13 21:28:09 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ t_lem_in	*ft_lem_in_initialize(t_lem_in *lem_in)
 	lem_in->start = NULL;
 	lem_in->end = NULL;
 	lem_in->link = NULL;
+	lem_in->paths = NULL;
+	lem_in->queue = NULL;
+	lem_in->last_queue = NULL;
 	return (lem_in);
 }
 
@@ -45,9 +48,10 @@ int			main(int argc, char **argv)
 	ft_lem_in_parse(&lem_in);
 	ft_display_mirror(&lem_in);
 	ft_build_graph(&lem_in);
-	ft_display_ants(&lem_in);
-	ft_display_rooms(&lem_in);
-	ft_display_links(&lem_in);
+	ft_ford_fulkerson(&lem_in);//
+//	ft_display_ants(&lem_in);
+//	ft_display_rooms(&lem_in);
+//	ft_display_links(&lem_in);
 //	ft_lem_in_solve();
 //	ft_lem_in_free(/*lem_in*/);
 	return (0);

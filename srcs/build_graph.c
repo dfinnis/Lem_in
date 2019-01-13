@@ -61,7 +61,7 @@ void		ft_build_graph(t_lem_in *lem_in)
 			}
 			link = link->next;
 		}
-//		ft_print_room_links(room);
+		ft_print_room_links(room);
 		room = room->next;
 	}
 }

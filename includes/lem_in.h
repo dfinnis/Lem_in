@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/12 17:57:14 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/13 21:27:52 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@ typedef struct		s_lem_in
 	char			**argv;//
 	char			*line;
 	int				ant_count;
-	struct s_room	*room;
 	int				start_flag;
 	int				end_flag;
+	struct s_room	*room;
 	struct s_room	*start;
 	struct s_room	*end;
 	struct s_link	*link;
+	struct s_path	*paths;
+	struct s_queue	*queue;
+	struct s_queue	*last_queue;
 }					t_lem_in;
 
 // typedef struct		s_parse
@@ -41,32 +44,49 @@ typedef struct		s_lem_in
 // 	struct s_parse	*next;
 // }
 
+/*typedef struct		s_hash
+{
+	struct s_rooms	*room;
+	struct s_hash	*next;
+}					t_hash*/
+
+typedef	struct		s_queue
+{
+	struct s_room	*room;
+	struct s_queue	*next;
+}					t_queue;
+
+typedef struct		s_path
+{
+	int				length;
+	struct s_room	**path;
+	struct s_path	*next;
+}					t_path;
+
 typedef struct		s_room
 {
 	char			*name;
 	int				x;
 	int				y;
+	int				flow;
+	int				residual;
+	int				visited;
 	struct s_room	*next;
 	struct s_room	**links;
-// struct s_tube   *tubes;
-// int				occupied;
-//	link to hashtable/graph which contains all links to other rooms;
 }					t_room;
 	
-// typedef struct		s_tube
-// {
-// 	struct s_room	*to_room;
-// 	struct s_tube	*next_tube;
-// }					t_room;
-
 typedef struct 		s_link
 {
-//	char			*from;
-//	char			*to;
 	struct s_room	*from;
 	struct s_room	*to;
 	struct s_link	*next;
 }					t_link;
+
+/*
+** 		find_path.c
+*/
+
+int					ft_ford_fulkerson(t_lem_in *lem_in);
 
 /*
 ** 		build_graph.c
@@ -117,6 +137,5 @@ void				ft_display_mirror(t_lem_in *lem_in);
 
 void				ft_lem_in_error(/*t_lem_in *lem_in, */char *err_message);
 void				ft_parse_error(t_lem_in *lem_in);
-
 
 #endif
