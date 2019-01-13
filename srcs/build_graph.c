@@ -1,6 +1,6 @@
 #include "lem_in.h"
 
-void	ft_print_room_links(t_room *room)
+static void	ft_print_room_links(t_room *room)
 {
 	int i;
 

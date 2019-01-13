@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 11:11:11 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/12 17:57:47 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/13 09:55:28 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_parse_room(t_lem_in *lem_in)
 	if (new->name[0] == 'L')
 		ft_lem_in_error(/*lem_in, */"room name starts with 'L'");
 	if (!NAME_SPACE && ft_strchr(new->name, ' '))
-		ft_lem_in_error(/*lem_in, */"room formatted incorrectly (want to accept spaces in names? #define NAME_SPACE 1)");
+		ft_lem_in_error(/*lem_in, */"room formatted incorrectly (to accept spaces in names set NAME_SPACE to 1)");
 	ft_check_duplicate(lem_in, new);
 	ft_start_end(lem_in, new);
 }
