@@ -19,7 +19,7 @@ static void	ft_linkjoin(t_room *room, t_room *link)
 	while (room->links[i])
 		i++;
 	if (!(new_links = (t_room **)malloc(sizeof(t_room *) * (i + 2))))
-		ft_lem_in_error("ERROR");
+		ft_lem_in_error(/*lem_in, */"malloc tube fail");
 	i = -1;
 	while (room->links[++i])
 		new_links[i] = room->links[i];
@@ -37,7 +37,7 @@ static void	ft_add_tubes(t_room *room, t_room *link)
 	else
 	{
 		if (!(room->links = (t_room **)malloc(sizeof(t_room *) * 2)))
-			ft_lem_in_error("ERROR");
+			ft_lem_in_error(/*lem_in, */"malloc first tube fail");
 		room->links[0] = link;
 		room->links[1] = NULL;
 	}
@@ -61,7 +61,7 @@ void		ft_build_graph(t_lem_in *lem_in)
 			}
 			link = link->next;
 		}
-//		ft_print_room_links(room);
+		ft_print_room_links(room);
 		room = room->next;
 	}
 }

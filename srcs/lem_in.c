@@ -43,11 +43,11 @@ int			main(int argc, char **argv)
 	lem_in = *ft_lem_in_initialize(&lem_in);
 	lem_in.argv = argv;//useless
 	ft_lem_in_parse(&lem_in);
-	ft_display_mirror(&lem_in);
-	ft_build_graph(&lem_in);
-	ft_display_ants(&lem_in);
-	ft_display_rooms(&lem_in);
-	ft_display_links(&lem_in);
+	// ft_display_mirror(&lem_in);
+	// ft_build_graph(&lem_in);
+	// ft_display_ants(&lem_in);
+	// ft_display_rooms(&lem_in);
+	// ft_display_links(&lem_in);
 //	ft_lem_in_solve();
 //	ft_lem_in_free(/*lem_in*/);
 	return (0);
