@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/13 21:33:28 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/14 11:22:20 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,17 @@ typedef	struct		s_queue
 	struct s_queue	*next;
 }					t_queue;
 
+typedef	struct		s_path_room
+{
+	struct s_room	*room;
+	struct s_path_room	*next;
+}					t_path_room;
+
 typedef struct		s_path
 {
 	int				length;
-	struct s_room	**path;
+	struct s_path_room	*path;
+	struct s_path_room	*last;
 	struct s_path	*next;
 }					t_path;
 

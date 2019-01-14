@@ -44,16 +44,47 @@ void	ft_reset_visited(t_lem_in *lem_in)
 	}
 }
 
-void	ft_add_to_path
+void	ft_add_to_path(t_path **path, t_room *room)
+{
+	t_path_room *new;
+
+	if (*path)
+	{
+		new = (t_path_room *)malloc(sizeof(t_path_room));
+		new->room = room;
+		new->next = NULL;
+		(*path)->last->next = new;
+		(*path)->last = new;
+//		ft_printf("adding\n");
+//		(*path)->path = new;
+	}
+	else
+	{
+		(*path) = (t_path *)malloc(sizeof(t_path));
+		(*path)->next = NULL;
+		(*path)->length = 0;
+		(*path)->path = (t_path_room *)malloc(sizeof(t_path_room));
+		(*path)->path->room = room;
+		(*path)->path->next = NULL;
+		(*path)->last = (*path)->path;
+//		ft_printf("adding new %s\n", (*path)->path->room->name);
+	}
+}
 
 int	ft_bfs(t_lem_in *lem_in)
 {
 	int		i;
+	t_path	*path;
 
+
+	path = lem_in->paths;
+	while (path)
+		path = path->next;
 	ft_reset_visited(lem_in);
 	ft_add_to_queue(lem_in, lem_in->start);
 	lem_in->start->visited = 1;
-//	ft_add_to_path(lem_in, lem_in->start);
+	ft_add_to_path(&path, lem_in->start);
+//	ft_printf("path->%s\n", path->path->room->name);
 
 	// Standard BFS Loop 
 	while (lem_in->queue && lem_in->queue->room != lem_in->end)
@@ -68,12 +99,18 @@ int	ft_bfs(t_lem_in *lem_in)
 			if (top_room->links[i]->visited == 0)
 			{
 				ft_add_to_queue(lem_in, top_room->links[i]);
-//				ft_add_to_path(lem_in, top_room->links[i]);
+				ft_add_to_path(&path, top_room->links[i]);
+//				ft_printf("path->%s\n", path->path->room->name);
 				ft_printf("adding to queue - %s\n", top_room->links[i]->name);
 				top_room->links[i]->visited = 1;
 			}
 		}
-	} 
+	}
+	while (path->path)
+	{
+		ft_printf("\npath->%s\n", path->path->room->name);
+		path->path = path->path->next;
+	}
 	if (lem_in->end->visited == 1)
 		return (1);
 	else
