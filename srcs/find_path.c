@@ -44,6 +44,8 @@ void	ft_reset_visited(t_lem_in *lem_in)
 	}
 }
 
+void	ft_add_to_path
+
 int	ft_bfs(t_lem_in *lem_in)
 {
 	int		i;
