@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/14 14:54:20 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/14 18:38:44 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,19 @@ typedef	struct		s_queue
 	struct s_queue	*next;
 }					t_queue;
 
-typedef	struct		s_path_room
+typedef	struct			s_path_room
 {
-	struct s_room	*room;
+	struct s_room		*room;
 	struct s_path_room	*next;
-//	int				lvl;
-}					t_path_room;
+}						t_path_room;
 
-typedef struct		s_path
+typedef struct			s_path
 {
-	int				length;
-	struct s_path_room	*path;
+	int					length;
+	struct s_path_room	*highway;
 	struct s_path_room	*last;
-	struct s_path	*next;
-}					t_path;
+	struct s_path		*next;
+}						t_path;
 
 typedef struct		s_room
 {
@@ -86,7 +85,8 @@ typedef struct 		s_link
 ** 		find_path.c
 */
 
-int					ft_ford_fulkerson(t_lem_in *lem_in);
+int					ft_edmonds_karp(t_lem_in *lem_in);
+void				ft_print_paths(t_path *path);
 
 /*
 ** 		build_graph.c
