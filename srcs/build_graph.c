@@ -30,12 +30,12 @@ void	ft_print_room_links(t_lem_in *lem_in)
 	while (tmp)
 	{
 		i = -1;
-		if (tmp->links[0])
+		if (tmp->links && tmp->links[0])
 		{
 			ft_print_room_links_slave(lem_in, tmp);
 			i++;
 		}
-		while (tmp->links[++i])
+		while (tmp->links && tmp->links[++i])
 		{
 			if (ft_strcmp(tmp->links[i]->name, lem_in->start->name) == 0)
 				ft_printf(" %24s - \x1B[32m%s\x1B[0m\n", "", tmp->links[i]->name);
