@@ -1,11 +1,11 @@
 #include "lem_in.h"
 
-void	ft_add_to_queue(t_lem_in *lem_in, t_room *room)
+void	ft_add_to_queue(t_lem_in *lem_in, t_queue **queue, t_room *room)
 {
 	t_queue *new;
 
 	new = (t_queue *)malloc(sizeof(t_queue));
-	if (lem_in->queue)
+	if (*queue)
 	{
 		new->room = room;
 		new->next = NULL;
@@ -16,20 +16,19 @@ void	ft_add_to_queue(t_lem_in *lem_in, t_room *room)
 	{
 		new->room = room;
 		new->next = NULL;
-		lem_in->queue = new;
+		*queue = new;
 		lem_in->last_queue = new;
 	}
 }
 
-void	ft_pop_queue(t_lem_in *lem_in)
+void	ft_pop_queue(t_queue **queue)
 {
 	t_queue *tmp;
 
-	tmp = NULL;
-	if (lem_in->queue)
-		lem_in->queue = lem_in->queue->next;
-	free(lem_in->queue);
-	lem_in->queue = tmp;
+	tmp = *queue;
+	if (*queue)
+		*queue = (*queue)->next;
+	free(tmp);
 }
 
 void	ft_reset_visited(t_lem_in *lem_in)
@@ -40,6 +39,7 @@ void	ft_reset_visited(t_lem_in *lem_in)
 	while (room)
 	{
 		room->visited = 0;
+		room->lvl = 0;
 		room = room->next;
 	}
 }
@@ -55,8 +55,7 @@ void	ft_add_to_path(t_path **path, t_room *room)
 		new->next = NULL;
 		(*path)->last->next = new;
 		(*path)->last = new;
-//		ft_printf("adding\n");
-//		(*path)->path = new;
+//		ft_printf("!!!!\n");
 	}
 	else
 	{
@@ -67,7 +66,39 @@ void	ft_add_to_path(t_path **path, t_room *room)
 		(*path)->path->room = room;
 		(*path)->path->next = NULL;
 		(*path)->last = (*path)->path;
-//		ft_printf("adding new %s\n", (*path)->path->room->name);
+//		ft_printf("???\n");
+	}
+}
+
+void	ft_recover_path(t_path **path, t_lem_in *lem_in)
+{
+	int i;
+
+	ft_add_to_path(path, lem_in->end);
+	while ((*path)->last->room != lem_in->start)
+	{
+		i = 0;
+		while ((*path)->last->room->links[i] && (*path)->last->room->links[i]->flow == 0 && (*path)->last->room->links[i]->lvl != (*path)->last->room->lvl - 1)
+			i++;
+		ft_add_to_path(path, (*path)->last->room->links[i]);
+	}
+}
+
+void	ft_print_paths(t_path *path)
+{
+	int i = 0;
+	t_path *roads;
+
+	roads = path;
+	while (roads)
+	{
+		while (roads->path)
+		{
+			ft_printf("road %i - %s\n", i, roads->path->room->name);
+			roads->path = roads->path->next;
+		}
+		i++;
+		roads = roads->next;
 	}
 }
 
@@ -75,42 +106,37 @@ int	ft_bfs(t_lem_in *lem_in)
 {
 	int		i;
 	t_path	*path;
-
+	t_queue	*queue;
 
 	path = lem_in->paths;
 	while (path)
 		path = path->next;
+	queue = lem_in->queue;
 	ft_reset_visited(lem_in);
-	ft_add_to_queue(lem_in, lem_in->start);
+	ft_add_to_queue(lem_in, &queue, lem_in->start);
 	lem_in->start->visited = 1;
-	ft_add_to_path(&path, lem_in->start);
-//	ft_printf("path->%s\n", path->path->room->name);
 
 	// Standard BFS Loop 
-	while (lem_in->queue && lem_in->queue->room != lem_in->end)
+	while (queue && queue->room != lem_in->end)
 	{
 		t_room *top_room;
 
-		top_room = lem_in->queue->room;
-		ft_pop_queue(lem_in);
-		i = -1;
-		while (top_room->links[++i])
+		top_room = queue->room;
+		ft_pop_queue(&queue);
+		i = 0;
+		while (top_room->links[i])
 		{
-			if (top_room->links[i]->visited == 0)
+			if (top_room->links[i]->visited == 0 && top_room->links[i]->flow == 0)
 			{
-				ft_add_to_queue(lem_in, top_room->links[i]);
-				ft_add_to_path(&path, top_room->links[i]);
-//				ft_printf("path->%s\n", path->path->room->name);
-				ft_printf("adding to queue - %s\n", top_room->links[i]->name);
+				ft_add_to_queue(lem_in, &queue, top_room->links[i]);
+				top_room->links[i]->lvl = top_room->lvl + 1;
 				top_room->links[i]->visited = 1;
 			}
+			i++;
 		}
 	}
-	while (path->path)
-	{
-		ft_printf("\npath->%s\n", path->path->room->name);
-		path->path = path->path->next;
-	}
+	ft_recover_path(&path, lem_in);
+	lem_in->paths = path;
 	if (lem_in->end->visited == 1)
 		return (1);
 	else
@@ -118,39 +144,22 @@ int	ft_bfs(t_lem_in *lem_in)
 } 
 
 int	ft_ford_fulkerson(t_lem_in *lem_in)
-{ 
-//	t_path	*paths;
-//	paths = lem_in->paths;
+{
+	t_path_room	*road;
 
-	ft_bfs(lem_in);
-//	while (ft_bfs(lem_in))
-//	{ 
-//		int i;
-
-//		i = 0;
-/*		while (paths->path[i])
-			i++;
-		paths->length = i; //adding the path length to the structure
-		paths = paths->next;*/
-
-/*		for (v=t; v != s; v=parent[v])
-		{ 
-			u = parent[v]; 
-			rGraph[u][v] -= path_flow; 
-			rGraph[v][u] += path_flow; 
-		} */
-//	}
-/*	paths = NULL; // terminating the paths list
-	int		i;
-	t_path	*tmp;
-
-	i = 0;
-	tmp = lem_in->paths;
-	while (tmp->next)
+	while (ft_bfs(lem_in))
 	{
-		i++;
-		tmp = tmp->next;
+		road = lem_in->paths->path;
+		while (road)
+		{
+			if (road->room != lem_in->start && road->room != lem_in->end)
+				road->room->flow = 1;
+			road = road->next;
+		}
+		if (lem_in->paths)
+			ft_print_paths(lem_in->paths);
 	}
-	return (i); //the number of paths*/
+//	ft_bfs(lem_in);
+//	ft_print_paths(lem_in->paths);
 	return (0);
 }

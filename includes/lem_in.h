@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/14 11:22:20 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/14 14:54:20 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ typedef struct		s_lem_in
 	int				flag_all;
 }					t_lem_in;
 
-// typedef struct		s_parse
-// {
-// 	int				line_count;
-// 	char			*line;
-// 	char			*type;
-// 	struct s_parse	*next;
-// }
-
-/*typedef struct		s_hash
-{
-	struct s_rooms	*room;
-	struct s_hash	*next;
-}					t_hash*/
-
 typedef	struct		s_queue
 {
 	struct s_room	*room;
@@ -65,6 +51,7 @@ typedef	struct		s_path_room
 {
 	struct s_room	*room;
 	struct s_path_room	*next;
+//	int				lvl;
 }					t_path_room;
 
 typedef struct		s_path
@@ -80,6 +67,7 @@ typedef struct		s_room
 	char			*name;
 	int				x;
 	int				y;
+	int				lvl;
 	int				flow;
 	int				residual;
 	int				visited;
