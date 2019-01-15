@@ -30,6 +30,15 @@ void	ft_print_room_links(t_lem_in *lem_in)
 	while (tmp)
 	{
 		i = -1;
+		if (!tmp->links)
+		{
+			if (tmp == lem_in->start)
+				ft_printf(" \x1B[32m%24s\x1B[0m | %s\n", tmp->name, "no links");
+			else if (tmp == lem_in->end)
+				ft_printf(" \x1B[31m%24s\x1B[0m | %s\n", tmp->name, "no links");
+			else
+				ft_printf(" %24s | %s\n", tmp->name, "no links");
+		}
 		if (tmp->links && tmp->links[0])
 		{
 			ft_print_room_links_slave(lem_in, tmp);
