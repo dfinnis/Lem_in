@@ -70,13 +70,9 @@ void	ft_add_to_path(t_path **path, t_room *room)
 	}
 	else
 	{
-//		(*path) = (t_path *)malloc(sizeof(t_path));
-//		(*path)->next = NULL;
-//		(*path)->length = 0;
 		(*path) = (t_path *)malloc(sizeof(t_path));
 		(*path)->room = room;
 		(*path)->next = NULL;
-//		(*path)->last = (*path)->highway;
 	}
 }
 
@@ -117,7 +113,7 @@ void	ft_print_paths(t_path *path)
 	}
 }
 
-int	ft_bfs(t_lem_in *lem_in/*, t_path **path*/)
+int	ft_bfs(t_lem_in *lem_in)
 {
 	int		i;
 	t_queue	*queue;
@@ -192,12 +188,9 @@ int		ft_edmonds_karp(t_lem_in *lem_in)
 {
 	int		i;
 	t_path	*road;
-//	t_path	*path;
 
-//	path = lem_in->paths;
-//	lem_in->last_path = lem_in->paths;
 	i = 0;
-	while (ft_bfs(lem_in/*, &path*/))
+	while (ft_bfs(lem_in))
 	{
 		ft_add_path(lem_in); //might not work
 		ft_recover_path(lem_in, i);
@@ -208,10 +201,6 @@ int		ft_edmonds_karp(t_lem_in *lem_in)
 				road->room->flow = 1;
 			road = road->next;
 		}
-//		if (/*lem_in->*/lem_in->last_path)
-//			ft_print_paths(/*lem_in->*/lem_in->last_path);
-//		while (path)
-//			path = path->next;
 	}
 	if (lem_in->path)
 		ft_print_paths(lem_in->path);
