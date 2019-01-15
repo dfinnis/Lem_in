@@ -6,7 +6,7 @@
 /*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 17:57:02 by svaskeli          #+#    #+#             */
-/*   Updated: 2019/01/15 14:56:28 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/15 23:18:13 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,44 +56,63 @@ void	ft_reset_visited(t_lem_in *lem_in)
 	}
 }
 
-void	ft_add_to_path(t_path **path, t_room *room)
+t_path	*ft_add_path(t_lem_in *lem_in)
 {
-	t_path_room *new;
+	t_path	*new_path;
+	t_path	*path;
 
-	if (*path)
+	new_path = (t_path *)malloc(sizeof(t_path));
+	ft_bzero(new_path, sizeof(*new_path));
+//	new_path->next = NULL;
+//	new_path->length = 0;
+//	new_path->last = NULL;
+	if (!lem_in->paths)
 	{
-		new = (t_path_room *)malloc(sizeof(t_path_room));
-		new->room = room;
-		new->next = NULL;
-		(*path)->last->next = new;
-		(*path)->last = new;
+		lem_in->paths = new_path;
+		return (lem_in->paths);
 	}
 	else
 	{
-		(*path) = (t_path *)malloc(sizeof(t_path));
-		(*path)->next = NULL;
-		(*path)->length = 0;
-		(*path)->highway = (t_path_room *)malloc(sizeof(t_path_room));
-		(*path)->highway->room = room;
-		(*path)->highway->next = NULL;
-		(*path)->last = (*path)->highway;
+		path = lem_in->paths;
+		while (path && path->next)
+			path = path->next;
+		path->next = new_path;
+		return (path->next);
 	}
 }
 
-void	ft_recover_path(t_path **path, t_lem_in *lem_in)
+void	ft_add_to_path(t_path *path, t_room *room)
+{
+	t_path_room *new;
+
+	new = (t_path_room *)malloc(sizeof(t_path_room));
+	new->room = room;
+	new->next = NULL;
+	if (!path->highway)
+		path->highway = new;
+	if (path->last)
+		path->last->next = new;
+	path->last = new;
+}
+
+void	ft_recover_path(t_lem_in *lem_in)
 {
 	int i;
+	t_path		*path;
 
-	ft_print_paths(lem_in->paths);
+	path = ft_add_path(lem_in);
 	ft_add_to_path(path, lem_in->end);
-	while ((*path)->last->room != lem_in->start)
+	while (path->last->room != lem_in->start)
 	{
 		i = 0;
-		while ((*path)->last->room->links[i] && 
-				(*path)->last->room->links[i]->flow == 0 && 
-				(*path)->last->room->links[i]->lvl != (*path)->last->room->lvl - 1)
+		while (path->last->room->links[i] && 
+				path->last->room->links[i]->flow == 0 && 
+				path->last->room->links[i]->lvl != path->last->room->lvl - 1)
+		{
+			ft_printf("room %s links[i] - %s\n", path->last->room->name, path->last->room->links[i]->name);
 			i++;
-		ft_add_to_path(path, (*path)->last->room->links[i]);
+		}
+		ft_add_to_path(path, path->last->room->links[i]);
 	}
 }
 
@@ -115,7 +134,7 @@ void	ft_print_paths(t_path *path)
 	}
 }
 
-int	ft_bfs(t_lem_in *lem_in/*, t_path **path*/)
+int	ft_bfs(t_lem_in *lem_in)
 {
 	int		i;
 	t_queue	*queue;
@@ -153,23 +172,19 @@ int	ft_bfs(t_lem_in *lem_in/*, t_path **path*/)
 int	ft_edmonds_karp(t_lem_in *lem_in)
 {
 	t_path_room	*road;
-	t_path		*path;
 
-	path = lem_in->paths;
-	while (ft_bfs(lem_in/*, &path*/))
+	while (ft_bfs(lem_in))
 	{
-		ft_recover_path(&path, lem_in);
-		road = /*lem_in->*/path->highway;
+		ft_recover_path(lem_in);
+		road = lem_in->paths->highway;
 		while (road)
 		{
 			if (road->room != lem_in->start && road->room != lem_in->end)
 				road->room->flow = 1;
 			road = road->next;
 		}
-		if (/*lem_in->*/path)
-			ft_print_paths(/*lem_in->*/path);
-		while (path)
-			path = path->next;
+		if (lem_in->paths)
+			ft_print_paths(lem_in->paths);
 	}
 	return (0);
 }
