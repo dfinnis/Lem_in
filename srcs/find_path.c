@@ -6,7 +6,7 @@
 /*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 17:57:02 by svaskeli          #+#    #+#             */
-/*   Updated: 2019/01/14 18:51:09 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/15 14:56:28 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	ft_print_paths(t_path *path)
 	}
 }
 
-int	ft_bfs(t_lem_in *lem_in, t_path **path)
+int	ft_bfs(t_lem_in *lem_in/*, t_path **path*/)
 {
 	int		i;
 	t_queue	*queue;
@@ -144,7 +144,6 @@ int	ft_bfs(t_lem_in *lem_in, t_path **path)
 			i++;
 		}
 	}
-	ft_recover_path(path, lem_in);
 	if (lem_in->end->visited == 1)
 		return (1);
 	else
@@ -157,18 +156,18 @@ int	ft_edmonds_karp(t_lem_in *lem_in)
 	t_path		*path;
 
 	path = lem_in->paths;
-	while (ft_bfs(lem_in, &path))
+	while (ft_bfs(lem_in/*, &path*/))
 	{
-		ft_print_paths(path);
-		road = lem_in->paths->highway;
+		ft_recover_path(&path, lem_in);
+		road = /*lem_in->*/path->highway;
 		while (road)
 		{
 			if (road->room != lem_in->start && road->room != lem_in->end)
 				road->room->flow = 1;
 			road = road->next;
 		}
-		if (lem_in->paths)
-			ft_print_paths(lem_in->paths);
+		if (/*lem_in->*/path)
+			ft_print_paths(/*lem_in->*/path);
 		while (path)
 			path = path->next;
 	}
