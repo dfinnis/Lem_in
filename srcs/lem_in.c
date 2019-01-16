@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/14 18:34:08 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 11:47:15 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void		ft_display_bonus(t_lem_in *lem_in)
 		ft_display_links(lem_in);
 	if (lem_in->flag_rl)
 		ft_print_room_links(lem_in);
-	// if (lem_in->flag_p)
-//		ft_display_paths(lem_in);
+	if (lem_in->flag_p)
+		ft_display_paths(lem_in);
 }
 
 int			main(int argc, char **argv)

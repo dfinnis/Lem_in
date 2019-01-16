@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 11:11:11 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/13 09:55:28 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 18:16:30 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_parse_room(t_lem_in *lem_in)
 	if (new->name[0] == 'L')
 		ft_lem_in_error(/*lem_in, */"room name starts with 'L'");
 	if (!NAME_SPACE && ft_strchr(new->name, ' '))
-		ft_lem_in_error(/*lem_in, */"room formatted incorrectly (to accept spaces in names set NAME_SPACE to 1)");
+		ft_lem_in_error(/*lem_in, */"room formatted incorrectly	(to accept spaces in names set NAME_SPACE to 1)");
 	ft_check_duplicate(lem_in, new);
 	ft_start_end(lem_in, new);
 }
@@ -90,12 +90,25 @@ t_room	*ft_find_room(t_lem_in *lem_in, char to_from)
 void	ft_parse_link(t_lem_in *lem_in)
 {
 	t_link	*new;
+	t_link	*tmp;
 
+	tmp = lem_in->link;
 	ft_add_link(lem_in, &new);
 	if (!(new->from = ft_find_room(lem_in, 'f')))
 		ft_lem_in_error("link to unknown room");
 	if (!(new->to = ft_find_room(lem_in, 't')))
 		ft_lem_in_error("link to unknown room");
+	if (!LINK_SELF && (new->from == new->to))
+		ft_lem_in_error("link to self (to accept links to self set LINK_SELF to 1)");
+	if (!LINK_DUP)
+	{
+		while (tmp)
+		{
+			if (new->from == tmp->from && new->to == tmp->to)
+				ft_lem_in_error("link duplicated (to accept duplicated links set LINK_DUP to 1)");
+			tmp = tmp->next;
+		}
+	}
 }
 
 void	ft_lem_in_parse(t_lem_in *lem_in)

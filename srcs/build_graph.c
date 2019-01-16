@@ -24,7 +24,7 @@ void	ft_print_room_links(t_lem_in *lem_in)
 	t_room	*tmp;
 
 	tmp = lem_in->room;
-	ft_printf("\x1b[1mRooms with links:\x1b[0m\n");
+	ft_printf("\x1b[1mRooms with links:\x1b[0m\n\n");
 	ft_printf(" %24s - %-24s\n", "From room", "To rooms");
 	ft_printf("----------------------------------------------------\n");
 	while (tmp)
@@ -113,4 +113,8 @@ void		ft_build_graph(t_lem_in *lem_in)
 //		ft_print_room_links(room);
 		room = room->next;
 	}
+	if (!lem_in->start->links)
+		ft_lem_in_error(/*lem_in*/"start has no links");
+	if (!lem_in->end->links)
+		ft_lem_in_error(/*lem_in*/"end has no links");
 }

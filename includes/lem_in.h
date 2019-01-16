@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/15 23:18:16 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 18:45:25 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include <fcntl.h>
 
 #define NAME_SPACE 1
+#define LINK_SELF 1
+#define LINK_DUP 1
+
+#define BRIGHT		"\x1b[1m"
+#define UNDERLINE	"\x1b[4m"
+#define GREEN		"\x1B[32m"
+#define RED			"\x1B[31m"
+#define RESET		"\x1B[0m"
 
 typedef struct		s_lem_in
 {
@@ -50,6 +58,7 @@ typedef	struct		s_queue
 typedef	struct			s_path_room
 {
 	struct s_room		*room;
+	struct s_path_room	*prev;
 	struct s_path_room	*next;
 }						t_path_room;
 
@@ -80,6 +89,12 @@ typedef struct 		s_link
 	struct s_room	*to;
 	struct s_link	*next;
 }					t_link;
+
+/*
+** 		find_path.c
+*/
+
+void				ft_remove_dublicates(t_lem_in *lem_in);
 
 /*
 ** 		find_path.c
@@ -132,6 +147,7 @@ void				ft_display_ants(t_lem_in *lem_in);
 void				ft_display_rooms(t_lem_in *lem_in);
 void				ft_display_links(t_lem_in *lem_in);
 void				ft_display_mirror(t_lem_in *lem_in);
+void				ft_display_paths(t_lem_in *lem_in);
 
 /*
 **		error.c
