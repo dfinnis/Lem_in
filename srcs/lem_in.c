@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/14 18:34:08 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 11:47:15 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			main(int argc, char **argv)
 	ft_build_graph(&lem_in);
 	ft_edmonds_karp(&lem_in);
 //	ft_lem_in_solve();
-	ft_display_mirror(&lem_in);
+//	ft_display_mirror(&lem_in);
 //	ft_display_results(&lem_in);
 	ft_display_bonus(&lem_in);
 //	ft_lem_in_free(/*lem_in*/);

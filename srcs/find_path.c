@@ -6,7 +6,7 @@
 /*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 17:57:02 by svaskeli          #+#    #+#             */
-/*   Updated: 2019/01/16 11:20:45 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 11:48:44 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,9 @@ void	ft_recover_path(t_lem_in *lem_in)
 	while (path->last->room != lem_in->start)
 	{
 		i = 0;
-		while (path->last->room->links[i] && (!path->last->room->links[i]->visited
-				|| path->last->room->links[i]->flow)
-				&& path->last->room->links[i]->lvl != (path->last->room->lvl - 1)
-				&& (path->last->room->links[i]->lvl == 0 && path->last->room->links[i] != lem_in->start))
+		while ((path->last->room->links[i] && path->last->room->links[i]->lvl != (path->last->room->lvl - 1))
+				|| (path->last->room->links[i]->lvl == 0 && path->last->room->links[i] != lem_in->start)
+				|| path->last->room->links[i] == lem_in->end || !path->last->room->links[i]->visited)
 			i++;
 		ft_add_to_path(path, path->last->room->links[i]);
 	}
@@ -117,6 +116,7 @@ void	ft_print_paths(t_path *path)
 	roads = path;
 	while (roads)
 	{
+		ft_printf("\n-NEW PATH-\n");
 		while (roads->highway)
 		{
 			ft_printf("road %i - %s\n", i, roads->highway->room->name);
@@ -176,10 +176,7 @@ int	ft_edmonds_karp(t_lem_in *lem_in)
 	t_path		*road;
 	t_path_room	*highway;
 
-
-	int i = 0;
-
-	while (ft_bfs(lem_in) && i++ < 3)
+	while (ft_bfs(lem_in))
 	{
 		ft_recover_path(lem_in);
 		road = lem_in->paths;
