@@ -92,8 +92,8 @@ void		ft_display_bonus(t_lem_in *lem_in)
 		ft_display_links(lem_in);
 	if (lem_in->flag_rl)
 		ft_print_room_links(lem_in);
-	// if (lem_in->flag_p)
-//		ft_display_paths(lem_in);
+	if (lem_in->flag_p)
+		ft_display_paths(lem_in);
 }
 
 int			main(int argc, char **argv)
@@ -106,7 +106,7 @@ int			main(int argc, char **argv)
 	ft_build_graph(&lem_in);
 	ft_edmonds_karp(&lem_in);
 //	ft_lem_in_solve();
-//	ft_display_mirror(&lem_in);
+	ft_display_mirror(&lem_in);
 //	ft_display_results(&lem_in);
 	ft_display_bonus(&lem_in);
 //	ft_lem_in_free(/*lem_in*/);

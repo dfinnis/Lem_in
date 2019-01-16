@@ -82,11 +82,15 @@ void	ft_add_to_path(t_path *path, t_room *room)
 
 	new = (t_path_room *)malloc(sizeof(t_path_room));
 	new->room = room;
+	new->prev = NULL;
 	new->next = NULL;
 	if (!path->highway)
 		path->highway = new;
 	if (path->last)
+	{
+		new->prev = path->last;
 		path->last->next = new;
+	}
 	path->last = new;
 }
 
@@ -105,25 +109,6 @@ void	ft_recover_path(t_lem_in *lem_in)
 				|| path->last->room->links[i] == lem_in->end || !path->last->room->links[i]->visited)
 			i++;
 		ft_add_to_path(path, path->last->room->links[i]);
-	}
-}
-
-void	ft_print_paths(t_path *path)
-{
-	int i = 0;
-	t_path *roads;
-
-	roads = path;
-	while (roads)
-	{
-		ft_printf("\n-NEW PATH-\n");
-		while (roads->highway)
-		{
-			ft_printf("road %i - %s\n", i, roads->highway->room->name);
-			roads->highway = roads->highway->next;
-		}
-		i++;
-		roads = roads->next;
 	}
 }
 
@@ -190,7 +175,5 @@ int	ft_edmonds_karp(t_lem_in *lem_in)
 			highway = highway->next;
 		}
 	}
-	if (lem_in->paths)
-		ft_print_paths(lem_in->paths);
 	return (0);
 }

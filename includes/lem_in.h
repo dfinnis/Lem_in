@@ -50,6 +50,7 @@ typedef	struct		s_queue
 typedef	struct			s_path_room
 {
 	struct s_room		*room;
+	struct s_path_room	*prev;
 	struct s_path_room	*next;
 }						t_path_room;
 
@@ -132,6 +133,7 @@ void				ft_display_ants(t_lem_in *lem_in);
 void				ft_display_rooms(t_lem_in *lem_in);
 void				ft_display_links(t_lem_in *lem_in);
 void				ft_display_mirror(t_lem_in *lem_in);
+void				ft_display_paths(t_lem_in *lem_in);
 
 /*
 **		error.c

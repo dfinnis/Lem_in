@@ -92,3 +92,33 @@ void	ft_display_mirror(t_lem_in *lem_in)
 	}
 	ft_printf("\n");
 }
+
+
+void	ft_display_paths(t_lem_in *lem_in)
+{
+	int i;
+	t_path *roads;
+	char	*str;
+
+	i = 1;
+	str = NULL;
+	roads = lem_in->paths;
+	while (roads)
+	{
+		ft_printf("\n-PATH %d-\n", i);
+		while (roads->highway->next)
+			roads->highway = roads->highway->next;
+		while (roads->highway)
+		{
+			if (roads->highway->room == lem_in->start)
+				ft_printf("\x1B[32m%s\x1B[0m\n", roads->highway->room->name);
+			else if (roads->highway->room == lem_in->end)
+				ft_printf("\x1B[31m%s\x1B[0m\n", roads->highway->room->name);
+			else
+				ft_printf("%s\n", roads->highway->room->name);
+			roads->highway = roads->highway->prev;
+		}
+		i++;
+		roads = roads->next;
+	}
+}
