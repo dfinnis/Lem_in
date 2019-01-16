@@ -175,5 +175,7 @@ int	ft_edmonds_karp(t_lem_in *lem_in)
 			highway = highway->next;
 		}
 	}
+	if (!lem_in->paths)
+		ft_lem_in_error("no path");
 	return (0);
 }

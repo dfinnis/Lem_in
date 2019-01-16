@@ -24,7 +24,7 @@ void	ft_print_room_links(t_lem_in *lem_in)
 	t_room	*tmp;
 
 	tmp = lem_in->room;
-	ft_printf("\x1b[1mRooms with links:\x1b[0m\n");
+	ft_printf("\x1b[1mRooms with links:\x1b[0m\n\n");
 	ft_printf(" %24s - %-24s\n", "From room", "To rooms");
 	ft_printf("----------------------------------------------------\n");
 	while (tmp)

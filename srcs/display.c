@@ -14,7 +14,7 @@
 
 void	ft_display_ants(t_lem_in *lem_in)
 {
-	ft_printf("\x1b[1mNumber of ants:\x1b[0m\n %d\n\n", lem_in->ant_count);
+	ft_printf("\x1b[1mNumber of ants:\x1b[0m\n\n %d\n\n", lem_in->ant_count);
 }
 
 void	ft_display_rooms(t_lem_in *lem_in)
@@ -22,7 +22,7 @@ void	ft_display_rooms(t_lem_in *lem_in)
 	t_room	*tmp;
 
 	tmp = lem_in->room;
-	ft_printf("\x1b[1mRooms:\x1b[0m\n");
+	ft_printf("\x1b[1mRooms:\x1b[0m\n\n");
 	ft_printf("\x1b[4m%-12s| %-12s| %-10s| %-12s\x1b[0m\n", " X", " Y", "Start/End", "Name");
 	while (tmp)
 	{
@@ -42,7 +42,7 @@ void	ft_display_links(t_lem_in *lem_in)
 	t_link	*tmp;
 
 	tmp = lem_in->link;
-	ft_printf("\x1b[1mLinks:\x1b[0m\n");
+	ft_printf("\x1b[1mLinks:\x1b[0m\n\n");
 	ft_printf("\x1b[4m %24s - %-24s\x1b[0m\n", "From room", "To room");
 	while (tmp)
 	{
@@ -103,9 +103,10 @@ void	ft_display_paths(t_lem_in *lem_in)
 	i = 1;
 	str = NULL;
 	roads = lem_in->paths;
+	ft_printf("\x1b[1mPaths:\x1b[0m\n\n", i);
 	while (roads)
 	{
-		ft_printf("\n-PATH %d-\n", i);
+		ft_printf("\x1b[4mPath %d\x1b[0m\n", i);
 		while (roads->highway->next)
 			roads->highway = roads->highway->next;
 		while (roads->highway)
@@ -118,6 +119,7 @@ void	ft_display_paths(t_lem_in *lem_in)
 				ft_printf("%s\n", roads->highway->room->name);
 			roads->highway = roads->highway->prev;
 		}
+		ft_printf("\n");
 		i++;
 		roads = roads->next;
 	}

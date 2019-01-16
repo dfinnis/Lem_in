@@ -5,4 +5,5 @@ nowhere 3 4
 nolinks 5 6
 ##end
 end 3 5
-nowhere-start
+start-nowhere
+start-nolinks
