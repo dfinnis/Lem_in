@@ -14,7 +14,7 @@
 
 void	ft_display_ants(t_lem_in *lem_in)
 {
-	ft_printf("\x1b[1mNumber of ants:\x1b[0m\n\n %d\n\n", lem_in->ant_count);
+	ft_printf("\x1b[1mNumber of ants:\x1b[0m\n %d\n\n", lem_in->ant_count);
 }
 
 void	ft_display_rooms(t_lem_in *lem_in)
