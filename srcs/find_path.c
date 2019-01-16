@@ -6,7 +6,7 @@
 /*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 17:57:02 by svaskeli          #+#    #+#             */
-/*   Updated: 2019/01/16 11:48:44 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 15:33:11 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	ft_recover_path(t_lem_in *lem_in)
 int	ft_bfs(t_lem_in *lem_in)
 {
 	int		i;
+	int		add;
 	t_room	*top_room;
 	t_queue	*tmp;
 
@@ -128,10 +129,24 @@ int	ft_bfs(t_lem_in *lem_in)
 		top_room = lem_in->queue->room;
 		ft_pop_queue(lem_in);
 		i = 0;
+		add = 0;
 		while (top_room->links[i])
 		{
 			if (top_room->links[i]->visited == 0 
 					&& top_room->links[i]->flow == 0)
+			{
+				ft_add_to_queue(lem_in, top_room->links[i]);
+				top_room->links[i]->lvl = top_room->lvl + 1;
+				top_room->links[i]->visited = 1;
+				add++;
+			}
+			i++;
+		}
+		i = 0;
+		while (top_room->links[i] && !add)
+		{
+			if (top_room->links[i]->visited == 0
+				&& top_room->links[i]->flow == 1)
 			{
 				ft_add_to_queue(lem_in, top_room->links[i]);
 				top_room->links[i]->lvl = top_room->lvl + 1;
@@ -171,7 +186,7 @@ int	ft_edmonds_karp(t_lem_in *lem_in)
 		while (highway)
 		{
 			if (highway->room != lem_in->start && highway->room != lem_in->end)
-				highway->room->flow = 1;
+				highway->room->flow++;
 			highway = highway->next;
 		}
 	}

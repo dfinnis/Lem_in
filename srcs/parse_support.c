@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:59:27 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/14 15:23:39 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 15:09:44 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_add_room(t_lem_in *lem_in, t_room **new)
 	(*new)->y = 0;
 	(*new)->lvl = 0;
 	(*new)->flow = 0;
+	(*new)->residual = 0;
+	(*new)->visited = 0;
 	(*new)->next = NULL;
 	(*new)->links = NULL;
 	tmp = lem_in->room;
