@@ -90,8 +90,10 @@ t_room	*ft_find_room(t_lem_in *lem_in, char to_from)
 void	ft_parse_link(t_lem_in *lem_in)
 {
 	t_link	*new;
+	t_link	*tmp;
 //	char	*link;
 
+	tmp = lem_in->link;
 	ft_add_link(lem_in, &new);
 //	link = ft_strchr(lem_in->line, '-');
 //	new->from = ft_strndup(lem_in->line, link - lem_in->line);
@@ -99,6 +101,17 @@ void	ft_parse_link(t_lem_in *lem_in)
 		ft_lem_in_error("link to unknown room");
 	if (!(new->to = ft_find_room(lem_in, 't')))
 		ft_lem_in_error("link to unknown room");
+	if (!LINK_SELF && (new->from == new->to))
+		ft_lem_in_error("link to self (to accept links to self set LINK_SELF to 1)");
+	if (!LINK_DUP)
+	{
+		while (tmp)
+		{
+			if (new->from == tmp->from && new->to == tmp->to)
+				ft_lem_in_error("link duplicated (to accept duplicated links set LINK_DUP to 1)");
+			tmp = tmp->next;
+		}
+	}
 //	new->to = ft_strdup((link + 1));
 //	ft_is_room(lem_in, new->from);//check if new->from/to name is a real room
 //	ft_is_room(lem_in, new->to);

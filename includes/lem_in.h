@@ -19,6 +19,8 @@
 # include <fcntl.h>
 
 #define NAME_SPACE 1
+#define LINK_SELF 0
+#define LINK_DUP 0
 
 #define BRIGHT		"\x1b[1m"
 #define UNDERLINE	"\x1b[4m"
