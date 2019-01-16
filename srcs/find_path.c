@@ -105,9 +105,9 @@ void	ft_recover_path(t_lem_in *lem_in)
 	while (path->last->room != lem_in->start)
 	{
 		i = 0;
-		while (path->last->room->links[i] && 
-				path->last->room->links[i]->flow == 0 && 
-				path->last->room->links[i]->lvl != path->last->room->lvl - 1)
+		while (path->last->room->links[i]
+				&& path->last->room->links[i]->flow == 0
+				&& path->last->room->links[i]->lvl != path->last->room->lvl - 1)
 		{
 			ft_printf("room %s links[i] - %s\n", path->last->room->name, path->last->room->links[i]->name);
 			i++;
