@@ -6,7 +6,7 @@
 /*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 17:57:02 by svaskeli          #+#    #+#             */
-/*   Updated: 2019/01/16 15:33:11 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 19:08:42 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,16 +155,13 @@ int	ft_bfs(t_lem_in *lem_in)
 			i++;
 		}
 	}
-	if (lem_in->queue)
+	while (lem_in->queue)
 	{
-		while (lem_in->queue)
-		{
-			tmp = lem_in->queue;
-			lem_in->queue  = lem_in->queue->next;
-			free(tmp);
-		}
-		lem_in->queue = NULL;
+		tmp = lem_in->queue;
+		lem_in->queue  = lem_in->queue->next;
+		free(tmp);
 	}
+	lem_in->queue = NULL;
 	if (lem_in->end->visited == 1)
 		return (1);
 	else
@@ -192,5 +189,7 @@ int	ft_edmonds_karp(t_lem_in *lem_in)
 	}
 	if (!lem_in->paths)
 		ft_lem_in_error("no path");
+	else
+		ft_remove_dublicates(lem_in);
 	return (0);
 }

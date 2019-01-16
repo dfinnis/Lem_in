@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/16 18:17:12 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 18:45:25 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@ typedef struct 		s_link
 	struct s_room	*to;
 	struct s_link	*next;
 }					t_link;
+
+/*
+** 		find_path.c
+*/
+
+void				ft_remove_dublicates(t_lem_in *lem_in);
 
 /*
 ** 		find_path.c

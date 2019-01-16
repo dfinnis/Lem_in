@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 14:19:07 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/12 17:16:56 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 19:31:50 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_display_paths(t_lem_in *lem_in)
 	while (roads)
 	{
 		ft_printf(UNDERLINE "Path %d\n" RESET, i);
-		while (roads->highway->next)
+		while (roads->highway && roads->highway->next)
 			roads->highway = roads->highway->next;
 		while (roads->highway)
 		{
