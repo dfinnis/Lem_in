@@ -6,7 +6,7 @@
 /*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 17:57:02 by svaskeli          #+#    #+#             */
-/*   Updated: 2019/01/16 11:18:27 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/16 11:20:45 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ void	ft_recover_path(t_lem_in *lem_in)
 	while (path->last->room != lem_in->start)
 	{
 		i = 0;
-		while (path->last->room->links[i] && (!path->last->room->links[i]->visited ||
-				path->last->room->links[i]->flow) && 
-				path->last->room->links[i]->lvl != (path->last->room->lvl - 1) &&
-				(path->last->room->links[i]->lvl == 0 && path->last->room->links[i] != lem_in->start))
+		while (path->last->room->links[i] && (!path->last->room->links[i]->visited
+				|| path->last->room->links[i]->flow)
+				&& path->last->room->links[i]->lvl != (path->last->room->lvl - 1)
+				&& (path->last->room->links[i]->lvl == 0 && path->last->room->links[i] != lem_in->start))
 			i++;
 		ft_add_to_path(path, path->last->room->links[i]);
 	}
