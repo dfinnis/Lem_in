@@ -137,7 +137,7 @@ void	ft_group_paths(t_lem_in *lem_in)
 	t_groups	*group;
 
 	path = lem_in->paths;
-	while (path && path->next) //how to avoid dublicate groups?
+	while (path && path) //how to avoid dublicate groups?
 	{
 		group = ft_add_group(lem_in);
 		ft_add_to_group(group, path);
@@ -185,6 +185,8 @@ void	ft_print_groups(t_lem_in *lem_in)
 			ft_print_path(group->path);
 			group = group->next;
 		}
+		ft_printf("size = %i\n", groups->size);
+		ft_printf("total length = %i\n\n", groups->total_length);
 		groups = groups->next;
 	}
 }

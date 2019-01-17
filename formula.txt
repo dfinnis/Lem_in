@@ -1,0 +1,60 @@
+<example 3 map>
+
+4 ants (2 paths // size 5) - 5 steps
+1-3 2-1
+1-4 2-5 3-3 4-1
+1-2 2-6 3-4 4-5
+1-e 2-e 3-2 4-6
+2-e 4-e
+??
+
+4 ants (1 path // size 4) - 6 steps
+1-1
+1-2 2-1
+1-e 2-2 3-1
+2-e 3-2 4-1
+3-e 4-2
+4-e
+steps = 4 - 2/1 + 4 = 6
+
+4 ants (1 path // size 3) - 5 steps
+1-1
+1-e 2-1
+2-e 3-1
+3-e 4-1
+4-e
+steps = 3 - 2/1 + 4 = 5
+
+4 ants (1 path // size 2) - 4 steps
+1-e
+2-e
+3-e
+4-e
+steps = 2 - 2/1 + 4 = 4
+
+5 ants (2 paths // size 5) - 6 steps
+1-3 2-1
+1-4 2-5 3-3 4-1
+1-2 2-6 3-4 4-5 5-3
+1-e 2-e 3-2 4-6 5-4
+2-e 4-e 5-2
+5-e
+??
+
+5 ants (1 path // size 4) - 7 steps
+1-1
+1-2 2-1
+1-e 2-2 3-1
+2-e 3-2 4-1
+3-e 4-2 5-1
+4-e 5-2
+5-e
+steps = 4 - 2/1 + 5 = 7
+
+ants - 4
+paths_size_1 - 1
+paths_size_2 - 2
+t_length_1 - 4
+t_length_2 - 10
+
+steps = (total_length  - 2 / paths + ants)/size;

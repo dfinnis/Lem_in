@@ -101,14 +101,14 @@ void	ft_display_mirror(t_lem_in *lem_in)
 }
 
 
-void	ft_display_paths(t_lem_in *lem_in)
+void	ft_display_paths(t_lem_in *lem_in) //modify to use copy pointer - not to increment original
 {
 	int 	i;
 	t_paths *roads;
 
 	i = 1;
 	roads = lem_in->paths;
-	ft_print_groups(lem_in);
+	ft_print_groups(lem_in); //need to seperate with another flag?
 	ft_printf(BRIGHT "Paths:\n\n" RESET, i);
 	while (roads)
 	{

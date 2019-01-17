@@ -182,7 +182,32 @@ void	ft_update_length(t_paths *path)
 	path->length = i;
 }
 
-int	ft_edmonds_karp(t_lem_in *lem_in)
+void	ft_fill_size(t_lem_in *lem_in)
+{
+	t_groups	*groups;
+	t_group		*group;
+	int			length;
+	int			size;
+
+	groups = lem_in->groups;
+	while (groups)
+	{
+		length = 0;
+		size = 0;
+		group = groups->group;
+		while (group)
+		{
+			length += group->path->length;
+			size++;
+			group = group->next;
+		}
+		groups->size = size;
+		groups->total_length = length;
+		groups = groups->next;
+	}
+}
+
+int		ft_edmonds_karp(t_lem_in *lem_in)
 {
 	t_paths	*road;
 	t_path	*highway;
@@ -208,6 +233,7 @@ int	ft_edmonds_karp(t_lem_in *lem_in)
 	{
 		ft_remove_dublicates(lem_in);
 		ft_group_paths(lem_in);
+		ft_fill_size(lem_in);
 	}
 	return (0);
 }
