@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:40:50 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/16 11:47:15 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/17 11:17:36 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ t_lem_in	*ft_lem_in_initialize(t_lem_in *lem_in)
 {
 	if(!(lem_in = (t_lem_in *)malloc(sizeof(t_lem_in))))
 		ft_lem_in_error(/*lem_in*/"malloc lem_in fail");
-	lem_in->line = NULL;
+	ft_bzero(lem_in, sizeof(*lem_in));
+/*	lem_in->line = NULL;
 	lem_in->ant_count = 0;
 	lem_in->room = NULL;
 	lem_in->start_flag = 0;
@@ -32,7 +33,7 @@ t_lem_in	*ft_lem_in_initialize(t_lem_in *lem_in)
 	lem_in->flag_l = 0;
 	lem_in->flag_rl = 0;
 	lem_in->flag_p = 0;
-	lem_in->flag_all = 0;
+	lem_in->flag_all = 0;*/
 	return (lem_in);
 }
 

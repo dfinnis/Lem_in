@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:59:27 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/16 15:09:44 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/17 11:16:52 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_add_room(t_lem_in *lem_in, t_room **new)
 
 	if (!((*new) = (t_room *)malloc(sizeof(t_room))))
 		ft_lem_in_error(/*lem_in*/"malloc room fail");
-	(*new)->name = NULL;
+	ft_bzero(*new, sizeof(**new));
+/*	(*new)->name = NULL;
 	(*new)->x = 0;
 	(*new)->y = 0;
 	(*new)->lvl = 0;
@@ -26,7 +27,7 @@ void	ft_add_room(t_lem_in *lem_in, t_room **new)
 	(*new)->residual = 0;
 	(*new)->visited = 0;
 	(*new)->next = NULL;
-	(*new)->links = NULL;
+	(*new)->links = NULL;*/
 	tmp = lem_in->room;
 	if (tmp)
 	{

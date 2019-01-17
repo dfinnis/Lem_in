@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 14:19:07 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/16 19:31:50 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/17 11:32:50 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,12 @@ void	ft_display_mirror(t_lem_in *lem_in)
 
 void	ft_display_paths(t_lem_in *lem_in)
 {
-	int i;
-	t_path *roads;
+	int 	i;
+	t_paths *roads;
 
 	i = 1;
 	roads = lem_in->paths;
+	ft_print_groups(lem_in);
 	ft_printf(BRIGHT "Paths:\n\n" RESET, i);
 	while (roads)
 	{
@@ -124,6 +125,7 @@ void	ft_display_paths(t_lem_in *lem_in)
 				ft_printf("%s\n", roads->highway->room->name);
 			roads->highway = roads->highway->prev;
 		}
+		ft_printf("length - %i\n", roads->length);
 		ft_printf("\n");
 		i++;
 		roads = roads->next;

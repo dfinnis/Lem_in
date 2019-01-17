@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/16 18:45:25 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/17 11:50:55 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 #define RED			"\x1B[31m"
 #define RESET		"\x1B[0m"
 
+/*
+**		main structure - holds pointers to other structures and other information
+*/
+
 typedef struct		s_lem_in
 {
 	char			*line;
@@ -38,9 +42,10 @@ typedef struct		s_lem_in
 	struct s_room	*start;
 	struct s_room	*end;
 	struct s_link	*link;
-	struct s_path	*paths;
+	struct s_paths	*paths;
 	struct s_queue	*queue;
 	struct s_queue	*last_queue;
+	struct s_groups	*groups;
 	int				flag_a;
 	int				flag_r;
 	int				flag_l;
@@ -49,26 +54,65 @@ typedef struct		s_lem_in
 	int				flag_all;
 }					t_lem_in;
 
+/*
+**		a path group - holds pointers to actual paths
+*/
+
+typedef struct		s_group
+{
+	struct s_paths	*path;
+	struct s_group	*next;
+}					t_group;
+
+/*
+**		grouped paths structure - each node has a pointer to a different group
+*/
+
+typedef struct			s_groups
+{
+	struct s_group	*group;
+	struct s_group	*last;
+	struct s_groups	*next;
+	int				size;
+	int				total_length;
+}					t_groups;
+
+/*
+**		a queue data sructure for the BFS algorithm
+*/
+
 typedef	struct		s_queue
 {
 	struct s_room	*room;
 	struct s_queue	*next;
 }					t_queue;
 
-typedef	struct			s_path_room
-{
-	struct s_room		*room;
-	struct s_path_room	*prev;
-	struct s_path_room	*next;
-}						t_path_room;
+/*
+**		an actual path, each node has a pointer to a room
+*/
 
-typedef struct			s_path
+typedef	struct		s_path
 {
-	int					length;
-	struct s_path_room	*highway;
-	struct s_path_room	*last;
-	struct s_path		*next;
-}						t_path;
+	struct s_room	*room;
+	struct s_path	*prev;
+	struct s_path	*next;
+}					t_path;
+
+/*
+**		paths structure - holds paths, each node has a pointer to a different path
+*/
+
+typedef struct		s_paths
+{
+	int				length;
+	struct s_path	*highway;
+	struct s_path	*last;
+	struct s_paths	*next;
+}					t_paths;
+
+/*
+**		rooms with links and full information -> graph structure
+*/
 
 typedef struct		s_room
 {
@@ -77,12 +121,15 @@ typedef struct		s_room
 	int				y;
 	int				lvl;
 	int				flow;
-	int				residual;
 	int				visited;
 	struct s_room	*next;
 	struct s_room	**links;
 }					t_room;
-	
+
+/*
+**		to store links, when parsing
+*/
+
 typedef struct 		s_link
 {
 	struct s_room	*from;
@@ -91,17 +138,19 @@ typedef struct 		s_link
 }					t_link;
 
 /*
-** 		find_path.c
+** 		path_select.c
 */
 
 void				ft_remove_dublicates(t_lem_in *lem_in);
+void				ft_group_paths(t_lem_in *lem_in);
+void				ft_print_groups(t_lem_in *lem_in);
 
 /*
 ** 		find_path.c
 */
 
 int					ft_edmonds_karp(t_lem_in *lem_in);
-void				ft_print_paths(t_path *path);
+void				ft_print_paths(t_paths *path);
 
 /*
 ** 		build_graph.c
