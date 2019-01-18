@@ -46,6 +46,10 @@ typedef struct		s_lem_in
 	struct s_queue	*queue;
 	struct s_queue	*last_queue;
 	struct s_groups	*groups;
+	struct s_groups	*shortest;
+	int				length;
+	int				depth;
+	struct s_paths	**array;
 	int				flag_a;
 	int				flag_r;
 	int				flag_l;
@@ -136,6 +140,11 @@ typedef struct 		s_link
 	struct s_room	*to;
 	struct s_link	*next;
 }					t_link;
+
+void    ft_lem_in_solve(t_lem_in *lem_in);
+
+void	ft_display_results(t_lem_in *lem_in);
+
 
 /*
 ** 		path_select.c
