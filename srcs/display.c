@@ -113,8 +113,6 @@ void	ft_display_paths(t_lem_in *lem_in) //modify to use copy pointer - not to in
 	while (roads)
 	{
 		ft_printf(UNDERLINE "Path %d\n" RESET, i);
-		while (roads->highway && roads->highway->next)
-			roads->highway = roads->highway->next;
 		while (roads->highway)
 		{
 			if (roads->highway->room == lem_in->start)
@@ -123,7 +121,7 @@ void	ft_display_paths(t_lem_in *lem_in) //modify to use copy pointer - not to in
 				ft_printf(RED "%s\n" RESET, roads->highway->room->name);
 			else
 				ft_printf("%s\n", roads->highway->room->name);
-			roads->highway = roads->highway->prev;
+			roads->highway = roads->highway->next;
 		}
 		ft_printf("length - %i\n", roads->length);
 		ft_printf("\n");

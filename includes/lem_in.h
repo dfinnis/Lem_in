@@ -99,7 +99,6 @@ typedef	struct		s_queue
 typedef	struct		s_path
 {
 	struct s_room	*room;
-	struct s_path	*prev;
 	struct s_path	*next;
 }					t_path;
 
