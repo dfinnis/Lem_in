@@ -113,7 +113,7 @@ int			main(int argc, char **argv)
 	ft_edmonds_karp(&lem_in);
 	ft_lem_in_solve(&lem_in);
 //	ft_display_mirror(&lem_in);
-//	ft_display_results(&lem_in);
+	ft_display_results(&lem_in);
 	ft_display_bonus(&lem_in);
 //	ft_lem_in_free(/*lem_in*/);
 	return (0);

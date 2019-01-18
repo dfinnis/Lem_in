@@ -2,30 +2,28 @@
 
 void    ft_populate_array(t_lem_in *lem_in)
 {
-    t_paths *array;
+    t_paths **array;
     int     i;
     int     j;
     t_paths *tmp;
 
-    array = (t_paths *)malloc(sizeof(t_paths) * (lem_in->ant_count + 1));
-    i = -1;
+    array = (t_paths **)malloc(sizeof(t_paths *) * (lem_in->ant_count + 1));
+    i = 0;
     while (i < lem_in->ant_count)
     {
         tmp = lem_in->shortest->group->path;
         j = 0;
         while (tmp && j < lem_in->depth && i < lem_in->ant_count)
         {
-            array[i + j] = *tmp;
+//           array[i + j] = (t_paths *)malloc(sizeof(t_paths));
+            array[i + j] = tmp;
             tmp = tmp->next;
             j++;
         }
         i++;
     }
-    // array[i] = 0;
-    lem_in->array = &array;
-    i = 0;
-    while (i < lem_in->ant_count)
-        ft_printf("%s\n", array[i++].highway->next->room->name);
+    array[i] = NULL;
+    lem_in->array = array;
 }
 
 char    *ft_build_ant(int i, char *name)
@@ -65,7 +63,7 @@ void    ft_display_results(t_lem_in *lem_in)
                 break ;
         }
         ft_printf("%s\n", line);
-//        free (line);
-//        line = NULL;
+        free (line);
+        line = NULL;
     }
 }

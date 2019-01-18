@@ -38,11 +38,9 @@ int     ft_find_length(t_group *path, int depth, int ants)
     t_group *tmp;
     int     j;
     int     steps;
-    // int     first_path;
 
     tmp = path;
     j = 1;
-    // first_path = tmp->path->length;
     steps = 1;
     while (tmp && j++ <= depth)
     {
