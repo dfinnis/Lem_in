@@ -67,6 +67,8 @@ void		ft_read_flags(t_lem_in *lem_in, int argc, char **argv)
 			lem_in->flag_rl = 1;
 		else if (ft_strcmp(argv[i], "-p") == 0)
 			lem_in->flag_p = 1;
+		else if (ft_strcmp(argv[i], "-g") == 0)
+			lem_in->flag_g = 1;
 		else if (ft_strcmp(argv[i], "-all") == 0)
 			lem_in->flag_all = 1;
 		else
@@ -84,6 +86,7 @@ void		ft_display_bonus(t_lem_in *lem_in)
 		lem_in->flag_l = 1;
 		lem_in->flag_rl = 1;
 		lem_in->flag_p = 1;
+		lem_in->flag_g = 1;
 	}
 	if (lem_in->flag_a)
 		ft_display_ants(lem_in);
@@ -95,6 +98,8 @@ void		ft_display_bonus(t_lem_in *lem_in)
 		ft_print_room_links(lem_in);
 	if (lem_in->flag_p)
 		ft_display_paths(lem_in);
+	if (lem_in->flag_g)
+		ft_print_groups(lem_in);
 }
 
 int			main(int argc, char **argv)

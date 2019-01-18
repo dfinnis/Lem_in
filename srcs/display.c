@@ -108,7 +108,7 @@ void	ft_display_paths(t_lem_in *lem_in) //modify to use copy pointer - not to in
 
 	i = 1;
 	roads = lem_in->paths;
-	ft_print_groups(lem_in); //need to seperate with another flag?
+	// ft_print_groups(lem_in); //need to seperate with another flag?
 	ft_printf(BRIGHT "Paths:\n\n" RESET, i);
 	while (roads)
 	{
@@ -129,5 +129,44 @@ void	ft_display_paths(t_lem_in *lem_in) //modify to use copy pointer - not to in
 		ft_printf("\n");
 		i++;
 		roads = roads->next;
+	}
+}
+
+void	ft_print_path(t_paths *paths)
+{
+	t_path	*path;
+
+	path = paths->highway;
+	while (path)
+	{
+		ft_printf("%s\n", path->room->name);
+		path = path->next;
+	}
+	ft_printf("\n");
+}
+
+void	ft_print_groups(t_lem_in *lem_in)
+{
+	t_groups	*groups;
+	t_group		*group;
+	int			i;
+	int			j;
+
+	groups = lem_in->groups;
+	j = 1;
+	while (groups)
+	{
+		i = 1;
+		group = groups->group;
+		ft_printf("\nNEW GROUP -%i-\n", j++);
+		while (group)
+		{
+			ft_printf("--%i path--\n", i++);
+			ft_print_path(group->path);
+			group = group->next;
+		}
+		ft_printf("size = %i\n", groups->size);
+		ft_printf("total length = %i\n\n", groups->total_length);
+		groups = groups->next;
 	}
 }

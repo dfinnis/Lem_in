@@ -51,6 +51,7 @@ typedef struct		s_lem_in
 	int				flag_l;
 	int				flag_rl;
 	int				flag_p;
+	int				flag_g;
 	int				flag_all;
 }					t_lem_in;
 
@@ -143,7 +144,6 @@ typedef struct 		s_link
 
 void				ft_remove_dublicates(t_lem_in *lem_in);
 void				ft_group_paths(t_lem_in *lem_in);
-void				ft_print_groups(t_lem_in *lem_in);
 
 /*
 ** 		find_path.c
@@ -197,6 +197,8 @@ void				ft_display_rooms(t_lem_in *lem_in);
 void				ft_display_links(t_lem_in *lem_in);
 void				ft_display_mirror(t_lem_in *lem_in);
 void				ft_display_paths(t_lem_in *lem_in);
+void				ft_print_path(t_paths *paths);
+void				ft_print_groups(t_lem_in *lem_in);
 
 /*
 **		error.c
