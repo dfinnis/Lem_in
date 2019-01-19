@@ -63,7 +63,7 @@ void    ft_lem_in_solve(t_lem_in *lem_in)
     lem_in->depth = 1;
     if (lem_in->ant_count == 1)
     {
-        ft_print_group_short(lem_in);
+        // ft_print_group_short(lem_in);
         return ;
     }
     tmp = lem_in->groups;
@@ -79,12 +79,11 @@ void    ft_lem_in_solve(t_lem_in *lem_in)
                 lem_in->shortest = tmp;
                 lem_in->length = steps;
                 lem_in->depth = i;
-                ft_printf("updated! len: %d, depth: %d\n", lem_in->length, lem_in->depth);
             }
             path = path->next;
             i++;
         }
         tmp = tmp->next;
     }
-    ft_print_group_short(lem_in);
+    // ft_print_group_short(lem_in);
 }

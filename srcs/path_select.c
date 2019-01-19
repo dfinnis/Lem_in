@@ -137,7 +137,7 @@ void	ft_group_paths(t_lem_in *lem_in)
 	t_groups	*group;
 
 	path = lem_in->paths;
-	while (path && path) //how to avoid dublicate groups?
+	while (path)
 	{
 		group = ft_add_group(lem_in);
 		ft_add_to_group(group, path);
