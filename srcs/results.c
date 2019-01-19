@@ -99,10 +99,10 @@ void    ft_display_results(t_lem_in *lem_in)
     int  j;
     char *line;
     char *ant;
-    
+
+    j = 0;
     ft_sort_group(lem_in);
     ft_populate_array(lem_in);
-    j = 0;
     while (!lem_in->array[lem_in->ant_count - 1]->end || !lem_in->array[0]->end)
     {
         i = 1;
@@ -134,4 +134,5 @@ void    ft_display_results(t_lem_in *lem_in)
             free (line);
         line = NULL;
     }
+    lem_in->turn_count = j;
 }

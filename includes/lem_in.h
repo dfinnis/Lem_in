@@ -21,6 +21,8 @@
 #define NAME_SPACE 1
 #define LINK_SELF 1
 #define LINK_DUP 1
+#define MAX_INT 0
+#define MAX_ANTS 20000
 
 #define BRIGHT		"\x1b[1m"
 #define UNDERLINE	"\x1b[4m"
@@ -50,6 +52,8 @@ typedef struct		s_lem_in
 	int				length;
 	int				depth;
 	struct s_ant	**array;
+	int				turn_count;
+	int				flag_t;
 	int				flag_a;
 	int				flag_r;
 	int				flag_l;
@@ -127,8 +131,8 @@ typedef struct		s_paths
 typedef struct		s_room
 {
 	char			*name;
-	int				x;
-	int				y;
+	long long		x;
+	long long		y;
 	int				lvl;
 	int				flow;
 	int				visited;
@@ -205,7 +209,7 @@ void				ft_is_room(t_lem_in *lem_in, char *link);
 /*
 **		display.c
 */
-
+void				ft_display_turn_count(t_lem_in *lem_in);
 void				ft_display_ants(t_lem_in *lem_in);
 void				ft_display_rooms(t_lem_in *lem_in);
 void				ft_display_links(t_lem_in *lem_in);
