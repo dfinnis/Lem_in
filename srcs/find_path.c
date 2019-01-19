@@ -16,7 +16,8 @@ void	ft_add_to_queue(t_lem_in *lem_in, t_room *room)
 {
 	t_queue *new;
 
-	new = (t_queue *)malloc(sizeof(t_queue));
+	if (!(new = (t_queue *)malloc(sizeof(t_queue))))
+		ft_lem_in_error(lem_in, "malloc fail in ft_add_to_queue");
 	new->room = room;
 	new->next = NULL;
 	if (lem_in->queue)
@@ -38,7 +39,9 @@ void	ft_pop_queue(t_lem_in *lem_in)
 	tmp = lem_in->queue;
 	if (lem_in->queue)
 		lem_in->queue = lem_in->queue->next;
-	free(tmp);
+	if (tmp)
+		free(tmp);
+	tmp = NULL;
 }
 
 void	ft_reset_visited(t_lem_in *lem_in)
@@ -59,7 +62,8 @@ t_paths	*ft_add_path(t_lem_in *lem_in)
 	t_paths	*new_path;
 	t_paths	*path;
 
-	new_path = (t_paths *)malloc(sizeof(t_paths));
+	if (!(new_path = (t_paths *)malloc(sizeof(t_paths))))
+		ft_lem_in_error(lem_in, "malloc fail in ft_add_path");
 	ft_bzero(new_path, sizeof(*new_path));
 	if (!lem_in->paths)
 	{
@@ -76,11 +80,12 @@ t_paths	*ft_add_path(t_lem_in *lem_in)
 	}
 }
 
-void	ft_add_to_path(t_paths *path, t_room *room)
+void	ft_add_to_path(t_paths *path, t_room *room, t_lem_in *lem_in)
 {
 	t_path *new;
 
-	new = (t_path *)malloc(sizeof(t_path));
+	if (!(new = (t_path *)malloc(sizeof(t_path))))
+		ft_lem_in_error(lem_in, "malloc fail in ft_add_to_path");
 	new->room = room;
 	new->next = NULL;
 	if (!path->highway)
@@ -98,7 +103,7 @@ void	ft_recover_path(t_lem_in *lem_in)
 	t_paths		*path;
 
 	path = ft_add_path(lem_in);
-	ft_add_to_path(path, lem_in->start);
+	ft_add_to_path(path, lem_in->start, lem_in);
 	while (path->last->room != lem_in->end)
 	{
 		i = 0;
@@ -106,7 +111,7 @@ void	ft_recover_path(t_lem_in *lem_in)
 				|| (path->last->room->links[i]->lvl == 0 && path->last->room->links[i] != lem_in->end)
 				|| path->last->room->links[i] == lem_in->start || !path->last->room->links[i]->visited)
 			i++;
-		ft_add_to_path(path, path->last->room->links[i]);
+		ft_add_to_path(path, path->last->room->links[i], lem_in);
 	}
 }
 
@@ -217,8 +222,8 @@ void	add_direct_path(t_lem_in *lem_in)
 	t_paths		*path;
 
 	path = ft_add_path(lem_in);
-	ft_add_to_path(path, lem_in->start);
-	ft_add_to_path(path, lem_in->end);
+	ft_add_to_path(path, lem_in->start, lem_in);
+	ft_add_to_path(path, lem_in->end, lem_in);
 }
 
 int		ft_edmonds_karp(t_lem_in *lem_in)
@@ -250,7 +255,7 @@ int		ft_edmonds_karp(t_lem_in *lem_in)
 		}
 	}
 	if (!lem_in->paths)
-		ft_lem_in_error("no path");
+		ft_lem_in_error(lem_in, "no path");
 	else
 	{
 		ft_remove_dublicates(lem_in);

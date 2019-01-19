@@ -46,6 +46,7 @@ void	ft_remove_path(t_lem_in *lem_in, t_paths **path)
 		tmp = (*path)->highway;
 		(*path)->highway = (*path)->highway->next;
  		free(tmp);
+		tmp = NULL;
 	}
 	free(*path);
 	*path = NULL;
@@ -79,7 +80,8 @@ t_groups	*ft_add_group(t_lem_in *lem_in)
 	t_groups	*new_group;
 	t_groups	*group;
 
-	new_group = (t_groups *)malloc(sizeof(t_groups));
+	if (!(new_group = (t_groups *)malloc(sizeof(t_groups))))
+		ft_lem_in_error(lem_in, "malloc fail in ft_add_group");
 	ft_bzero(new_group, sizeof(*new_group));
 	if (!lem_in->groups)
 	{
@@ -96,11 +98,12 @@ t_groups	*ft_add_group(t_lem_in *lem_in)
 	}
 }
 
-void	ft_add_to_group(t_groups *group, t_paths *path)
+void	ft_add_to_group(t_groups *group, t_paths *path, t_lem_in *lem_in)
 {
 	t_group *new;
 
-	new = (t_group *)malloc(sizeof(t_group));
+	if (!(new = (t_group *)malloc(sizeof(t_group))))
+		ft_lem_in_error(lem_in, "malloc fail in ft_add_to_group");
 	new->path = path;
 	new->next = NULL;
 	if (!group->group)
@@ -140,7 +143,7 @@ void	ft_group_paths(t_lem_in *lem_in)
 	while (path)
 	{
 		group = ft_add_group(lem_in);
-		ft_add_to_group(group, path);
+		ft_add_to_group(group, path, lem_in);
 		moving = lem_in->paths;
 		while (moving)
 		{
@@ -149,7 +152,7 @@ void	ft_group_paths(t_lem_in *lem_in)
 			if (moving)
 			{
 				if (ft_compare_rooms(path, moving))
-					ft_add_to_group(group, moving);
+					ft_add_to_group(group, moving, lem_in);
 				moving = moving->next;
 			}
 		}

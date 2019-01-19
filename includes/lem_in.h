@@ -218,7 +218,8 @@ void				ft_print_groups(t_lem_in *lem_in);
 **		error.c
 */
 
-void				ft_lem_in_error(/*t_lem_in *lem_in, */char *err_message);
+void				ft_lem_in_error(t_lem_in *lem_in, char *err_message);
 void				ft_parse_error(t_lem_in *lem_in);
+void				ft_lem_in_free(t_lem_in *lem_in);
 
 #endif

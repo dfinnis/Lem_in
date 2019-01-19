@@ -17,17 +17,8 @@ void	ft_add_room(t_lem_in *lem_in, t_room **new)
 	t_room	*tmp;
 
 	if (!((*new) = (t_room *)malloc(sizeof(t_room))))
-		ft_lem_in_error(/*lem_in*/"malloc room fail");
+		ft_lem_in_error(lem_in, "malloc fail in ft_add_room");
 	ft_bzero(*new, sizeof(**new));
-/*	(*new)->name = NULL;
-	(*new)->x = 0;
-	(*new)->y = 0;
-	(*new)->lvl = 0;
-	(*new)->flow = 0;
-	(*new)->residual = 0;
-	(*new)->visited = 0;
-	(*new)->next = NULL;
-	(*new)->links = NULL;*/
 	tmp = lem_in->room;
 	if (tmp)
 	{
@@ -48,11 +39,11 @@ void	ft_check_duplicate(t_lem_in *lem_in, t_room	*new)
 	{
 		if ((ft_strcmp(tmp->name, new->name) == 0) &&
 			(tmp->x == new->x && tmp->y == new->y))
-			ft_lem_in_error(/*lem_in, */"duplicate room name and coordinates");
+			ft_lem_in_error(lem_in, "duplicate room name and coordinates");
 		if (ft_strcmp(tmp->name, new->name) == 0)
-			ft_lem_in_error(/*lem_in, */"duplicate room name");
+			ft_lem_in_error(lem_in, "duplicate room name");
 		if (tmp->x == new->x && tmp->y == new->y)
-			ft_lem_in_error(/*lem_in, */"duplicate room coordinates");
+			ft_lem_in_error(lem_in, "duplicate room coordinates");
 		tmp = tmp->next;
 	}
 }
@@ -62,14 +53,14 @@ void	ft_start_end(t_lem_in *lem_in, t_room *new)
 	if (lem_in->start_flag)
 	{
 		if (lem_in->start)
-			ft_lem_in_error(/*lem_in*/"more than one start");
+			ft_lem_in_error(lem_in, "more than one start");
 		lem_in->start = new;
 		lem_in->start_flag = 0;
 	}
 	if (lem_in->end_flag)
 	{
 		if (lem_in->end)
-			ft_lem_in_error(/*lem_in*/"more than one end");
+			ft_lem_in_error(lem_in, "more than one end");
 		lem_in->end = new;
 		lem_in->end_flag = 0;
 	}
@@ -80,7 +71,7 @@ void	ft_add_link(t_lem_in *lem_in, t_link **new)
 	t_link	*tmp;
 
 	if (!((*new) = (t_link *)malloc(sizeof(t_link))))
-		ft_lem_in_error(/*lem_in*/"malloc link fail");
+		ft_lem_in_error(lem_in, "malloc fail in ft_add_link");
 	(*new)->from = NULL;
 	(*new)->to = NULL;
 	(*new)->next = NULL;
@@ -112,5 +103,5 @@ void	ft_is_room(t_lem_in *lem_in, char *link)
 		tmp = tmp->next;
 	}
 	if (!found)
-		ft_lem_in_error(/*lem_in, */"link to unknown room");
+		ft_lem_in_error(lem_in, "link to unknown room");
 }

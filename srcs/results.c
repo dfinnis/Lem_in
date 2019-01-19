@@ -12,9 +12,10 @@
 
 #include "lem_in.h"
 
-void	ft_initialize_ant(t_ant **array)
+void	ft_initialize_ant(t_ant **array, t_lem_in *lem_in)
 {
-	*array = (t_ant *)malloc(sizeof(t_ant));
+	if (!(*array = (t_ant *)malloc(sizeof(t_ant))))
+        ft_lem_in_error(lem_in, "malloc fail in ft_initialize_ant");
 	ft_bzero(*array, sizeof(**array));
 	(*array)->traveled = 1;
 }
@@ -26,7 +27,8 @@ void    ft_populate_array(t_lem_in *lem_in)
 	int		j;
 	t_group	*tmp;
 
-    array = (t_ant **)malloc(sizeof(t_ant *) * (lem_in->ant_count + 1));
+    if (!(array = (t_ant **)malloc(sizeof(t_ant *) * (lem_in->ant_count + 1))))
+        ft_lem_in_error(lem_in, "malloc fail in ft_populate_array");
     i = 0;
 
     while (i < lem_in->ant_count)
@@ -35,7 +37,7 @@ void    ft_populate_array(t_lem_in *lem_in)
         j = 0;
         while (tmp && j < lem_in->depth && i < lem_in->ant_count)
         {
-        	ft_initialize_ant(&array[i]);
+        	ft_initialize_ant(&array[i], lem_in);
             array[i]->path = tmp->path->highway;
             tmp = tmp->next;
             j++;
@@ -46,7 +48,7 @@ void    ft_populate_array(t_lem_in *lem_in)
     lem_in->array = array;
 }
 
-char    *ft_build_ant(int i, t_ant *ant)
+char    *ft_build_ant(int i, t_ant *ant, t_lem_in *lem_in)
 {
     char	*line;
     int		count;
@@ -55,12 +57,15 @@ char    *ft_build_ant(int i, t_ant *ant)
     count = 0;
     tmp = ant->path;
     if (ant->end)
-    	return ("");
+    	return (NULL);
     while (count++ < ant->traveled)
     	tmp = tmp->next;
-    line = ft_strjoin("L", ft_itoa(i));
-    line = ft_strjoin(line, "-");
-    line = ft_strjoin(line, tmp->room->name);
+    if (!(line = ft_strjoinfree_s2("L", ft_itoa(i))))
+        ft_lem_in_error(lem_in, "strjoin fail in ft_build_ant");
+    if (!(line = ft_strjoinfree_s1(line, "-")))
+        ft_lem_in_error(lem_in, "strjoin fail in ft_build_ant");
+    if (!(line = ft_strjoinfree_s1(line, tmp->room->name)))
+        ft_lem_in_error(lem_in, "strjoin fail in ft_build_ant");
     ant->traveled++;
     if (!tmp->next)
     	ant->end = 1;
@@ -102,19 +107,22 @@ void    ft_display_results(t_lem_in *lem_in)
     {
         i = 1;
         j++;
-        line = ft_strdup("");
+        if (!(line = ft_strdup("")))
+            ft_lem_in_error(lem_in, "strdup fail in ft_display_results");
         while (i <= lem_in->ant_count)
         {
             if (lem_in->array[i - 1]->path)
             {
-                ant = ft_build_ant(i, lem_in->array[i - 1]);
-                if (ft_strcmp(line, "") == 0)
-                    line = ft_strjoin(line, ant);
-                else
+                ant = ft_build_ant(i, lem_in->array[i - 1], lem_in);
+                if (ft_strcmp(line, ""))
                 {
-                	if (ft_strcmp(ant, ""))
-                    	line = ft_strjoin(line, " ");
-                    line = ft_strjoin(line, ant);
+                   	if (!(line = ft_strjoinfree_s1(line, " ")))
+                        ft_lem_in_error(lem_in, "strjoin " " fail in ft_display_results");
+                }
+                if (ant)
+                {
+                    if (!(line = ft_strjoinfree(line, ant)))
+                        ft_lem_in_error(lem_in, "strjoin ant fail in ft_display_results");
                 }
             }
             i++;
@@ -122,7 +130,8 @@ void    ft_display_results(t_lem_in *lem_in)
                 break ;
         }
         ft_printf("%s\n", line);
-        free (line);
+        if (line)
+            free (line);
         line = NULL;
     }
 }

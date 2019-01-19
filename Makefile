@@ -59,7 +59,7 @@ fsanitize:
 
 $(LEM_IN): $(LIBFT_A) $(OBJS_DIR) $(OBJS_PATH)
 	@echo "Compiling:" $(GREEN) $(LEM_IN) $(DEFAULT)
-	gcc $(FLAGS) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) -I $(INC)
+	gcc $(FLAGS) -g $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) -I $(INC)
 
 $(LIBFT_A):
 	@echo "Compiling:" $(GREEN) Libft $(DEFAULT)
@@ -70,7 +70,7 @@ $(OBJS_DIR):
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@echo "Compiling:" $(GREEN) $< $(DEFAULT)
-	gcc $(FLAGS) -c $< -o $@ -I $(INC)
+	gcc $(FLAGS) -g -c $< -o $@ -I $(INC)
 
 clean:
 	@make -C $(LIBFT)/ clean
