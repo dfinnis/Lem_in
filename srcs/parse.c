@@ -40,6 +40,8 @@ void	ft_parse_room(t_lem_in *lem_in)
 	t_room	*new;
 
 	n = 0;
+	if (lem_in->link)
+		ft_lem_in_error(/*lem_in*/"room after link");
 	ft_add_room(lem_in, &new);
 	while (lem_in->line[n])
 		n++;
