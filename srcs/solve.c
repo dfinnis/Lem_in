@@ -1,37 +1,37 @@
 #include "lem_in.h"
 
-void	ft_print_path_short(t_paths *paths)
-{
-	t_path	*path;
+// void	ft_print_path_short(t_paths *paths)
+// {
+// 	t_path	*path;
 
-	path = paths->highway;
-	while (path)
-	{
-		ft_printf("%s\n", path->room->name);
-		path = path->next;
-	}
-	ft_printf("\n");
-}
+// 	path = paths->highway;
+// 	while (path)
+// 	{
+// 		ft_printf("%s\n", path->room->name);
+// 		path = path->next;
+// 	}
+// 	ft_printf("\n");
+// }
 
-void	ft_print_group_short(t_lem_in *lem_in)
-{
-	t_groups	*groups;
-	t_group		*group;
-	int			j;
+// void	ft_print_group_short(t_lem_in *lem_in)
+// {
+// 	t_groups	*groups;
+// 	t_group		*group;
+// 	int			j;
 
-	groups = lem_in->shortest;
-	j = 1;
-	group = groups->group;
-	ft_printf("\n--SHORTEST --\n");
-	while (group)
-	{
-		ft_printf("--%i path--\n", j++);
-		ft_print_path_short(group->path);
-		group = group->next;
-	}
-    ft_printf("group steps = %i\n", lem_in->length);
-    ft_printf("group depth = %i\n", lem_in->depth);
-}
+// 	groups = lem_in->shortest;
+// 	j = 1;
+// 	group = groups->group;
+// 	ft_printf("\n--SHORTEST --\n");
+// 	while (group)
+// 	{
+// 		ft_printf("--%i path--\n", j++);
+// 		ft_print_path_short(group->path);
+// 		group = group->next;
+// 	}
+//     ft_printf("group steps = %i\n", lem_in->length);
+//     ft_printf("group depth = %i\n", lem_in->depth);
+// }
 
 int     ft_find_length(t_group *path, int depth, int ants)
 {
@@ -63,7 +63,7 @@ void    ft_lem_in_solve(t_lem_in *lem_in)
     lem_in->depth = 1;
     if (lem_in->ant_count == 1)
     {
-        ft_print_group_short(lem_in);
+        // ft_print_group_short(lem_in);
         return ;
     }
     tmp = lem_in->groups;
@@ -85,5 +85,5 @@ void    ft_lem_in_solve(t_lem_in *lem_in)
         }
         tmp = tmp->next;
     }
-    ft_print_group_short(lem_in);
+    // ft_print_group_short(lem_in);
 }
