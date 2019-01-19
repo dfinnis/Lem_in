@@ -72,35 +72,6 @@ void	ft_display_links(t_lem_in *lem_in)
 	ft_printf("\n");
 }
 
-void	ft_display_mirror(t_lem_in *lem_in)
-{
-	t_room	*tmp_room;
-	t_link	*tmp_link;
-
-	tmp_room = lem_in->room;
-	tmp_link = lem_in->link;
-	ft_printf("%d\n", lem_in->ant_count);
-	while (tmp_room)
-	{
-		if (tmp_room == lem_in->start)
-			ft_printf("##start\n%s %d %d\n",
-				tmp_room->name, tmp_room->x, tmp_room->y);
-		else if (tmp_room == lem_in->end)
-			ft_printf("##end\n%s %d %d\n",
-				tmp_room->name, tmp_room->x, tmp_room->y);
-		else
-			ft_printf("%s %d %d\n", tmp_room->name, tmp_room->x, tmp_room->y);
-		tmp_room = tmp_room->next;
-	}
-	while (tmp_link)
-	{
-		ft_printf("%s-%s\n", tmp_link->from->name, tmp_link->to->name);
-		tmp_link = tmp_link->next;
-	}
-	ft_printf("\n");
-}
-
-
 void	ft_display_paths(t_lem_in *lem_in) //modify to use copy pointer - not to increment original
 {
 	int 	i;
@@ -123,48 +94,9 @@ void	ft_display_paths(t_lem_in *lem_in) //modify to use copy pointer - not to in
 				ft_printf("%s\n", roads->highway->room->name);
 			roads->highway = roads->highway->next;
 		}
-		ft_printf("length - %i\n", roads->length);
+		ft_printf("length = %i\n", roads->length);
 		ft_printf("\n");
 		i++;
 		roads = roads->next;
-	}
-}
-
-void	ft_print_path(t_paths *paths)
-{
-	t_path	*path;
-
-	path = paths->highway;
-	while (path)
-	{
-		ft_printf("%s\n", path->room->name);
-		path = path->next;
-	}
-	ft_printf("\n");
-}
-
-void	ft_print_groups(t_lem_in *lem_in)
-{
-	t_groups	*groups;
-	t_group		*group;
-	int			i;
-	int			j;
-
-	groups = lem_in->groups;
-	j = 1;
-	while (groups)
-	{
-		i = 1;
-		group = groups->group;
-		ft_printf("\nNEW GROUP -%i-\n", j++);
-		while (group)
-		{
-			ft_printf("--%i path--\n", i++);
-			ft_print_path(group->path);
-			group = group->next;
-		}
-		// ft_printf("size = %i\n", groups->size);
-		// ft_printf("total length = %i\n\n", groups->total_length);
-		groups = groups->next;
 	}
 }

@@ -22,7 +22,7 @@ void	ft_parse_ants(t_lem_in *lem_in)
 			ft_lem_in_error(/*lem_in*/"invalid first line: number of ants");
 	if (!(lem_in->ant_count = ft_atoi(lem_in->line)))//correct atoi??
 		ft_lem_in_error(/*lem_in*/"invalid first line: number of ants");
-	if (lem_in->ant_count < 1)
+	if (lem_in->ant_count < 1)// or over MAX_ANTS
 		ft_lem_in_error(/*lem_in*/"number of ants out of acceptable range");
 }
 
@@ -40,6 +40,8 @@ void	ft_parse_room(t_lem_in *lem_in)
 	t_room	*new;
 
 	n = 0;
+	if (lem_in->link)
+		ft_lem_in_error(/*lem_in*/"room after link");
 	ft_add_room(lem_in, &new);
 	while (lem_in->line[n])
 		n++;
@@ -47,10 +49,14 @@ void	ft_parse_room(t_lem_in *lem_in)
 		ft_lem_in_error(/*lem_in*/"y coordinate not digit");
 	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
 		n--;
+	if (lem_in->line[n] == '-')
+		n--;
 	new->y = ft_atoi(lem_in->line + n + 1);
 	if (!ft_isdigit(lem_in->line[--n]))
 		ft_lem_in_error(/*lem_in*/"x coordinate not digit");
 	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
+		n--;
+	if (lem_in->line[n] == '-')
 		n--;
 	new->x = ft_atoi(lem_in->line + n + 1);
 	if (!(new->name = ft_strndup(lem_in->line, n)))
@@ -115,6 +121,7 @@ void	ft_lem_in_parse(t_lem_in *lem_in)
 {
 	get_next_line(0, &lem_in->line);
 	ft_parse_ants(lem_in);
+	ft_printf("%s\n", lem_in->line);
 	ft_freestr(lem_in->line);
 	while (get_next_line(0, &lem_in->line) == 1)
 	{
@@ -126,7 +133,9 @@ void	ft_lem_in_parse(t_lem_in *lem_in)
 			ft_parse_link(lem_in);
 		else
 			ft_lem_in_error(/*lem_in*/"line not comment, command, room or link");
+		ft_printf("%s\n", lem_in->line);
 		ft_freestr(lem_in->line);
 	}
 	ft_parse_error(lem_in);
+	ft_printf("\n");
 }

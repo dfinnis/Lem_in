@@ -55,7 +55,6 @@ typedef struct		s_lem_in
 	int				flag_l;
 	int				flag_rl;
 	int				flag_p;
-	int				flag_g;
 	int				flag_all;
 }					t_lem_in;
 

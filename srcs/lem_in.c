@@ -67,8 +67,6 @@ void		ft_read_flags(t_lem_in *lem_in, int argc, char **argv)
 			lem_in->flag_rl = 1;
 		else if (ft_strcmp(argv[i], "-p") == 0)
 			lem_in->flag_p = 1;
-		else if (ft_strcmp(argv[i], "-g") == 0)
-			lem_in->flag_g = 1;
 		else if (ft_strcmp(argv[i], "-all") == 0)
 			lem_in->flag_all = 1;
 		else
@@ -79,6 +77,9 @@ void		ft_read_flags(t_lem_in *lem_in, int argc, char **argv)
 
 void		ft_display_bonus(t_lem_in *lem_in)
 {
+	if (lem_in->flag_all || lem_in->flag_a || lem_in->flag_r || lem_in->flag_l
+		|| lem_in->flag_rl || lem_in->flag_p)
+		ft_printf("\n");
 	if (lem_in->flag_all)
 	{
 		lem_in->flag_a = 1;
@@ -86,7 +87,6 @@ void		ft_display_bonus(t_lem_in *lem_in)
 		lem_in->flag_l = 1;
 		lem_in->flag_rl = 1;
 		lem_in->flag_p = 1;
-		lem_in->flag_g = 1;
 	}
 	if (lem_in->flag_a)
 		ft_display_ants(lem_in);
@@ -98,8 +98,6 @@ void		ft_display_bonus(t_lem_in *lem_in)
 		ft_print_room_links(lem_in);
 	if (lem_in->flag_p)
 		ft_display_paths(lem_in);
-	if (lem_in->flag_g)
-		ft_print_groups(lem_in);
 }
 
 int			main(int argc, char **argv)
@@ -112,7 +110,6 @@ int			main(int argc, char **argv)
 	ft_build_graph(&lem_in);
 	ft_edmonds_karp(&lem_in);
 	ft_lem_in_solve(&lem_in);
-	ft_display_mirror(&lem_in);
 	ft_display_results(&lem_in);
 	ft_display_bonus(&lem_in);
 //	ft_lem_in_free(/*lem_in*/);
