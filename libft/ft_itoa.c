@@ -48,7 +48,6 @@ char		*ft_itoa(int n)
 	}
 	if (n == 0)
 		fresh[0] = '0';
-	fresh[len + 1] = '\0';
 	while (n > 0)
 	{
 		fresh[--len] = (n % 10) + '0';

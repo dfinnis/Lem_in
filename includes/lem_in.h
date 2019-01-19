@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 13:35:57 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/17 11:50:55 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/19 15:14:13 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ typedef struct			s_groups
 	struct s_group	*group;
 	struct s_group	*last;
 	struct s_groups	*next;
-	int				size;
-	int				total_length;
+	// int				size;
+	// int				total_length;
 }					t_groups;
 
 /*

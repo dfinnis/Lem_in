@@ -163,8 +163,8 @@ void	ft_print_groups(t_lem_in *lem_in)
 			ft_print_path(group->path);
 			group = group->next;
 		}
-		ft_printf("size = %i\n", groups->size);
-		ft_printf("total length = %i\n\n", groups->total_length);
+		// ft_printf("size = %i\n", groups->size);
+		// ft_printf("total length = %i\n\n", groups->total_length);
 		groups = groups->next;
 	}
 }

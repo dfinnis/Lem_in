@@ -6,7 +6,7 @@
 /*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:30:43 by svaskeli          #+#    #+#             */
-/*   Updated: 2019/01/17 11:25:56 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/19 15:28:31 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,14 @@ void	ft_group_paths(t_lem_in *lem_in)
 		moving = lem_in->paths;
 		while (moving)
 		{
-			if (ft_compare_rooms(path, moving))
-				ft_add_to_group(group, moving);
-			moving = moving->next;
+			if (moving->highway->room == lem_in->start && moving->highway->next->room == lem_in->end)
+				moving = moving->next;
+			if (moving)
+			{
+				if (ft_compare_rooms(path, moving))
+					ft_add_to_group(group, moving);
+				moving = moving->next;
+			}
 		}
 		path = path->next;
 	}

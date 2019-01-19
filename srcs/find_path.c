@@ -6,7 +6,7 @@
 /*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 17:57:02 by svaskeli          #+#    #+#             */
-/*   Updated: 2019/01/17 11:29:20 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/19 15:23:30 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	ft_bfs(t_lem_in *lem_in)
 	ft_add_to_queue(lem_in, lem_in->end);
 	lem_in->end->visited = 1;
 
-	while (lem_in->queue && lem_in->queue->room != lem_in->start)
+	while (lem_in->queue)
 	{
 		top_room = lem_in->queue->room;
 		ft_pop_queue(lem_in);
@@ -129,7 +129,9 @@ int	ft_bfs(t_lem_in *lem_in)
 		add = 0;
 		while (top_room->links[i])
 		{
-			if (top_room->links[i]->visited == 0 
+			if (top_room == lem_in->end && top_room->links[i] == lem_in->start)
+				i++;
+			if (top_room->links[i] && top_room->links[i]->visited == 0 
 					&& top_room->links[i]->flow == 0)
 			{
 				ft_add_to_queue(lem_in, top_room->links[i]);
@@ -137,19 +139,23 @@ int	ft_bfs(t_lem_in *lem_in)
 				top_room->links[i]->visited = 1;
 				add++;
 			}
-			i++;
+			if (top_room->links[i])
+				i++;
 		}
 		i = 0;
 		while (top_room->links[i] && !add)
 		{
-			if (top_room->links[i]->visited == 0
+			if (top_room == lem_in->end && top_room->links[i] == lem_in->start)
+				i++;
+			if (top_room->links[i] && top_room->links[i]->visited == 0
 				&& top_room->links[i]->flow == 1)
 			{
 				ft_add_to_queue(lem_in, top_room->links[i]);
 				top_room->links[i]->lvl = top_room->lvl + 1;
 				top_room->links[i]->visited = 1;
 			}
-			i++;
+			if (top_room->links[i])
+				i++;
 		}
 	}
 	while (lem_in->queue)
@@ -157,6 +163,7 @@ int	ft_bfs(t_lem_in *lem_in)
 		tmp = lem_in->queue;
 		lem_in->queue  = lem_in->queue->next;
 		free(tmp);
+		tmp = NULL;
 	}
 	lem_in->queue = NULL;
 	if (lem_in->start->visited == 1)
@@ -180,36 +187,53 @@ void	ft_update_length(t_paths *path)
 	path->length = i;
 }
 
-void	ft_fill_size(t_lem_in *lem_in)
-{
-	t_groups	*groups;
-	t_group		*group;
-	int			length;
-	int			size;
+// void	ft_fill_size(t_lem_in *lem_in)
+// {
+// 	t_groups	*groups;
+// 	t_group		*group;
+// 	int			length;
+// 	int			size;
 
-	groups = lem_in->groups;
-	while (groups)
-	{
-		length = 0;
-		size = 0;
-		group = groups->group;
-		while (group)
-		{
-			length += group->path->length;
-			size++;
-			group = group->next;
-		}
-		groups->size = size;
-		groups->total_length = length;
-		groups = groups->next;
-	}
+// 	groups = lem_in->groups;
+// 	while (groups)
+// 	{
+// 		length = 0;
+// 		size = 0;
+// 		group = groups->group;
+// 		while (group)
+// 		{
+// 			length += group->path->length;
+// 			size++;
+// 			group = group->next;
+// 		}
+// 		groups->size = size;
+// 		groups->total_length = length;
+// 		groups = groups->next;
+// 	}
+// }
+
+void	add_direct_path(t_lem_in *lem_in)
+{
+	t_paths		*path;
+
+	path = ft_add_path(lem_in);
+	ft_add_to_path(path, lem_in->start);
+	ft_add_to_path(path, lem_in->end);
 }
 
 int		ft_edmonds_karp(t_lem_in *lem_in)
 {
 	t_paths	*road;
 	t_path	*highway;
+	int		i;
 
+	i = 0;
+	while (lem_in->start->links[i])
+	{
+		if (lem_in->start->links[i] == lem_in->end)
+			add_direct_path(lem_in);
+		i++;
+	}
 	while (ft_bfs(lem_in))
 	{
 		ft_recover_path(lem_in);
@@ -231,7 +255,7 @@ int		ft_edmonds_karp(t_lem_in *lem_in)
 	{
 		ft_remove_dublicates(lem_in);
 		ft_group_paths(lem_in);
-		ft_fill_size(lem_in);
+//		ft_fill_size(lem_in);
 	}
 	return (0);
 }
