@@ -15,7 +15,7 @@ void    ft_populate_array(t_lem_in *lem_in)
         j = 0;
         while (tmp && j < lem_in->depth && i < lem_in->ant_count)
         {
-//           array[i + j] = (t_paths *)malloc(sizeof(t_paths));
+//            array[i + j] = (t_paths *)malloc(sizeof(t_paths));
             array[i + j] = tmp;
             tmp = tmp->next;
             j++;
@@ -55,7 +55,13 @@ void    ft_display_results(t_lem_in *lem_in)
             if (lem_in->array[i - 1]->highway)
             {
                 ant = ft_build_ant(i, lem_in->array[i - 1]->highway->room->name);
-                line = ft_strjoin(line, ant);
+                if (ft_strcmp(line, "") == 0)
+                    line = ft_strjoin(line, ant);
+                else
+                {
+                    line = ft_strjoin(line, " ");
+                    line = ft_strjoin(line, ant);
+                }
             }
             lem_in->array[i - 1]->highway = lem_in->array[i - 1]->highway->next;
             i++;

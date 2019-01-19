@@ -49,7 +49,7 @@ typedef struct		s_lem_in
 	struct s_groups	*shortest;
 	int				length;
 	int				depth;
-	struct s_paths	**array;
+	struct s_ant	**array;
 	int				flag_a;
 	int				flag_r;
 	int				flag_l;
@@ -58,6 +58,13 @@ typedef struct		s_lem_in
 	int				flag_g;
 	int				flag_all;
 }					t_lem_in;
+
+typedef struct		s_ant
+{
+	struct s_path	*path;
+	int 			traveled;
+	int				end;
+}					t_ant;
 
 /*
 **		a path group - holds pointers to actual paths

@@ -79,6 +79,7 @@ void    ft_lem_in_solve(t_lem_in *lem_in)
                 lem_in->shortest = tmp;
                 lem_in->length = steps;
                 lem_in->depth = i;
+                ft_printf("updated! len: %d, depth: %d\n", lem_in->length, lem_in->depth);
             }
             path = path->next;
             i++;
