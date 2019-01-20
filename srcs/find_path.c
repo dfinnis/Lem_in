@@ -107,13 +107,32 @@ void	ft_recover_path(t_lem_in *lem_in)
 	while (path->last->room != lem_in->end)
 	{
 		i = 0;
-		while ((path->last->room->links[i] && path->last->room->links[i]->lvl != (path->last->room->lvl - 1))
-				|| (path->last->room->links[i]->lvl == 0 && path->last->room->links[i] != lem_in->end)
-				|| path->last->room->links[i] == lem_in->start || !path->last->room->links[i]->visited)
+		while ((path->last->room->links[i]
+			&& path->last->room->links[i]->lvl != (path->last->room->lvl - 1))
+			|| (path->last->room->links[i]->lvl == 0
+			&& path->last->room->links[i] != lem_in->end)
+			|| path->last->room->links[i] == lem_in->start
+			|| !path->last->room->links[i]->visited)
 			i++;
 		ft_add_to_path(path, path->last->room->links[i], lem_in);
 	}
 }
+
+// int ft_bfs_no_flow(t_lem_in *lem_in)
+// {
+// 	if (top_room == lem_in->end && top_room->links[i] == lem_in->start)
+// 		i++;
+// 	if (top_room->links[i] && top_room->links[i]->visited == 0 
+// 			&& top_room->links[i]->flow == 0)
+// 	{
+// 		ft_add_to_queue(lem_in, top_room->links[i]);
+// 		top_room->links[i]->lvl = top_room->lvl + 1;
+// 		top_room->links[i]->visited = 1;
+// 		add++;
+// 	}
+// 	if (top_room->links[i])
+// 		i++;
+// }
 
 int	ft_bfs(t_lem_in *lem_in)
 {
@@ -125,7 +144,6 @@ int	ft_bfs(t_lem_in *lem_in)
 	ft_reset_visited(lem_in);
 	ft_add_to_queue(lem_in, lem_in->end);
 	lem_in->end->visited = 1;
-
 	while (lem_in->queue)
 	{
 		top_room = lem_in->queue->room;
@@ -192,31 +210,6 @@ void	ft_update_length(t_paths *path)
 	path->length = i;
 }
 
-// void	ft_fill_size(t_lem_in *lem_in)
-// {
-// 	t_groups	*groups;
-// 	t_group		*group;
-// 	int			length;
-// 	int			size;
-
-// 	groups = lem_in->groups;
-// 	while (groups)
-// 	{
-// 		length = 0;
-// 		size = 0;
-// 		group = groups->group;
-// 		while (group)
-// 		{
-// 			length += group->path->length;
-// 			size++;
-// 			group = group->next;
-// 		}
-// 		groups->size = size;
-// 		groups->total_length = length;
-// 		groups = groups->next;
-// 	}
-// }
-
 void	add_direct_path(t_lem_in *lem_in)
 {
 	t_paths		*path;
@@ -226,10 +219,27 @@ void	add_direct_path(t_lem_in *lem_in)
 	ft_add_to_path(path, lem_in->end, lem_in);
 }
 
-int		ft_edmonds_karp(t_lem_in *lem_in)
+void	ft_bfs_loop(t_lem_in *lem_in)
 {
 	t_paths	*road;
 	t_path	*highway;
+
+	ft_recover_path(lem_in);
+	road = lem_in->paths;
+	while (road->next)
+		road = road->next;
+	ft_update_length(road);
+	highway = road->highway;
+	while (highway)
+	{
+		if (highway->room != lem_in->start && highway->room != lem_in->end)
+			highway->room->flow++;
+		highway = highway->next;
+	}
+}
+
+void	ft_edmonds_karp(t_lem_in *lem_in)
+{
 	int		i;
 
 	i = 0;
@@ -240,20 +250,7 @@ int		ft_edmonds_karp(t_lem_in *lem_in)
 		i++;
 	}
 	while (ft_bfs(lem_in))
-	{
-		ft_recover_path(lem_in);
-		road = lem_in->paths;
-		while (road->next)
-			road = road->next;
-		ft_update_length(road);
-		highway = road->highway;
-		while (highway)
-		{
-			if (highway->room != lem_in->start && highway->room != lem_in->end)
-				highway->room->flow++;
-			highway = highway->next;
-		}
-	}
+		ft_bfs_loop(lem_in);
 	if (!lem_in->paths)
 		ft_lem_in_error(lem_in, "no path");
 	else
@@ -261,5 +258,4 @@ int		ft_edmonds_karp(t_lem_in *lem_in)
 		ft_remove_dublicates(lem_in);
 		ft_group_paths(lem_in);
 	}
-	return (0);
 }

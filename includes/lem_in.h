@@ -167,7 +167,7 @@ void				ft_group_paths(t_lem_in *lem_in);
 ** 		find_path.c
 */
 
-int					ft_edmonds_karp(t_lem_in *lem_in);
+void				ft_edmonds_karp(t_lem_in *lem_in);
 void				ft_print_paths(t_paths *path);
 
 /*
