@@ -82,7 +82,7 @@ static void	ft_display_bonus(t_lem_in *lem_in)
 	if (lem_in->flag_l)
 		ft_display_links(lem_in);
 	if (lem_in->flag_rl)
-		ft_print_room_links(lem_in);
+		ft_display_room_links(lem_in);
 	if (lem_in->flag_p)
 		ft_display_paths(lem_in);
 	if (lem_in->flag_g)
@@ -99,7 +99,7 @@ int			main(int argc, char **argv)
 	ft_read_flags(&lem_in, argc, argv);
 	ft_lem_in_parse(&lem_in);
 	ft_build_graph(&lem_in);
-	ft_edmonds_karp(&lem_in);
+	ft_solve_algo(&lem_in);
 	ft_lem_in_solve(&lem_in);
 	ft_display_results(&lem_in);
 	ft_display_bonus(&lem_in);

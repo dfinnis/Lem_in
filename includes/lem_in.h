@@ -63,33 +63,29 @@ typedef struct		s_lem_in
 }					t_lem_in;
 
 /*
-**		an individual ant - holds it's path, and how far it's travelled
+**		rooms with links and full information -> graph structure
 */
-typedef struct		s_ant
+typedef struct		s_room
 {
-	struct s_path	*path;
-	int				traveled;
-	int				end;
-}					t_ant;
+	char			*name;
+	long long		x;
+	long long		y;
+	int				lvl;
+	int				flow;
+	int				visited;
+	struct s_room	*next;
+	struct s_room	**links;
+}					t_room;
 
 /*
-**		a path group - holds pointers to actual paths
+**		to store links, when parsing
 */
-typedef struct		s_group
+typedef struct		s_link
 {
-	struct s_paths	*path;
-	struct s_group	*next;
-}					t_group;
-
-/*
-**		grouped paths structure - each node has a pointer to a different group
-*/
-typedef struct		s_groups
-{
-	struct s_group	*group;
-	struct s_group	*last;
-	struct s_groups	*next;
-}					t_groups;
+	struct s_room	*from;
+	struct s_room	*to;
+	struct s_link	*next;
+}					t_link;
 
 /*
 **		a queue data sructure for the BFS algorithm
@@ -121,29 +117,33 @@ typedef struct		s_paths
 }					t_paths;
 
 /*
-**		rooms with links and full information -> graph structure
+**		a path group - holds pointers to actual paths
 */
-typedef struct		s_room
+typedef struct		s_group
 {
-	char			*name;
-	long long		x;
-	long long		y;
-	int				lvl;
-	int				flow;
-	int				visited;
-	struct s_room	*next;
-	struct s_room	**links;
-}					t_room;
+	struct s_paths	*path;
+	struct s_group	*next;
+}					t_group;
 
 /*
-**		to store links, when parsing
+**		grouped paths structure - each node has a pointer to a different group
 */
-typedef struct		s_link
+typedef struct		s_groups
 {
-	struct s_room	*from;
-	struct s_room	*to;
-	struct s_link	*next;
-}					t_link;
+	struct s_group	*group;
+	struct s_group	*last;
+	struct s_groups	*next;
+}					t_groups;
+
+/*
+**		an individual ant - holds it's path, and how far it's travelled
+*/
+typedef struct		s_ant
+{
+	struct s_path	*path;
+	int				traveled;
+	int				end;
+}					t_ant;
 
 /*
 **		lem_in.c
@@ -181,7 +181,7 @@ void				ft_build_graph(t_lem_in *lem_in);
 /*
 ** 		path_find.c
 */
-void				ft_edmonds_karp(t_lem_in *lem_in);
+void				ft_solve_algo(t_lem_in *lem_in);
 
 /*
 ** 		path_queue.c
@@ -232,7 +232,7 @@ void				ft_display_links(t_lem_in *lem_in);
 /*
 **		display_rl.c
 */
-void				ft_print_room_links(t_lem_in *lem_in);
+void				ft_display_room_links(t_lem_in *lem_in);
 
 /*
 **		display_paths.c

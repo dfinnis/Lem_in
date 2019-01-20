@@ -91,7 +91,7 @@ static void	ft_bfs_loop(t_lem_in *lem_in)
 	}
 }
 
-void		ft_edmonds_karp(t_lem_in *lem_in)
+void		ft_solve_algo(t_lem_in *lem_in)
 {
 	int		i;
 

@@ -58,7 +58,7 @@ static void	ft_display_rl_only_link(t_lem_in *lem_in, t_room *tmp, int i)
 		ft_printf(" %24s - %s\n", "", tmp->links[i]->name);
 }
 
-void		ft_print_room_links(t_lem_in *lem_in)
+void		ft_display_room_links(t_lem_in *lem_in)
 {
 	int		i;
 	t_room	*tmp;
