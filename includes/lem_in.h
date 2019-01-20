@@ -18,22 +18,21 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-#define NAME_SPACE 1
-#define LINK_SELF 1
-#define LINK_DUP 1
-#define MAX_INT 0
-#define MAX_ANTS 20000
+# define NAME_SPACE 1
+# define LINK_SELF 1
+# define LINK_DUP 1
+# define MAX_INT 0
+# define MAX_ANTS 20000
 
-#define BRIGHT		"\x1b[1m"
-#define UNDERLINE	"\x1b[4m"
-#define GREEN		"\x1B[32m"
-#define RED			"\x1B[31m"
-#define RESET		"\x1B[0m"
+# define BRIGHT		"\x1b[1m"
+# define UNDERLINE	"\x1b[4m"
+# define GREEN		"\x1B[32m"
+# define RED		"\x1B[31m"
+# define RESET		"\x1B[0m"
 
 /*
-**		main structure - holds pointers to other structures and other information
+**		main structure - holds pointers to other structures and information
 */
-
 typedef struct		s_lem_in
 {
 	char			*line;
@@ -69,7 +68,7 @@ typedef struct		s_lem_in
 typedef struct		s_ant
 {
 	struct s_path	*path;
-	int 			traveled;
+	int				traveled;
 	int				end;
 }					t_ant;
 
@@ -111,7 +110,7 @@ typedef	struct		s_path
 }					t_path;
 
 /*
-**		paths structure - holds paths, each node has a pointer to a different path
+**		paths structure - holds paths, each node has a pointer to another path
 */
 typedef struct		s_paths
 {
@@ -139,7 +138,7 @@ typedef struct		s_room
 /*
 **		to store links, when parsing
 */
-typedef struct 		s_link
+typedef struct		s_link
 {
 	struct s_room	*from;
 	struct s_room	*to;
@@ -149,85 +148,77 @@ typedef struct 		s_link
 /*
 **		lem_in.c
 */
-void				ft_usage(t_lem_in *lem_in);
-void				ft_read_flags(t_lem_in *lem_in, int argc, char **argv);
-void				ft_all_flags(t_lem_in *lem_in);
-void				ft_display_bonus(t_lem_in *lem_in);
 int					main(int argc, char **argv);
 
 /*
 **		parse.c
 */
-void				ft_parse_ants(t_lem_in *lem_in);
-void				ft_parse_comment(t_lem_in *lem_in);
+void				ft_lem_in_parse(t_lem_in *lem_in);
+
+/*
+**		parse_room.c
+*/
+void				ft_add_room(t_lem_in *lem_in, t_room **new);
 int					ft_find_coordinate(char *line, int n);
 void				ft_max_coordinate(t_lem_in *lem_in, int coordinate);
 void				ft_coordinate_isdigit(t_lem_in *lem_in, char line);
-void				ft_parse_room(t_lem_in *lem_in);
-t_room				*ft_find_room(t_lem_in *lem_in, char to_from);
-void				ft_parse_link(t_lem_in *lem_in);
-void				ft_lem_in_parse(t_lem_in *lem_in);
 
 /*
 **		parse_support.c
 */
-void				ft_add_room(t_lem_in *lem_in, t_room **new);
+
 void				ft_check_duplicate(t_lem_in *lem_in, t_room *new);
 void				ft_start_end(t_lem_in *lem_in, t_room *new);
 void				ft_add_link(t_lem_in *lem_in, t_link **new);
 void				ft_is_room(t_lem_in *lem_in, char *link);
+t_room				*ft_find_room(t_lem_in *lem_in, char to_from);
 
 /*
 ** 		build_graph.c
 */
-//static void			ft_linkjoin(t_room *room, t_room *link, t_lem_in *lem_in);
-//static void			ft_add_tubes(t_room *room, t_room *link, t_lem_in *lem_in);
 void				ft_build_graph(t_lem_in *lem_in);
 
 /*
-** 		find_path.c
+** 		path_find.c
+*/
+void				ft_edmonds_karp(t_lem_in *lem_in);
+
+/*
+** 		path_queue.c
 */
 void				ft_add_to_queue(t_lem_in *lem_in, t_room *room);
 void				ft_pop_queue(t_lem_in *lem_in);
 void				ft_reset_visited(t_lem_in *lem_in);
-t_paths				*ft_add_path(t_lem_in *lem_in);
-void				ft_add_to_path(t_paths *path, t_room *room, t_lem_in *lem_in);
-void				ft_recover_path(t_lem_in *lem_in);
-//static int			ft_bfs_no_flow(t_lem_in *lem_in, t_room *top_room, int i);
-//static int			ft_bfs_flow(t_lem_in *lem_in, t_room *top_room, int i);
-int					ft_bfs(t_lem_in *lem_in);
-void				ft_update_length(t_paths *path);
-void				add_direct_path(t_lem_in *lem_in);
-void				ft_bfs_loop(t_lem_in *lem_in);
-void				ft_edmonds_karp(t_lem_in *lem_in);
+void				ft_sort_group(t_lem_in *lem_in);
 
 /*
-** 		solve.c
+** 		path_build.c
 */
-int					ft_find_length(t_group *path, int depth, int ants);
-//static void			ft_store_shortest(t_lem_in *lem_in, t_groups *tmp, int steps, int i);
-void				ft_lem_in_solve(t_lem_in *lem_in);
+void				ft_update_length(t_paths *path);
+void				ft_add_direct_path(t_lem_in *lem_in);
+void				ft_recover_path(t_lem_in *lem_in);
 
 /*
 ** 		path_select.c
 */
-int					ft_compare_path(t_paths *path, t_paths *moving);
-void				ft_remove_path(t_lem_in *lem_in, t_paths **path);
 void				ft_remove_duplicates(t_lem_in *lem_in);
+
+/*
+** 		path_group.c
+*/
 t_groups			*ft_add_group(t_lem_in *lem_in);
-t_groups			*ft_add_to_group(t_groups *group, t_paths *path, t_lem_in *lem_in);
-int					ft_compare_rooms(t_paths *path, t_paths *moving);
-int					ft_interate_cmp(t_groups *new_group, t_paths *second_path);
+t_groups			*ft_add_to_group(t_groups *group,
+	t_paths *path, t_lem_in *lem_in);
 void				ft_group_paths(t_lem_in *lem_in);
 
 /*
-** 		results.c
+** 		solve.c
 */
-void				ft_initialize_ant(t_ant **array, t_lem_in *lem_in);
-void				ft_populate_array(t_lem_in *lem_in);
-char				*ft_build_ant(int i, t_ant *ant, t_lem_in *lem_in);
-void				ft_sort_group(t_lem_in *lem_in);
-char				*ft_build_line(t_lem_in *lem_in, char *line, int i);
+void				ft_lem_in_solve(t_lem_in *lem_in);
+
+/*
+** 		display_results.c
+*/
 void				ft_display_results(t_lem_in *lem_in);
 
 /*
@@ -236,27 +227,34 @@ void				ft_display_results(t_lem_in *lem_in);
 void				ft_display_turn_count(t_lem_in *lem_in);
 void				ft_display_ants(t_lem_in *lem_in);
 void				ft_display_rooms(t_lem_in *lem_in);
-//static void			ft_display_links_slave(t_lem_in *lem_in, t_link *tmp);
 void				ft_display_links(t_lem_in *lem_in);
-//static void			ft_display_rl_no_link(t_lem_in *lem_in, t_room *tmp);
-//static void			ft_display_rl(t_lem_in *lem_in, t_room *tmp);
-//static void			ft_display_rl_only_link(t_lem_in *lem_in, t_room *tmp, int i);
+
+/*
+**		display_rl.c
+*/
 void				ft_print_room_links(t_lem_in *lem_in);
+
+/*
+**		display_paths.c
+*/
 void				ft_display_paths(t_lem_in *lem_in);
-void				ft_print_path(t_paths *paths);
 void				ft_display_groups(t_lem_in *lem_in);
 
 /*
 **		error.c
 */
 void				ft_lem_in_error(t_lem_in *lem_in, char *err_message);
-void				ft_free_rooms(t_room *room);
-void				ft_free_links(t_link *link);
-void				ft_free_queue(t_queue *queue);
-void				ft_free_paths(t_paths *paths);
-void				ft_free_groups(t_groups *groups);
-void				ft_free_ants(t_ant **ant);
-void				ft_lem_in_free(t_lem_in *lem_in);
 void				ft_parse_error(t_lem_in *lem_in);
+
+/*
+**		free.c
+*/
+void				ft_lem_in_free(t_lem_in *lem_in);
+
+/*
+**		free_more.c
+*/
+void				ft_free_ants(t_ant **ant);
+void				ft_free_queue(t_queue *queue);
 
 #endif

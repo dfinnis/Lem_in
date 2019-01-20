@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int			ft_find_length(t_group *path, int depth, int ants)
+static int	ft_find_length(t_group *path, int depth, int ants)
 {
 	t_group	*tmp;
 	int		j;

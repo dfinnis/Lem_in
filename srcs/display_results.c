@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   results_2.c                                        :+:      :+:    :+:   */
+/*   display_results.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/19 10:58:59 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/19 15:28:33 by svaskeli         ###   ########.fr       */
+/*   Created: 2019/01/20 16:46:28 by dfinnis           #+#    #+#             */
+/*   Updated: 2019/01/20 16:46:32 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_initialize_ant(t_ant **array, t_lem_in *lem_in)
+static void	ft_initialize_ant(t_ant **array, t_lem_in *lem_in)
 {
 	if (!(*array = (t_ant *)malloc(sizeof(t_ant))))
 		ft_lem_in_error(lem_in, "malloc fail in ft_initialize_ant");
@@ -20,7 +20,7 @@ void	ft_initialize_ant(t_ant **array, t_lem_in *lem_in)
 	(*array)->traveled = 1;
 }
 
-void	ft_populate_array(t_lem_in *lem_in)
+static void	ft_populate_array(t_lem_in *lem_in)
 {
 	t_ant	**array;
 	int		i;
@@ -47,7 +47,7 @@ void	ft_populate_array(t_lem_in *lem_in)
 	lem_in->array = array;
 }
 
-char	*ft_build_ant(int i, t_ant *ant, t_lem_in *lem_in)
+static char	*ft_build_ant(int i, t_ant *ant, t_lem_in *lem_in)
 {
 	char	*line;
 	int		count;
@@ -71,28 +71,7 @@ char	*ft_build_ant(int i, t_ant *ant, t_lem_in *lem_in)
 	return (line);
 }
 
-void	ft_sort_group(t_lem_in *lem_in)
-{
-	t_group	*tmp;
-	t_paths	*swap;
-	int		count;
-
-	count = 0;
-	tmp = lem_in->shortest->group;
-	while (tmp && tmp->next && count++ < lem_in->depth)
-	{
-		if (tmp->path->length > tmp->next->path->length)
-		{
-			swap = tmp->path;
-			tmp->path = tmp->next->path;
-			tmp->next->path = swap;
-			tmp = lem_in->shortest->group;
-		}
-		tmp = tmp->next;
-	}
-}
-
-char	*ft_build_line(t_lem_in *lem_in, char *line, int i)
+static char	*ft_build_line(t_lem_in *lem_in, char *line, int i)
 {
 	char	*ant;
 
@@ -111,7 +90,7 @@ char	*ft_build_line(t_lem_in *lem_in, char *line, int i)
 	return (line);
 }
 
-void	ft_display_results(t_lem_in *lem_in)
+void		ft_display_results(t_lem_in *lem_in)
 {
 	int		i;
 	int		j;

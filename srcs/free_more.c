@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   free_more.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 13:41:28 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/10 14:35:56 by svaskeli         ###   ########.fr       */
+/*   Created: 2019/01/20 16:31:25 by dfinnis           #+#    #+#             */
+/*   Updated: 2019/01/20 16:31:26 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_lem_in_error(t_lem_in *lem_in, char *err_message)
+void	ft_free_queue(t_queue *queue)
 {
-	ft_printf("ERROR %s\n", err_message);
-	ft_lem_in_free(lem_in);
-	exit(1);
+	t_queue *tmp;
+
+	while (queue)
+	{
+		tmp = queue;
+		queue = queue->next;
+		free(tmp);
+		tmp = NULL;
+	}
 }
 
-void	ft_parse_error(t_lem_in *lem_in)
+void	ft_free_ants(t_ant **ant)
 {
-	if (!lem_in->start)
-		ft_lem_in_error(lem_in, "no start");
-	if (!lem_in->end)
-		ft_lem_in_error(lem_in, "no end");
-	if (!lem_in->link)
-		ft_lem_in_error(lem_in, "no links");
-	if (lem_in->start == lem_in->end)
-		ft_lem_in_error(lem_in, "start and end same");
+	int i;
+
+	i = 0;
+	while (ant[i])
+	{
+		free(ant[i]);
+		ant[i] = NULL;
+		i++;
+	}
+	if (ant)
+		free(ant);
+	ant = NULL;
 }

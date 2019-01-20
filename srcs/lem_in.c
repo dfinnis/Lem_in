@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void		ft_usage(t_lem_in *lem_in)
+static void	ft_usage(t_lem_in *lem_in)
 {
 	ft_putstr("usage:\t./lem-in ");
 	ft_putstr("[-t] [-a] [-r] [-l] [-rl] [-p] [-g] [-all] < map.map\n");
@@ -28,7 +28,7 @@ void		ft_usage(t_lem_in *lem_in)
 	exit(1);
 }
 
-void		ft_read_flags(t_lem_in *lem_in, int argc, char **argv)
+static void	ft_read_flags(t_lem_in *lem_in, int argc, char **argv)
 {
 	int		i;
 
@@ -57,7 +57,7 @@ void		ft_read_flags(t_lem_in *lem_in, int argc, char **argv)
 	}
 }
 
-void		ft_all_flags(t_lem_in *lem_in)
+static void	ft_all_flags(t_lem_in *lem_in)
 {
 	lem_in->flag_t = 1;
 	lem_in->flag_a = 1;
@@ -68,7 +68,7 @@ void		ft_all_flags(t_lem_in *lem_in)
 	lem_in->flag_g = 1;
 }
 
-void		ft_display_bonus(t_lem_in *lem_in)
+static void	ft_display_bonus(t_lem_in *lem_in)
 {
 	if (lem_in->flag_t || lem_in->flag_a || lem_in->flag_rl || lem_in->flag_all
 		|| lem_in->flag_r || lem_in->flag_p || lem_in->flag_g || lem_in->flag_l)

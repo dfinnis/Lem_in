@@ -24,8 +24,10 @@ INC = includes/
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
 
-SRCS_FILES = lem_in.c parse.c parse_support.c error.c display.c build_graph.c \
-find_path.c path_select.c solve.c results.c
+SRCS_FILES = lem_in.c parse.c parse_room.c parse_support.c build_graph.c \
+path_find.c path_queue.c path_build.c path_select.c path_group.c \
+solve.c display_results.c display_parse.c display_rl.c display_paths.c error.c \
+free.c free_more.c
 
 SRCS_PATH = $(SRCS_FILES:%=$(SRCS_DIR)%)
 

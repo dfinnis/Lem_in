@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void	ft_parse_ants(t_lem_in *lem_in)
+static void	ft_parse_ants(t_lem_in *lem_in)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ void	ft_parse_ants(t_lem_in *lem_in)
 		ft_lem_in_error(lem_in, "number of ants out of acceptable range");
 }
 
-void	ft_parse_comment(t_lem_in *lem_in)
+static void	ft_parse_comment(t_lem_in *lem_in)
 {
 	if (ft_strcmp(lem_in->line, "##start") == 0)
 		lem_in->start_flag = 1;
@@ -34,28 +34,7 @@ void	ft_parse_comment(t_lem_in *lem_in)
 		lem_in->end_flag = 1;
 }
 
-int		ft_find_coordinate(char *line, int n)
-{
-	while (line[n] && ft_isdigit(line[n]))
-		n--;
-	if (line[n] == '-')
-		n--;
-	return (n);
-}
-
-void	ft_max_coordinate(t_lem_in *lem_in, int coordinate)
-{
-	if (MAX_INT && (coordinate > 2147483647 || coordinate < -2147483648))
-		ft_lem_in_error(lem_in, "coordinate outside of int range");
-}
-
-void	ft_coordinate_isdigit(t_lem_in *lem_in, char line)
-{
-	if (!ft_isdigit(line))
-		ft_lem_in_error(lem_in, "coordinate not digit");
-}
-
-void	ft_parse_room(t_lem_in *lem_in)
+static void	ft_parse_room(t_lem_in *lem_in)
 {
 	int		n;
 	t_room	*new;
@@ -84,31 +63,7 @@ void	ft_parse_room(t_lem_in *lem_in)
 	ft_start_end(lem_in, new);
 }
 
-t_room	*ft_find_room(t_lem_in *lem_in, char to_from)
-{
-	t_room	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = lem_in->room;
-	while (lem_in->line[i] != '-')
-		i++;
-	while (tmp && to_from == 'f')
-	{
-		if (ft_strncmp(tmp->name, lem_in->line, (size_t)i) == 0)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	while (tmp && to_from == 't')
-	{
-		if (ft_strcmp(tmp->name, &(lem_in->line[i + 1])) == 0)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-void	ft_parse_link(t_lem_in *lem_in)
+static void	ft_parse_link(t_lem_in *lem_in)
 {
 	t_link	*new;
 	t_link	*tmp;
@@ -134,7 +89,7 @@ void	ft_parse_link(t_lem_in *lem_in)
 	}
 }
 
-void	ft_lem_in_parse(t_lem_in *lem_in)
+void		ft_lem_in_parse(t_lem_in *lem_in)
 {
 	get_next_line(0, &lem_in->line);
 	ft_parse_ants(lem_in);
