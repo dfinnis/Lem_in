@@ -20,9 +20,9 @@ void	ft_parse_ants(t_lem_in *lem_in)
 	while (lem_in->line[++i])
 		if (!(ft_isdigit(lem_in->line[i])))
 			ft_lem_in_error(lem_in, "invalid first line: number of ants");
-	if (!(lem_in->ant_count = ft_atoi(lem_in->line)))
+	if (!(lem_in->ant_c = ft_atoi(lem_in->line)))
 		ft_lem_in_error(lem_in, "invalid first line: number of ants");
-	if (lem_in->ant_count < 1 || lem_in->ant_count > MAX_ANTS)
+	if (lem_in->ant_c < 1 || lem_in->ant_c > MAX_ANTS)
 		ft_lem_in_error(lem_in, "number of ants out of acceptable range");
 }
 
