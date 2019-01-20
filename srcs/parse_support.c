@@ -30,7 +30,7 @@ void	ft_add_room(t_lem_in *lem_in, t_room **new)
 		lem_in->room = *new;
 }
 
-void	ft_check_duplicate(t_lem_in *lem_in, t_room	*new)
+void	ft_check_duplicate(t_lem_in *lem_in, t_room *new)
 {
 	t_room	*tmp;
 
@@ -98,7 +98,7 @@ void	ft_is_room(t_lem_in *lem_in, char *link)
 		if (ft_strcmp(tmp->name, link) == 0)
 		{
 			found = 1;
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 	}

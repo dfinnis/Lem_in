@@ -260,7 +260,6 @@ int		ft_edmonds_karp(t_lem_in *lem_in)
 	{
 		ft_remove_dublicates(lem_in);
 		ft_group_paths(lem_in);
-//		ft_fill_size(lem_in);
 	}
 	return (0);
 }

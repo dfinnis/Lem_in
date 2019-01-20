@@ -83,13 +83,13 @@ typedef struct		s_group
 **		grouped paths structure - each node has a pointer to a different group
 */
 
-typedef struct			s_groups
+typedef struct		s_groups
 {
 	struct s_group	*group;
 	struct s_group	*last;
 	struct s_groups	*next;
-	// int				size;
-	// int				total_length;
+	// int			size;
+	// int			total_length;
 }					t_groups;
 
 /*
