@@ -142,23 +142,24 @@ void	ft_display_paths(t_lem_in *lem_in) //modify to use copy pointer - not to in
 {
 	int 	i;
 	t_paths *roads;
+	t_path	*highway;
 
 	i = 1;
 	roads = lem_in->paths;
-	// ft_print_groups(lem_in); //need to seperate with another flag?
 	ft_printf(BRIGHT "Paths:\n\n" RESET, i);
 	while (roads)
 	{
 		ft_printf(UNDERLINE "Path %d\n" RESET, i);
-		while (roads->highway)
+		highway = roads->highway;
+		while (highway)
 		{
-			if (roads->highway->room == lem_in->start)
-				ft_printf(GREEN "%s\n" RESET, roads->highway->room->name);
-			else if (roads->highway->room == lem_in->end)
-				ft_printf(RED "%s\n" RESET, roads->highway->room->name);
+			if (highway->room == lem_in->start)
+				ft_printf(GREEN "%s\n" RESET, highway->room->name);
+			else if (highway->room == lem_in->end)
+				ft_printf(RED "%s\n" RESET, highway->room->name);
 			else
-				ft_printf("%s\n", roads->highway->room->name);
-			roads->highway = roads->highway->next;
+				ft_printf("%s\n", highway->room->name);
+			highway = highway->next;
 		}
 		ft_printf("length = %i\n", roads->length);
 		ft_printf("\n");
@@ -193,15 +194,13 @@ void    ft_print_groups(t_lem_in *lem_in)
     {
         i = 1;
         group = groups->group;
-        ft_printf("\nNEW GROUP -%i-\n", j++);
+        ft_printf("\nNEW GROUP - %i -\n", j++);
         while (group)
         {
-            ft_printf("--%i path--\n", i++);
+            ft_printf("-- %i path --\n", i++);
             ft_print_path(group->path);
             group = group->next;
         }
-        // ft_printf("size = %i\n", groups->size);
-        // ft_printf("total length = %i\n\n", groups->total_length);
         groups = groups->next;
     }
 }

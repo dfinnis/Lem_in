@@ -12,14 +12,14 @@
 
 #include "lem_in.h"
 
-int		ft_compare_path(t_paths *path, t_paths *moving)
+int			ft_compare_path(t_paths *path, t_paths *moving)
 {
 	t_path	*highway;
 	t_path	*moving_high;
 
 	highway = path->highway;
 	moving_high = moving->highway;
-	while(highway && moving_high)
+	while (highway && moving_high)
 	{
 		if (highway->room != moving_high->room)
 			return (0);
@@ -32,7 +32,7 @@ int		ft_compare_path(t_paths *path, t_paths *moving)
 		return (0);
 }
 
-void	ft_remove_path(t_lem_in *lem_in, t_paths **path)
+void		ft_remove_path(t_lem_in *lem_in, t_paths **path)
 {
 	t_paths	*remove;
 	t_path	*tmp;
@@ -45,14 +45,14 @@ void	ft_remove_path(t_lem_in *lem_in, t_paths **path)
 	{
 		tmp = (*path)->highway;
 		(*path)->highway = (*path)->highway->next;
- 		free(tmp);
+		free(tmp);
 		tmp = NULL;
 	}
 	free(*path);
 	*path = NULL;
 }
 
-void	ft_remove_dublicates(t_lem_in *lem_in)
+void		ft_remove_dublicates(t_lem_in *lem_in)
 {
 	t_paths	*path;
 	t_paths	*moving_path;
@@ -114,7 +114,7 @@ t_groups	*ft_add_to_group(t_groups *group, t_paths *path, t_lem_in *lem_in)
 	return (group);
 }
 
-int		ft_compare_rooms(t_paths *path, t_paths *moving)
+int			ft_compare_rooms(t_paths *path, t_paths *moving)
 {
 	t_path *room;
 	t_path *move;
@@ -134,14 +134,13 @@ int		ft_compare_rooms(t_paths *path, t_paths *moving)
 	return (1);
 }
 
-void	ft_group_paths(t_lem_in *lem_in)
+void		ft_group_paths(t_lem_in *lem_in)
 {
 	t_paths		*first_path;
 	t_paths		*second_path;
 	t_groups	*new_group;
 	t_group		*tmp_group;
 	int			dub;
-
 
 	first_path = lem_in->paths;
 	while (first_path)
