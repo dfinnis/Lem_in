@@ -34,6 +34,15 @@ void	ft_parse_comment(t_lem_in *lem_in)
 		lem_in->end_flag = 1;
 }
 
+int		ft_find_coordinate(char *line, int n)
+{
+	while (line[n] && ft_isdigit(line[n]))
+		n--;
+	if (line[n] == '-')
+		n--;
+	return (n);
+}
+
 void	ft_parse_room(t_lem_in *lem_in)
 {
 	int		n;
@@ -47,19 +56,13 @@ void	ft_parse_room(t_lem_in *lem_in)
 		n++;
 	if (!ft_isdigit(lem_in->line[--n]))
 		ft_lem_in_error(lem_in, "y coordinate not digit");
-	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
-		n--;
-	if (lem_in->line[n] == '-')
-		n--;
+	n = ft_find_coordinate(lem_in->line, n);
 	new->y = ft_atoi_intmax(lem_in->line + n + 1);
 	if (MAX_INT && (new->y > 2147483647 || new->y < -2147483648))
 		ft_lem_in_error(lem_in, "y coordinate outside of int range");
 	if (!ft_isdigit(lem_in->line[--n]))
 		ft_lem_in_error(lem_in, "x coordinate not digit");
-	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
-		n--;
-	if (lem_in->line[n] == '-')
-		n--;
+	n = ft_find_coordinate(lem_in->line, n);
 	new->x = ft_atoi_intmax(lem_in->line + n + 1);
 	if (MAX_INT && (new->x > 2147483647 || new->x < -2147483648))
 		ft_lem_in_error(lem_in, "y coordinate outside of int range");

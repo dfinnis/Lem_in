@@ -14,8 +14,7 @@
 
 void		ft_usage(t_lem_in *lem_in)
 {
-	ft_putstr("usage:\t
-		./lem-in [-t] [-a] [-r] [-l] [-rl] [-p] [-all] < map.map\n");
+	ft_putstr("usage:\t./lem-in [-t] [-a] [-r] [-l] [-rl] [-p] [-all] < map.map\n");
 	ft_putstr("\n\t[-t] display number of turns\n");
 	ft_putstr("\t[-a] display number of ants\n");
 	ft_putstr("\t[-r] display rooms\n");
