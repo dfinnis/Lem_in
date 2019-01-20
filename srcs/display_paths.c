@@ -41,14 +41,19 @@ void		ft_display_paths(t_lem_in *lem_in)
 	}
 }
 
-static void	ft_print_path(t_paths *paths)
+static void	ft_print_path(t_lem_in *lem_in, t_paths *paths)
 {
 	t_path	*path;
 
 	path = paths->highway;
 	while (path)
 	{
-		ft_printf("%s\n", path->room->name);
+		if (path->room == lem_in->start)
+			ft_printf(GREEN "%s\n" RESET, path->room->name);
+		else if (path->room == lem_in->end)
+			ft_printf(RED "%s\n" RESET, path->room->name);
+		else
+			ft_printf("%s\n", path->room->name);
 		path = path->next;
 	}
 	ft_printf("\n");
@@ -68,11 +73,11 @@ void		ft_display_groups(t_lem_in *lem_in)
 	{
 		i = 1;
 		group = groups->group;
-		ft_printf("NEW GROUP - %i -\n", j++);
+		ft_printf(UNDERLINE "--- Group %i ---\n" RESET, j++);
 		while (group)
 		{
 			ft_printf("-- path %i --\n", i++);
-			ft_print_path(group->path);
+			ft_print_path(lem_in, group->path);
 			group = group->next;
 		}
 		groups = groups->next;
