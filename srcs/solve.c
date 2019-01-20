@@ -52,16 +52,14 @@ void		ft_lem_in_solve(t_lem_in *lem_in)
 	tmp = lem_in->groups;
 	while (tmp)
 	{
-		i = 1;
+		i = 0;
 		path = tmp->group;
-		while (path && i <= lem_in->ant_c)
+		while (++i <= lem_in->ant_c)
 		{
 			steps = ft_find_length(path, i, lem_in->ant_c);
 			if (steps < lem_in->length)
 				ft_store_shortest(lem_in, tmp, steps, i);
-			path = path->next;
-			i++;
-		}
+		} //removed path incrementation
 		tmp = tmp->next;
 	}
 }

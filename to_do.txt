@@ -1,11 +1,18 @@
 algo problems: (probably in solve.c)
-[] test2 we 99 them: 35
-[] test3 we: 42 them: 32
-[] test_big we: 55 them: 52
-[] test_big2 we: 110 them: 110
+[] test2 we 38 them: 35
+[] test3 we: 33 them: 32
+[] test_big we: 34 (wrong) them: 52
+[] test_big2 we: 103 (wrong) them: 110
 
+>>>
+some fixed, but still problems:
+out4(test_big) and out5(test_big2) has dublicate paths...
+
+DONE:
 [] wrote aditional function to find the end - need to norm
+[] modified solve
 
+LEAKS:
 [] sometimes indirectly lost, but seems to be in valgind:
 - leak err_over_max_int
 - leak err_over_max_long_long

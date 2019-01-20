@@ -88,6 +88,26 @@ static int	ft_interate_cmp(t_groups *new_group, t_paths *second_path)
 	return (dup);
 }
 
+t_groups	*ft_sort_paths(t_groups *group)
+{
+	t_group	*tmp;
+	t_paths	*swap;
+
+	tmp = group->group;
+	while (tmp && tmp->next)
+	{
+		if (tmp->path->length > tmp->next->path->length)
+		{
+			swap = tmp->path;
+			tmp->path = tmp->next->path;
+			tmp->next->path = swap;
+			tmp = group->group;
+		}
+		tmp = tmp->next;
+	}
+	return (group);
+}
+
 void		ft_group_paths(t_lem_in *lem_in)
 {
 	t_paths		*first_path;
@@ -108,6 +128,7 @@ void		ft_group_paths(t_lem_in *lem_in)
 				new_group = ft_add_to_group(new_group, second_path, lem_in);
 			second_path = second_path->next;
 		}
+		new_group = ft_sort_paths(new_group); // to allways have the shortest path in front??
 		first_path = first_path->next;
 	}
 }

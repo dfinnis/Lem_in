@@ -111,7 +111,7 @@ void		ft_display_results(t_lem_in *lem_in)
 	char	*line;
 
 	j = 0;
-	ft_sort_group(lem_in);
+//	ft_sort_group(lem_in);
 	ft_populate_array(lem_in);
 	while (ft_is_end(lem_in))
 	{
@@ -122,7 +122,7 @@ void		ft_display_results(t_lem_in *lem_in)
 		while (i <= lem_in->ant_c)
 		{
 			line = ft_build_line(lem_in, line, i++);
-			if (i > j * lem_in->depth)
+			if (i > j * lem_in->depth) //too many ants in one line???
 				break ;
 		}
 		ft_printf("%s\n", line);
