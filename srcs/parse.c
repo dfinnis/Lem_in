@@ -20,7 +20,7 @@ void	ft_parse_ants(t_lem_in *lem_in)
 	while (lem_in->line[++i])
 		if (!(ft_isdigit(lem_in->line[i])))
 			ft_lem_in_error(lem_in, "invalid first line: number of ants");
-	if (!(lem_in->ant_count = ft_atoi(lem_in->line)))//correct atoi??
+	if (!(lem_in->ant_count = ft_atoi(lem_in->line)))
 		ft_lem_in_error(lem_in, "invalid first line: number of ants");
 	if (lem_in->ant_count < 1 || lem_in->ant_count > MAX_ANTS)
 		ft_lem_in_error(lem_in, "number of ants out of acceptable range");
@@ -43,6 +43,18 @@ int		ft_find_coordinate(char *line, int n)
 	return (n);
 }
 
+void	ft_max_coordinate(t_lem_in *lem_in, int coordinate)
+{
+	if (MAX_INT && (coordinate > 2147483647 || coordinate < -2147483648))
+		ft_lem_in_error(lem_in, "coordinate outside of int range");
+}
+
+void	ft_coordinate_isdigit(t_lem_in *lem_in, char line)
+{
+	if (!ft_isdigit(line))
+		ft_lem_in_error(lem_in, "coordinate not digit");
+}
+
 void	ft_parse_room(t_lem_in *lem_in)
 {
 	int		n;
@@ -54,24 +66,20 @@ void	ft_parse_room(t_lem_in *lem_in)
 	ft_add_room(lem_in, &new);
 	while (lem_in->line[n])
 		n++;
-	if (!ft_isdigit(lem_in->line[--n]))
-		ft_lem_in_error(lem_in, "y coordinate not digit");
+	ft_coordinate_isdigit(lem_in, lem_in->line[--n]);
 	n = ft_find_coordinate(lem_in->line, n);
 	new->y = ft_atoi_intmax(lem_in->line + n + 1);
-	if (MAX_INT && (new->y > 2147483647 || new->y < -2147483648))
-		ft_lem_in_error(lem_in, "y coordinate outside of int range");
-	if (!ft_isdigit(lem_in->line[--n]))
-		ft_lem_in_error(lem_in, "x coordinate not digit");
+	ft_max_coordinate(lem_in, new->y);
+	ft_coordinate_isdigit(lem_in, lem_in->line[--n]);
 	n = ft_find_coordinate(lem_in->line, n);
 	new->x = ft_atoi_intmax(lem_in->line + n + 1);
-	if (MAX_INT && (new->x > 2147483647 || new->x < -2147483648))
-		ft_lem_in_error(lem_in, "y coordinate outside of int range");
+	ft_max_coordinate(lem_in, new->x);
 	if (!(new->name = ft_strndup(lem_in->line, n)))
-		ft_lem_in_error(lem_in, "strdup fail in ft_parse_room");
+		ft_lem_in_error(lem_in, "strndup fail in ft_parse_room");
 	if (new->name[0] == 'L')
 		ft_lem_in_error(lem_in, "room name starts with 'L'");
 	if (!NAME_SPACE && ft_strchr(new->name, ' '))
-		ft_lem_in_error(lem_in, "room formatted incorrectly (to accept spaces in names set NAME_SPACE to 1)");
+		ft_lem_in_error(lem_in, "room name contains space");
 	ft_check_duplicate(lem_in, new);
 	ft_start_end(lem_in, new);
 }
@@ -112,13 +120,15 @@ void	ft_parse_link(t_lem_in *lem_in)
 	if (!(new->to = ft_find_room(lem_in, 't')))
 		ft_lem_in_error(lem_in, "link to unknown room");
 	if (!LINK_SELF && (new->from == new->to))
-		ft_lem_in_error(lem_in, "link to self (to accept links to self set LINK_SELF to 1)");
+		ft_lem_in_error(lem_in, "link to self \
+			(to accept links to self set LINK_SELF to 1)");
 	if (!LINK_DUP)
 	{
 		while (tmp)
 		{
 			if (new->from == tmp->from && new->to == tmp->to)
-				ft_lem_in_error(lem_in, "link duplicated (to accept duplicated links set LINK_DUP to 1)");
+				ft_lem_in_error(lem_in, "link duplicated \
+					(to accept duplicated links set LINK_DUP to 1)");
 			tmp = tmp->next;
 		}
 	}
@@ -136,7 +146,7 @@ void	ft_lem_in_parse(t_lem_in *lem_in)
 			ft_parse_comment(lem_in);
 		else if (ft_strchr(lem_in->line, ' '))
 			ft_parse_room(lem_in);
-		else if (ft_strchr(lem_in->line, '-')) //add links into seperate get_next_line
+		else if (ft_strchr(lem_in->line, '-'))
 			ft_parse_link(lem_in);
 		else
 			ft_lem_in_error(lem_in, "line not comment, command, room or link");
