@@ -37,7 +37,7 @@
 typedef struct		s_lem_in
 {
 	char			*line;
-	int				ant_count;
+	int				ant_c;
 	int				start_flag;
 	int				end_flag;
 	struct s_room	*room;

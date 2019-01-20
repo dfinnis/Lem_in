@@ -22,7 +22,7 @@ void	ft_display_turn_count(t_lem_in *lem_in)
 void	ft_display_ants(t_lem_in *lem_in)
 {
 	ft_printf(BRIGHT "Number of ants:\n" RESET);
-	ft_printf(" %d\n\n", lem_in->ant_count);
+	ft_printf(" %d\n\n", lem_in->ant_c);
 }
 
 void	ft_display_rooms(t_lem_in *lem_in)

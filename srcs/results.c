@@ -27,15 +27,15 @@ void    ft_populate_array(t_lem_in *lem_in)
 	int		j;
 	t_group	*tmp;
 
-	if (!(array = (t_ant **)malloc(sizeof(t_ant *) * (lem_in->ant_count + 1))))
+	if (!(array = (t_ant **)malloc(sizeof(t_ant *) * (lem_in->ant_c + 1))))
 		ft_lem_in_error(lem_in, "malloc fail in ft_populate_array");
 	i = 0;
 
-	while (i < lem_in->ant_count)
+	while (i < lem_in->ant_c)
 	{
 		tmp = lem_in->shortest->group;
 		j = 0;
-		while (tmp && j < lem_in->depth && i < lem_in->ant_count)
+		while (tmp && j < lem_in->depth && i < lem_in->ant_c)
 		{
 			ft_initialize_ant(&array[i], lem_in);
 			array[i]->path = tmp->path->highway;
@@ -103,13 +103,13 @@ void    ft_display_results(t_lem_in *lem_in)
 	j = 0;
 	ft_sort_group(lem_in);
 	ft_populate_array(lem_in);
-	while (!lem_in->array[lem_in->ant_count - 1]->end || !lem_in->array[0]->end)
+	while (!lem_in->array[lem_in->ant_c - 1]->end || !lem_in->array[0]->end)
 	{
 		i = 1;
 		j++;
 		if (!(line = ft_strdup("")))
 			ft_lem_in_error(lem_in, "strdup fail in ft_display_results");
-		while (i <= lem_in->ant_count)
+		while (i <= lem_in->ant_c)
 		{
 			if (lem_in->array[i - 1]->path)
 			{
