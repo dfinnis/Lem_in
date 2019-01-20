@@ -99,10 +99,8 @@ char	*ft_build_line(t_lem_in *lem_in, char *line, int i)
 	if (lem_in->array[i - 1]->path)
 	{
 		ant = ft_build_ant(i, lem_in->array[i - 1], lem_in);
-		// if (ft_strcmp(line, ""))
-		if (line[0])
+		if (*line && ant)
 		{
-			// ft_printf("clearer: %s\n", line);
 			if (!(line = ft_strjoinfree_s1(line, " ")))
 				ft_lem_in_error(lem_in, "strjoin space fail");
 		}
