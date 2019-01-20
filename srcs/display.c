@@ -170,37 +170,37 @@ void	ft_display_paths(t_lem_in *lem_in)
 
 void    ft_print_path(t_paths *paths)
 {
-    t_path  *path;
+	t_path  *path;
 
-    path = paths->highway;
-    while (path)
-    {
-        ft_printf("%s\n", path->room->name);
-        path = path->next;
-    }
-    ft_printf("\n");
+	path = paths->highway;
+	while (path)
+	{
+		ft_printf("%s\n", path->room->name);
+		path = path->next;
+	}
+	ft_printf("\n");
 }
 
 void    ft_print_groups(t_lem_in *lem_in)
 {
-    t_groups    *groups;
-    t_group     *group;
-    int         i;
-    int         j;
+	t_groups    *groups;
+	t_group     *group;
+	int         i;
+	int         j;
 
-    groups = lem_in->groups;
-    j = 1;
-    while (groups)
-    {
-        i = 1;
-        group = groups->group;
-        ft_printf("\nNEW GROUP - %i -\n", j++);
-        while (group)
-        {
-            ft_printf("-- %i path --\n", i++);
-            ft_print_path(group->path);
-            group = group->next;
-        }
-        groups = groups->next;
-    }
+	groups = lem_in->groups;
+	j = 1;
+	while (groups)
+	{
+		i = 1;
+		group = groups->group;
+		ft_printf("\nNEW GROUP - %i -\n", j++);
+		while (group)
+		{
+			ft_printf("-- %i path --\n", i++);
+			ft_print_path(group->path);
+			group = group->next;
+		}
+		groups = groups->next;
+	}
 }
