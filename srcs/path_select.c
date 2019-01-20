@@ -154,14 +154,9 @@ void		ft_group_paths(t_lem_in *lem_in)
 			tmp_group = new_group->group;
 			while (tmp_group)
 			{
-				if (second_path->highway->room == lem_in->start
-					&& second_path->highway->next->room == lem_in->end)
-					second_path = second_path->next;
-				if (second_path)
-				{
-					if (!ft_compare_rooms(tmp_group->path, second_path))
-						dub++;
-				}
+				if (!ft_compare_rooms(tmp_group->path, second_path)
+					|| tmp_group->path == second_path)
+					dub++;
 				tmp_group = tmp_group->next;
 			}
 			if (!dub)
