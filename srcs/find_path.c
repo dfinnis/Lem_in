@@ -238,7 +238,7 @@ void		ft_edmonds_karp(t_lem_in *lem_in)
 		ft_lem_in_error(lem_in, "no path");
 	else
 	{
-		ft_remove_dublicates(lem_in);
+		ft_remove_duplicates(lem_in);
 		ft_group_paths(lem_in);
 	}
 }

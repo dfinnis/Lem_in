@@ -160,7 +160,7 @@ void	ft_display_results(t_lem_in *lem_in);
 ** 		path_select.c
 */
 
-void				ft_remove_dublicates(t_lem_in *lem_in);
+void				ft_remove_duplicates(t_lem_in *lem_in);
 void				ft_group_paths(t_lem_in *lem_in);
 
 /*

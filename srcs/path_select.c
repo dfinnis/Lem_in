@@ -52,7 +52,7 @@ void		ft_remove_path(t_lem_in *lem_in, t_paths **path)
 	*path = NULL;
 }
 
-void		ft_remove_dublicates(t_lem_in *lem_in)
+void		ft_remove_duplicates(t_lem_in *lem_in)
 {
 	t_paths	*path;
 	t_paths	*moving_path;
