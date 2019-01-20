@@ -20,17 +20,16 @@ void	ft_initialize_ant(t_ant **array, t_lem_in *lem_in)
 	(*array)->traveled = 1;
 }
 
-void    ft_populate_array(t_lem_in *lem_in)
+void	ft_populate_array(t_lem_in *lem_in)
 {
 	t_ant	**array;
 	int		i;
 	int		j;
 	t_group	*tmp;
 
+	i = 0;
 	if (!(array = (t_ant **)malloc(sizeof(t_ant *) * (lem_in->ant_c + 1))))
 		ft_lem_in_error(lem_in, "malloc fail in ft_populate_array");
-	i = 0;
-
 	while (i < lem_in->ant_c)
 	{
 		tmp = lem_in->shortest->group;
@@ -48,7 +47,7 @@ void    ft_populate_array(t_lem_in *lem_in)
 	lem_in->array = array;
 }
 
-char    *ft_build_ant(int i, t_ant *ant, t_lem_in *lem_in)
+char	*ft_build_ant(int i, t_ant *ant, t_lem_in *lem_in)
 {
 	char	*line;
 	int		count;
@@ -93,17 +92,33 @@ void	ft_sort_group(t_lem_in *lem_in)
 	}
 }
 
-void    ft_display_results(t_lem_in *lem_in)
+char	*ft_build_line(t_lem_in *lem_in, char *line, int i)
 {
-	int  i;
-	int  j;
-	char *line;
-	char *ant;
+	char	*ant;
+
+	if (lem_in->array[i - 1]->path)
+	{
+		ant = ft_build_ant(i, lem_in->array[i - 1], lem_in);
+		if (ft_strcmp(line, ""))
+			if (!(line = ft_strjoinfree_s1(line, " ")))
+				ft_lem_in_error(lem_in, "strjoin space fail");
+		if (ant)
+			if (!(line = ft_strjoinfree(line, ant)))
+				ft_lem_in_error(lem_in, "strjoin ant fail");
+	}
+	return (line);
+}
+
+void	ft_display_results(t_lem_in *lem_in)
+{
+	int		i;
+	int		j;
+	char	*line;
 
 	j = 0;
 	ft_sort_group(lem_in);
 	ft_populate_array(lem_in);
-	while (!lem_in->array[lem_in->ant_c - 1]->end || !lem_in->array[0]->end)
+	while (!lem_in->array[0]->end || !lem_in->array[lem_in->ant_c - 1]->end)
 	{
 		i = 1;
 		j++;
@@ -111,27 +126,12 @@ void    ft_display_results(t_lem_in *lem_in)
 			ft_lem_in_error(lem_in, "strdup fail in ft_display_results");
 		while (i <= lem_in->ant_c)
 		{
-			if (lem_in->array[i - 1]->path)
-			{
-				ant = ft_build_ant(i, lem_in->array[i - 1], lem_in);
-				if (ft_strcmp(line, ""))
-				{
-				   	if (!(line = ft_strjoinfree_s1(line, " ")))
-						ft_lem_in_error(lem_in, "strjoin " " fail in ft_display_results");
-				}
-				if (ant)
-				{
-					if (!(line = ft_strjoinfree(line, ant)))
-						ft_lem_in_error(lem_in, "strjoin ant fail in ft_display_results");
-				}
-			}
-			i++;
+			line = ft_build_line(lem_in, line, i++);
 			if (i > j * lem_in->depth)
 				break ;
 		}
 		ft_printf("%s\n", line);
-		if (line)
-			free (line);
+		free(line);
 		line = NULL;
 	}
 	lem_in->turn_count = j;

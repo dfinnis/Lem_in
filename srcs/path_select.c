@@ -140,7 +140,7 @@ void		ft_group_paths(t_lem_in *lem_in)
 	t_paths		*second_path;
 	t_groups	*new_group;
 	t_group		*tmp_group;
-	int			dub;
+	int			dup;
 
 	first_path = lem_in->paths;
 	while (first_path)
@@ -150,16 +150,16 @@ void		ft_group_paths(t_lem_in *lem_in)
 		second_path = lem_in->paths;
 		while (second_path)
 		{
-			dub = 0;
+			dup = 0;
 			tmp_group = new_group->group;
 			while (tmp_group)
 			{
 				if (!ft_compare_rooms(tmp_group->path, second_path)
 					|| tmp_group->path == second_path)
-					dub++;
+					dup++;
 				tmp_group = tmp_group->next;
 			}
-			if (!dub)
+			if (!dup)
 				new_group = ft_add_to_group(new_group, second_path, lem_in);
 			second_path = second_path->next;
 		}
