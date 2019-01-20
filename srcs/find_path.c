@@ -150,20 +150,6 @@ static int	ft_bfs_flow(t_lem_in *lem_in, t_room *top_room, int i)
 	return (i);
 }
 
-static void	ft_free_bfs_queue(t_lem_in *lem_in)
-{
-	t_queue	*tmp;
-
-	while (lem_in->queue)
-	{
-		tmp = lem_in->queue;
-		lem_in->queue = lem_in->queue->next;
-		free(tmp);
-		tmp = NULL;
-	}
-	lem_in->queue = NULL;
-}
-
 int			ft_bfs(t_lem_in *lem_in)
 {
 	int		i;
@@ -180,10 +166,12 @@ int			ft_bfs(t_lem_in *lem_in)
 		while (top_room->links[i])
 			i = ft_bfs_no_flow(lem_in, top_room, i);
 		i = 0;
-		while (top_room->links[i] && !lem_in->queue)
-			i = ft_bfs_flow(lem_in, top_room, i);
+		if (!lem_in->queue)
+			while (top_room->links[i])
+				i = ft_bfs_flow(lem_in, top_room, i);
 	}
-	ft_free_bfs_queue(lem_in);
+	ft_free_queue(lem_in->queue);
+	lem_in->queue = NULL;
 	if (lem_in->start->visited == 1)
 		return (1);
 	else
