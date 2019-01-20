@@ -21,9 +21,9 @@ void	ft_parse_ants(t_lem_in *lem_in)
 		if (!(ft_isdigit(lem_in->line[i])))
 			ft_lem_in_error(lem_in, "invalid first line: number of ants");
 	if (!(lem_in->ant_count = ft_atoi(lem_in->line)))//correct atoi??
-		ft_lem_in_error(/*lem_in*/"invalid first line: number of ants");
+		ft_lem_in_error(lem_in, "invalid first line: number of ants");
 	if (lem_in->ant_count < 1 || lem_in->ant_count > MAX_ANTS)
-		ft_lem_in_error(/*lem_in*/"number of ants out of acceptable range");
+		ft_lem_in_error(lem_in, "number of ants out of acceptable range");
 }
 
 void	ft_parse_comment(t_lem_in *lem_in)
@@ -53,7 +53,7 @@ void	ft_parse_room(t_lem_in *lem_in)
 		n--;
 	new->y = ft_atoi_intmax(lem_in->line + n + 1);
 	if (MAX_INT && (new->y > 2147483647 || new->y < -2147483648))
-		ft_lem_in_error(/*lem_in*/"y coordinate outside of int range");
+		ft_lem_in_error(lem_in, "y coordinate outside of int range");
 	if (!ft_isdigit(lem_in->line[--n]))
 		ft_lem_in_error(lem_in, "x coordinate not digit");
 	while (lem_in->line[n] && ft_isdigit(lem_in->line[n]))
@@ -62,13 +62,13 @@ void	ft_parse_room(t_lem_in *lem_in)
 		n--;
 	new->x = ft_atoi_intmax(lem_in->line + n + 1);
 	if (MAX_INT && (new->x > 2147483647 || new->x < -2147483648))
-		ft_lem_in_error(/*lem_in*/"y coordinate outside of int range");
+		ft_lem_in_error(lem_in, "y coordinate outside of int range");
 	if (!(new->name = ft_strndup(lem_in->line, n)))
 		ft_lem_in_error(lem_in, "strdup fail in ft_parse_room");
 	if (new->name[0] == 'L')
 		ft_lem_in_error(lem_in, "room name starts with 'L'");
 	if (!NAME_SPACE && ft_strchr(new->name, ' '))
-		ft_lem_in_error(lem_in, "room formatted incorrectly	(to accept spaces in names set NAME_SPACE to 1)");
+		ft_lem_in_error(lem_in, "room formatted incorrectly (to accept spaces in names set NAME_SPACE to 1)");
 	ft_check_duplicate(lem_in, new);
 	ft_start_end(lem_in, new);
 }

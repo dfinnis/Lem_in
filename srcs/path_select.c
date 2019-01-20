@@ -148,8 +148,7 @@ void	ft_group_paths(t_lem_in *lem_in)
 	while (path)
 	{
 		group = ft_add_group(lem_in);
-		ft_add_to_group(group, path);
-//		moving = lem_in->paths;
+		ft_add_to_group(group, path, lem_in);
 		tmp_groups = lem_in->groups;
 		while (tmp_groups->next)
 			tmp_groups = tmp_groups->next;
@@ -164,7 +163,7 @@ void	ft_group_paths(t_lem_in *lem_in)
 					moving = moving->next;
 				if (moving)
 				{
-					if (ft_compare_rooms(path, moving))
+					if (!ft_compare_rooms(path, moving) && path->highway != moving->highway)
 					{
 						dub++;
 						cpy = moving;
@@ -175,7 +174,7 @@ void	ft_group_paths(t_lem_in *lem_in)
 			tmp = tmp->next;
 		}
 		if (!dub)
-			ft_add_to_group(group, cpy);
+			ft_add_to_group(group, cpy, lem_in);
 		path = path->next;
 	}
 }
