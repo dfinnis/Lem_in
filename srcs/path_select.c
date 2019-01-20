@@ -98,7 +98,7 @@ t_groups	*ft_add_group(t_lem_in *lem_in)
 	}
 }
 
-void	ft_add_to_group(t_groups *group, t_paths *path, t_lem_in *lem_in)
+t_groups	*ft_add_to_group(t_groups *group, t_paths *path, t_lem_in *lem_in)
 {
 	t_group *new;
 
@@ -111,6 +111,7 @@ void	ft_add_to_group(t_groups *group, t_paths *path, t_lem_in *lem_in)
 	if (group->last)
 		group->last->next = new;
 	group->last = new;
+	return (group);
 }
 
 int		ft_compare_rooms(t_paths *path, t_paths *moving)
@@ -135,46 +136,39 @@ int		ft_compare_rooms(t_paths *path, t_paths *moving)
 
 void	ft_group_paths(t_lem_in *lem_in)
 {
-	t_paths		*path;
-	t_paths		*moving;
-	t_paths		*cpy;
-	t_groups	*group;
-	t_groups	*tmp_groups;
-	t_group		*tmp;
+	t_paths		*first_path;
+	t_paths		*second_path;
+	t_groups	*new_group;
+	t_group		*tmp_group;
 	int			dub;
 
 
-	path = lem_in->paths;
-	while (path)
+	first_path = lem_in->paths;
+	while (first_path)
 	{
-		group = ft_add_group(lem_in);
-		ft_add_to_group(group, path, lem_in);
-		tmp_groups = lem_in->groups;
-		while (tmp_groups->next)
-			tmp_groups = tmp_groups->next;
-		tmp = tmp_groups->group;
-		moving = tmp->path;
-		dub = 0;
-		while (tmp)
+		new_group = ft_add_group(lem_in);
+		new_group = ft_add_to_group(new_group, first_path, lem_in);
+		second_path = lem_in->paths;
+		while (second_path)
 		{
-			while (moving)
+			dub = 0;
+			tmp_group = new_group->group;
+			while (tmp_group)
 			{
-				if (moving->highway->room == lem_in->start && moving->highway->next->room == lem_in->end)
-					moving = moving->next;
-				if (moving)
+				if (second_path->highway->room == lem_in->start
+					&& second_path->highway->next->room == lem_in->end)
+					second_path = second_path->next;
+				if (second_path)
 				{
-					if (!ft_compare_rooms(path, moving) && path->highway != moving->highway)
-					{
+					if (!ft_compare_rooms(tmp_group->path, second_path))
 						dub++;
-						cpy = moving;
-					}
-					moving = moving->next;
 				}
+				tmp_group = tmp_group->next;
 			}
-			tmp = tmp->next;
+			if (!dub)
+				new_group = ft_add_to_group(new_group, second_path, lem_in);
+			second_path = second_path->next;
 		}
-		if (!dub)
-			ft_add_to_group(group, cpy, lem_in);
-		path = path->next;
+		first_path = first_path->next;
 	}
 }
