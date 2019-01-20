@@ -12,17 +12,10 @@
 
 #include "lem_in.h"
 
-t_lem_in	*ft_lem_in_initialize(t_lem_in *lem_in)
-{
-	//if(!(lem_in = (t_lem_in *)malloc(sizeof(t_lem_in))))
-	//	ft_lem_in_error(lem_in, "malloc lem_in fail");
-	ft_bzero(lem_in, sizeof(*lem_in));
-	return (lem_in);
-}
-
 void		ft_usage(t_lem_in *lem_in)
 {
-	ft_putstr("usage:\t./lem-in [-t] [-a] [-r] [-l] [-rl] [-p] [-all] < map.map\n");
+	ft_putstr("usage:\t
+		./lem-in [-t] [-a] [-r] [-l] [-rl] [-p] [-all] < map.map\n");
 	ft_putstr("\n\t[-t] display number of turns\n");
 	ft_putstr("\t[-a] display number of ants\n");
 	ft_putstr("\t[-r] display rooms\n");
@@ -63,8 +56,8 @@ void		ft_read_flags(t_lem_in *lem_in, int argc, char **argv)
 
 void		ft_display_bonus(t_lem_in *lem_in)
 {
-	if (lem_in->flag_all || lem_in->flag_t || lem_in->flag_a || lem_in->flag_r || lem_in->flag_l
-		|| lem_in->flag_rl || lem_in->flag_p)
+	if (lem_in->flag_all || lem_in->flag_t || lem_in->flag_a || lem_in->flag_r
+		|| lem_in->flag_l || lem_in->flag_rl || lem_in->flag_p)
 		ft_printf("\n");
 	if (lem_in->flag_all)
 	{
@@ -93,7 +86,6 @@ int			main(int argc, char **argv)
 {
 	t_lem_in	lem_in;
 
-	// lem_in = *ft_lem_in_initialize(&lem_in);
 	ft_bzero(&lem_in, sizeof(lem_in));
 	ft_read_flags(&lem_in, argc, argv);
 	ft_lem_in_parse(&lem_in);
