@@ -26,7 +26,7 @@ void	ft_free_rooms(t_room *room)
 	while (room)
 	{
 		tmp = room;
-		room  = room->next;
+		room = room->next;
 		if (tmp->name)
 			free(tmp->name);
 		tmp->name = NULL;
@@ -45,7 +45,7 @@ void	ft_free_links(t_link *link)
 	while (link)
 	{
 		tmp = link;
-		link  = link->next;
+		link = link->next;
 		free(tmp);
 		tmp = NULL;
 	}
@@ -87,8 +87,8 @@ void	ft_free_paths(t_paths *paths)
 
 void	ft_free_groups(t_groups *groups)
 {
-	t_groups *tmp;
-	t_group	*tmp_g;
+	t_groups	*tmp;
+	t_group		*tmp_g;
 
 	while (groups)
 	{
@@ -139,8 +139,6 @@ void	ft_lem_in_free(t_lem_in *lem_in)
 		ft_free_groups(lem_in->groups);
 	if (lem_in->array)
 		ft_free_ants(lem_in->array);
-//	free (lem_in);
-//	lem_in = NULL;
 }
 
 void	ft_parse_error(t_lem_in *lem_in)
