@@ -134,12 +134,28 @@ int			ft_compare_rooms(t_paths *path, t_paths *moving)
 	return (1);
 }
 
+int			ft_interate_cmp(t_groups *new_group, t_paths *second_path)
+{
+	t_group		*tmp_group;
+	int			dup;
+
+	dup = 0;
+	tmp_group = new_group->group;
+	while (tmp_group)
+	{
+		if (!ft_compare_rooms(tmp_group->path, second_path)
+			|| tmp_group->path == second_path)
+			dup++;
+		tmp_group = tmp_group->next;
+	}
+	return (dup);
+}
+
 void		ft_group_paths(t_lem_in *lem_in)
 {
 	t_paths		*first_path;
 	t_paths		*second_path;
 	t_groups	*new_group;
-	t_group		*tmp_group;
 	int			dup;
 
 	first_path = lem_in->paths;
@@ -150,15 +166,7 @@ void		ft_group_paths(t_lem_in *lem_in)
 		second_path = lem_in->paths;
 		while (second_path)
 		{
-			dup = 0;
-			tmp_group = new_group->group;
-			while (tmp_group)
-			{
-				if (!ft_compare_rooms(tmp_group->path, second_path)
-					|| tmp_group->path == second_path)
-					dup++;
-				tmp_group = tmp_group->next;
-			}
+			dup = ft_interate_cmp(new_group, second_path);
 			if (!dup)
 				new_group = ft_add_to_group(new_group, second_path, lem_in);
 			second_path = second_path->next;
