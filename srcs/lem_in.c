@@ -35,9 +35,7 @@ void		ft_read_flags(t_lem_in *lem_in, int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_strcmp(argv[i], "-t") == 0)
-			lem_in->flag_t = 1;
-		else if (ft_strcmp(argv[i], "-a") == 0)
+		if (ft_strcmp(argv[i], "-a") == 0)
 			lem_in->flag_a = 1;
 		else if (ft_strcmp(argv[i], "-r") == 0)
 			lem_in->flag_r = 1;
@@ -49,6 +47,8 @@ void		ft_read_flags(t_lem_in *lem_in, int argc, char **argv)
 			lem_in->flag_p = 1;
 		else if (ft_strcmp(argv[i], "-g") == 0)
 			lem_in->flag_g = 1;
+		else if (ft_strcmp(argv[i], "-t") == 0)
+			lem_in->flag_t = 1;
 		else if (ft_strcmp(argv[i], "-all") == 0)
 			lem_in->flag_all = 1;
 		else
@@ -75,8 +75,6 @@ void		ft_display_bonus(t_lem_in *lem_in)
 		ft_printf("\n");
 	if (lem_in->flag_all)
 		ft_all_flags(lem_in);
-	if (lem_in->flag_t)
-		ft_display_turn_count(lem_in);
 	if (lem_in->flag_a)
 		ft_display_ants(lem_in);
 	if (lem_in->flag_r)
@@ -89,6 +87,8 @@ void		ft_display_bonus(t_lem_in *lem_in)
 		ft_display_paths(lem_in);
 	if (lem_in->flag_g)
 		ft_display_groups(lem_in);
+	if (lem_in->flag_t)
+		ft_display_turn_count(lem_in);
 }
 
 int			main(int argc, char **argv)
