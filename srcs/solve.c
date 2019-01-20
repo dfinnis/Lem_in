@@ -35,55 +35,55 @@
 
 int     ft_find_length(t_group *path, int depth, int ants)
 {
-    t_group *tmp;
-    int     j;
-    int     steps;
+	t_group *tmp;
+	int     j;
+	int     steps;
 
-    tmp = path;
-    j = 1;
-    steps = 1;
-    while (tmp && j++ <= depth)
-    {
-        if (steps < tmp->path->length - 2 + (ants / depth))
-            steps = tmp->path->length - 2 + (ants / depth);
-        tmp = tmp->next;
-    }
-    return (steps);
+	tmp = path;
+	j = 1;
+	steps = 1;
+	while (tmp && j++ <= depth)
+	{
+		if (steps < tmp->path->length - 2 + (ants / depth))
+			steps = tmp->path->length - 2 + (ants / depth);
+		tmp = tmp->next;
+	}
+	return (steps);
 }
 
 void    ft_lem_in_solve(t_lem_in *lem_in)
 {
-    t_group     *path;
-    t_groups    *tmp;
-    int         i;
-    int         steps;
+	t_group     *path;
+	t_groups    *tmp;
+	int         i;
+	int         steps;
 
-    lem_in->shortest = lem_in->groups;
-    lem_in->length = lem_in->shortest->group->path->length - 2 + lem_in->ant_count;
-    lem_in->depth = 1;
-    if (lem_in->ant_count == 1)
-    {
-        // ft_print_group_short(lem_in);
-        return ;
-    }
-    tmp = lem_in->groups;
-    while (tmp)
-    {
-        i = 1;
-        path = tmp->group;
-        while(path && i <= lem_in->ant_count)
-        {
-            steps = ft_find_length(path, i, lem_in->ant_count);
-            if (steps < lem_in->length)
-            {
-                lem_in->shortest = tmp;
-                lem_in->length = steps;
-                lem_in->depth = i;
-            }
-            path = path->next;
-            i++;
-        }
-        tmp = tmp->next;
-    }
-    // ft_print_group_short(lem_in);
+	lem_in->shortest = lem_in->groups;
+	lem_in->length = lem_in->shortest->group->path->length - 2 + lem_in->ant_count;
+	lem_in->depth = 1;
+	if (lem_in->ant_count == 1)
+	{
+		// ft_print_group_short(lem_in);
+		return ;
+	}
+	tmp = lem_in->groups;
+	while (tmp)
+	{
+		i = 1;
+		path = tmp->group;
+		while(path && i <= lem_in->ant_count)
+		{
+			steps = ft_find_length(path, i, lem_in->ant_count);
+			if (steps < lem_in->length)
+			{
+				lem_in->shortest = tmp;
+				lem_in->length = steps;
+				lem_in->depth = i;
+			}
+			path = path->next;
+			i++;
+		}
+		tmp = tmp->next;
+	}
+	// ft_print_group_short(lem_in);
 }
