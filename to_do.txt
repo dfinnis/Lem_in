@@ -3,4 +3,11 @@
 
 [] leaks / error handling
 [] malloc protection
-[] potential segfaults / conditional jums/ ...
+[] potential segfaults / conditional jums/ ..
+
+leak err_over_max_int
+leak err_over_max_long_long
+leak err_room name starts with 'L'
+leak err_too_many_ants_10000
+leak negative_coordinates
+leak test2.1

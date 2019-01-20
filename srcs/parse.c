@@ -99,10 +99,10 @@ void		ft_lem_in_parse(t_lem_in *lem_in)
 	{
 		if (lem_in->line[0] == '#')
 			ft_parse_comment(lem_in);
-		else if (ft_strchr(lem_in->line, ' '))
-			ft_parse_room(lem_in);
 		else if (ft_strchr(lem_in->line, '-'))
 			ft_parse_link(lem_in);
+		else if (ft_strchr(lem_in->line, ' '))
+			ft_parse_room(lem_in);
 		else
 			ft_lem_in_error(lem_in, "line not comment, command, room or link");
 		ft_printf("%s\n", lem_in->line);
