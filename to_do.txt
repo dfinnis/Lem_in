@@ -1,13 +1,15 @@
-[] correct path grouping
-[] tidying up / norm / ...
+algo problems: (probably in solve.c)
+[] test2 we 99 them: 35
+[] test3 we: 42 them: 32
+[] test_big we: 55 them: 52
+[] test_big2 we: 110 them: 110
 
-[] leaks / error handling
-[] malloc protection
-[] potential segfaults / conditional jums/ ..
+[] wrote aditional function to find the end - need to norm
 
-leak err_over_max_int
-leak err_over_max_long_long
-leak err_room name starts with 'L'
-leak err_too_many_ants_10000
-leak negative_coordinates
-leak test2.1
+[] sometimes indirectly lost, but seems to be in valgind:
+- leak err_over_max_int
+- leak err_over_max_long_long
+- leak err_room name starts with 'L'
+- leak err_too_many_ants_10000
+- leak negative_coordinates
+- leak test2.1

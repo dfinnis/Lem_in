@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 16:46:28 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/20 16:46:32 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/01/20 20:16:33 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,20 @@ static char	*ft_build_line(t_lem_in *lem_in, char *line, int i)
 	return (line);
 }
 
+int			ft_is_end(t_lem_in *lem_in)
+{
+	int i;
+
+	i = 0;
+	while (lem_in->array[i])
+	{
+		if (!lem_in->array[i]->end)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void		ft_display_results(t_lem_in *lem_in)
 {
 	int		i;
@@ -99,7 +113,7 @@ void		ft_display_results(t_lem_in *lem_in)
 	j = 0;
 	ft_sort_group(lem_in);
 	ft_populate_array(lem_in);
-	while (!lem_in->array[0]->end || !lem_in->array[lem_in->ant_c - 1]->end)
+	while (ft_is_end(lem_in))
 	{
 		i = 1;
 		j++;
