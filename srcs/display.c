@@ -138,7 +138,7 @@ void	ft_print_room_links(t_lem_in *lem_in)
 	ft_printf("\n");
 }
 
-void	ft_display_paths(t_lem_in *lem_in) //modify to use copy pointer - not to increment original
+void	ft_display_paths(t_lem_in *lem_in)
 {
 	int 	i;
 	t_paths *roads;
@@ -204,4 +204,3 @@ void    ft_print_groups(t_lem_in *lem_in)
         groups = groups->next;
     }
 }
-
