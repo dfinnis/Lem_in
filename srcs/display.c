@@ -12,20 +12,19 @@
 
 #include "lem_in.h"
 
-void	ft_display_turn_count(t_lem_in *lem_in)
+void		ft_display_turn_count(t_lem_in *lem_in)
 {
-	
 	ft_printf(BRIGHT "Number of turns:\n" RESET);
 	ft_printf(" %d\n\n", lem_in->turn_count);
 }
 
-void	ft_display_ants(t_lem_in *lem_in)
+void		ft_display_ants(t_lem_in *lem_in)
 {
 	ft_printf(BRIGHT "Number of ants:\n" RESET);
 	ft_printf(" %d\n\n", lem_in->ant_c);
 }
 
-void	ft_display_rooms(t_lem_in *lem_in)
+void		ft_display_rooms(t_lem_in *lem_in)
 {
 	t_room	*tmp;
 
@@ -39,7 +38,7 @@ void	ft_display_rooms(t_lem_in *lem_in)
 			ft_printf(GREEN "%- 12ld| %- 12ld| %-10s| %s\n" RESET,
 				tmp->x, tmp->y, "Start", tmp->name);
 		else if (tmp == lem_in->end)
-			ft_printf(RED "%- 12ld| %- 12ld| %-10s| %s\x1B[0m\n" RESET,
+			ft_printf(RED "%- 12ld| %- 12ld| %-10s| %s\n" RESET,
 				tmp->x, tmp->y, "End", tmp->name);
 		else
 			ft_printf("%- 12ld| %- 12ld| %-10s| %s\n",
@@ -49,7 +48,33 @@ void	ft_display_rooms(t_lem_in *lem_in)
 	ft_printf("\n");
 }
 
-void	ft_display_links(t_lem_in *lem_in)
+static void	ft_display_links_slave(t_lem_in *lem_in, t_link *tmp)
+{
+	if ((ft_strcmp(tmp->from->name, lem_in->start->name) == 0)
+		&& (ft_strcmp(tmp->to->name, lem_in->end->name) == 0))
+		ft_printf("\x1B[32m %24s - \x1B[31m%s\x1B[0m\n",
+			tmp->from->name, tmp->to->name);
+	else if ((ft_strcmp(tmp->from->name, lem_in->end->name) == 0)
+		&& (ft_strcmp(tmp->to->name, lem_in->start->name) == 0))
+		ft_printf("\x1B[31m %24s - \x1B[32m%s\x1B[0m\n",
+			tmp->from->name, tmp->to->name);
+	else if (ft_strcmp(tmp->from->name, lem_in->start->name) == 0)
+		ft_printf("\x1B[32m %24s\x1B[0m - %s\n",
+			tmp->from->name, tmp->to->name);
+	else if (ft_strcmp(tmp->to->name, lem_in->start->name) == 0)
+		ft_printf(" %24s - \x1B[32m%s\x1B[0m\n",
+			tmp->from->name, tmp->to->name);
+	else if (ft_strcmp(tmp->from->name, lem_in->end->name) == 0)
+		ft_printf("\x1B[31m %24s\x1B[0m - %s\n",
+			tmp->from->name, tmp->to->name);
+	else if (ft_strcmp(tmp->to->name, lem_in->end->name) == 0)
+		ft_printf(" %24s - \x1B[31m%s\x1B[0m\n",
+			tmp->from->name, tmp->to->name);
+	else
+		ft_printf(" %24s - %s\n", tmp->from->name, tmp->to->name);
+}
+
+void		ft_display_links(t_lem_in *lem_in)
 {
 	t_link	*tmp;
 
@@ -58,48 +83,61 @@ void	ft_display_links(t_lem_in *lem_in)
 	ft_printf(UNDERLINE " %24s - %-24s\n" RESET, "From room", "To room");
 	while (tmp)
 	{
-		if ((ft_strcmp(tmp->from->name, lem_in->start->name) == 0)
-			&& (ft_strcmp(tmp->to->name, lem_in->end->name) == 0))
-			ft_printf("\x1B[32m %24s - \x1B[31m%s\x1B[0m\n", tmp->from->name, tmp->to->name);
-		else if ((ft_strcmp(tmp->from->name, lem_in->end->name) == 0)
-			&& (ft_strcmp(tmp->to->name, lem_in->start->name) == 0))
-			ft_printf("\x1B[31m %24s - \x1B[32m%s\x1B[0m\n", tmp->from->name, tmp->to->name);
-		else if (ft_strcmp(tmp->from->name, lem_in->start->name) == 0)
-			ft_printf("\x1B[32m %24s\x1B[0m - %s\n", tmp->from->name, tmp->to->name);
-		else if (ft_strcmp(tmp->to->name, lem_in->start->name) == 0)
-			ft_printf(" %24s - \x1B[32m%s\x1B[0m\n", tmp->from->name, tmp->to->name);
-		else if (ft_strcmp(tmp->from->name, lem_in->end->name) == 0)
-			ft_printf("\x1B[31m %24s\x1B[0m - %s\n", tmp->from->name, tmp->to->name);
-		else if (ft_strcmp(tmp->to->name, lem_in->end->name) == 0)
-			ft_printf(" %24s - \x1B[31m%s\x1B[0m\n", tmp->from->name, tmp->to->name);
-		else
-			ft_printf(" %24s - %s\n", tmp->from->name, tmp->to->name);
+		ft_display_links_slave(lem_in, tmp);
 		tmp = tmp->next;
 	}
 	ft_printf("\n");
 }
 
-static void	ft_print_room_links_slave(t_lem_in *lem_in, t_room *tmp)
+static void	ft_display_rl_no_link(t_lem_in *lem_in, t_room *tmp)
 {
-	if (tmp == lem_in->start && (ft_strcmp(tmp->links[0]->name, lem_in->end->name) == 0))
-		ft_printf("\x1B[32m %24s - \x1B[31m%s\x1B[0m\n", tmp->name, tmp->links[0]->name);
-	else if (tmp == lem_in->end && (ft_strcmp(tmp->links[0]->name, lem_in->start->name) == 0))
-		ft_printf("\x1B[31m %24s - \x1B[32m%s\x1B[0m\n", tmp->name, tmp->links[0]->name);
-	else if (tmp == lem_in->start)
-		ft_printf("\x1B[32m %24s\x1B[0m - %s\n", tmp->name, tmp->links[0]->name);
-	else if (ft_strcmp(tmp->links[0]->name, lem_in->start->name) == 0)
-		ft_printf(" %24s - \x1B[32m%s\x1B[0m\n", tmp->name, tmp->links[0]->name);
+	if (tmp == lem_in->start)
+		ft_printf(" \x1B[32m%24s\x1B[0m | %s\n", tmp->name, "no links");
 	else if (tmp == lem_in->end)
-		ft_printf("\x1B[31m %24s\x1B[0m - %s\n", tmp->name, tmp->links[0]->name);
+		ft_printf(" \x1B[31m%24s\x1B[0m | %s\n", tmp->name, "no links");
+	else
+		ft_printf(" %24s | %s\n", tmp->name, "no links");
+}
+
+static void	ft_display_rl(t_lem_in *lem_in, t_room *tmp)
+{
+	if (tmp == lem_in->start
+		&& (ft_strcmp(tmp->links[0]->name, lem_in->end->name) == 0))
+		ft_printf("\x1B[32m %24s - \x1B[31m%s\x1B[0m\n",
+			tmp->name, tmp->links[0]->name);
+	else if (tmp == lem_in->end
+		&& (ft_strcmp(tmp->links[0]->name, lem_in->start->name) == 0))
+		ft_printf("\x1B[31m %24s - \x1B[32m%s\x1B[0m\n",
+			tmp->name, tmp->links[0]->name);
+	else if (tmp == lem_in->start)
+		ft_printf("\x1B[32m %24s\x1B[0m - %s\n",
+			tmp->name, tmp->links[0]->name);
+	else if (ft_strcmp(tmp->links[0]->name, lem_in->start->name) == 0)
+		ft_printf(" %24s - \x1B[32m%s\x1B[0m\n",
+			tmp->name, tmp->links[0]->name);
+	else if (tmp == lem_in->end)
+		ft_printf("\x1B[31m %24s\x1B[0m - %s\n",
+			tmp->name, tmp->links[0]->name);
 	else if (ft_strcmp(tmp->links[0]->name, lem_in->end->name) == 0)
-		ft_printf(" %24s - \x1B[31m%s\x1B[0m\n", tmp->name, tmp->links[0]->name);
+		ft_printf(" %24s - \x1B[31m%s\x1B[0m\n",
+			tmp->name, tmp->links[0]->name);
 	else
 		ft_printf(" %24s - %s\n", tmp->name, tmp->links[0]->name);
 }
 
-void	ft_print_room_links(t_lem_in *lem_in)
+static void	ft_display_rl_only_link(t_lem_in *lem_in, t_room *tmp, int i)
 {
-	int i;
+	if (ft_strcmp(tmp->links[i]->name, lem_in->start->name) == 0)
+		ft_printf(" %24s - \x1B[32m%s\x1B[0m\n", "", tmp->links[i]->name);
+	else if (ft_strcmp(tmp->links[i]->name, lem_in->end->name) == 0)
+		ft_printf(" %24s - \x1B[31m%s\x1B[0m\n", "", tmp->links[i]->name);
+	else
+		ft_printf(" %24s - %s\n", "", tmp->links[i]->name);
+}
+
+void		ft_print_room_links(t_lem_in *lem_in)
+{
+	int		i;
 	t_room	*tmp;
 
 	tmp = lem_in->room;
@@ -110,43 +148,29 @@ void	ft_print_room_links(t_lem_in *lem_in)
 	{
 		i = -1;
 		if (!tmp->links)
-		{
-			if (tmp == lem_in->start)
-				ft_printf(" \x1B[32m%24s\x1B[0m | %s\n", tmp->name, "no links");
-			else if (tmp == lem_in->end)
-				ft_printf(" \x1B[31m%24s\x1B[0m | %s\n", tmp->name, "no links");
-			else
-				ft_printf(" %24s | %s\n", tmp->name, "no links");
-		}
+			ft_display_rl_no_link(lem_in, tmp);
 		if (tmp->links && tmp->links[0])
 		{
-			ft_print_room_links_slave(lem_in, tmp);
+			ft_display_rl(lem_in, tmp);
 			i++;
 		}
 		while (tmp->links && tmp->links[++i])
-		{
-			if (ft_strcmp(tmp->links[i]->name, lem_in->start->name) == 0)
-				ft_printf(" %24s - \x1B[32m%s\x1B[0m\n", "", tmp->links[i]->name);
-			else if (ft_strcmp(tmp->links[i]->name, lem_in->end->name) == 0)
-				ft_printf(" %24s - \x1B[31m%s\x1B[0m\n", "", tmp->links[i]->name);
-			else
-				ft_printf(" %24s - %s\n", "", tmp->links[i]->name);
-		}
+			ft_display_rl_only_link(lem_in, tmp, i);
 		ft_printf("----------------------------------------------------\n");
 		tmp = tmp->next;
 	}
 	ft_printf("\n");
 }
 
-void	ft_display_paths(t_lem_in *lem_in)
+void		ft_display_paths(t_lem_in *lem_in)
 {
-	int 	i;
+	int		i;
 	t_paths *roads;
 	t_path	*highway;
 
 	i = 1;
 	roads = lem_in->paths;
-	ft_printf(BRIGHT "Paths:\n\n" RESET, i);
+	ft_printf(BRIGHT "Paths:\n\n" RESET);
 	while (roads)
 	{
 		ft_printf(UNDERLINE "Path %d\n" RESET, i);
@@ -161,16 +185,15 @@ void	ft_display_paths(t_lem_in *lem_in)
 				ft_printf("%s\n", highway->room->name);
 			highway = highway->next;
 		}
-		ft_printf("length = %i\n", roads->length);
-		ft_printf("\n");
+		ft_printf("length = %i\n\n", roads->length);
 		i++;
 		roads = roads->next;
 	}
 }
 
-void    ft_print_path(t_paths *paths)
+void		ft_print_path(t_paths *paths)
 {
-	t_path  *path;
+	t_path	*path;
 
 	path = paths->highway;
 	while (path)
@@ -181,23 +204,24 @@ void    ft_print_path(t_paths *paths)
 	ft_printf("\n");
 }
 
-void    ft_print_groups(t_lem_in *lem_in)
+void		ft_display_groups(t_lem_in *lem_in)
 {
-	t_groups    *groups;
-	t_group     *group;
-	int         i;
-	int         j;
+	t_groups	*groups;
+	t_group		*group;
+	int			i;
+	int			j;
 
 	groups = lem_in->groups;
 	j = 1;
+	ft_printf(BRIGHT "Groups:\n\n" RESET);
 	while (groups)
 	{
 		i = 1;
 		group = groups->group;
-		ft_printf("\nNEW GROUP - %i -\n", j++);
+		ft_printf("NEW GROUP - %i -\n", j++);
 		while (group)
 		{
-			ft_printf("-- %i path --\n", i++);
+			ft_printf("-- path %i --\n", i++);
 			ft_print_path(group->path);
 			group = group->next;
 		}
