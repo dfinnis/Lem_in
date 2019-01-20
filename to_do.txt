@@ -1,6 +1,4 @@
-[] formula to identify the correct group of paths
-[] printing the result
-[] path grouping generates dublicates
+[] correct path grouping
 [] tidying up / norm / ...
 
 [] leaks / error handling
