@@ -20,21 +20,20 @@ static void	ft_initialize_ant(t_ant **array, t_lem_in *lem_in)
 	(*array)->traveled = 1;
 }
 
-int			ft_reset_path(t_lem_in *lem_in, int i, t_group *tmp, int j)
+int			ft_reset_path(t_lem_in *lem_in, int i, t_group *tmp, int depth)
 {
 	int	steps;
 	int	dp;
 	int	ret;
 
-	dp = 1;
+	dp = lem_in->depth;
 	ret = 0;
-	steps = ft_find_length(tmp, lem_in->depth, lem_in->ant_c - i, j);
-	while (dp < lem_in->depth)
+	steps = ft_find_length(tmp, lem_in->depth, lem_in->ant_c - i, depth);
+	while (dp > 1)
 	{
-		if (steps > ft_find_length(tmp, dp, lem_in->ant_c - i, j))
+		if (steps > ft_find_length(tmp, dp, lem_in->ant_c - i, depth))
 			ret = dp;
-		dp++;
-		// ft_printf("dp - %i, steps - %i, ants - %i, path size - %i\n", dp, steps, lem_in->ant_c-i, tmp->path->length);
+		dp--;
 	}
 	return (ret);
 }
@@ -44,7 +43,7 @@ static void	ft_populate_array(t_lem_in *lem_in)
 	t_ant	**array;
 	int		i;
 	int		j;
-	int		dp;
+	// int		dp;
 	t_group	*tmp;
 
 	i = 0;
@@ -52,8 +51,14 @@ static void	ft_populate_array(t_lem_in *lem_in)
 		ft_lem_in_error(lem_in, "malloc fail in ft_populate_array");
 	while (i < lem_in->ant_c)
 	{
-		tmp = lem_in->shortest->group;
 		j = 1;
+		tmp = lem_in->shortest->group;
+		// dp = ft_reset_path(lem_in, i, tmp, lem_in->depth);
+		// if (dp != 0)
+		// {
+		// 	j = lem_in->depth - dp;
+		// 	array[i - 1]->last = j;
+		// }
 		while (tmp && j <= lem_in->depth && i < lem_in->ant_c)
 		{
 			ft_initialize_ant(&array[i], lem_in);
@@ -61,12 +66,6 @@ static void	ft_populate_array(t_lem_in *lem_in)
 			tmp = tmp->next;
 			j++;
 			i++;
-			if (j < lem_in->depth && (dp = ft_reset_path(lem_in, i - 1, tmp, j - 1)))
-			{
-				// ft_printf("dp - %i, ants - %i, path size - %i\n", dp, lem_in->ant_c-i, tmp->path->length);
-				array[i - 1]->last = lem_in->depth - dp;
-				break ;
-			}
 		}
 	}
 	array[i] = NULL;
@@ -135,20 +134,31 @@ void		ft_display_results(t_lem_in *lem_in)
 	int		i;
 	int		j;
 	char	*line;
+	int		dup;
 
 	j = 0;
-//	ft_sort_group(lem_in);
 	ft_populate_array(lem_in);
 	while (ft_is_end(lem_in))
 	{
+		dup = 0;
 		i = 1;
 		j++;
 		if (!(line = ft_strdup("")))
 			ft_lem_in_error(lem_in, "strdup fail in ft_display_results");
 		while (i <= lem_in->ant_c)
 		{
-			line = ft_build_line(lem_in, line, i++);
-			if (i > j * (lem_in->depth - lem_in->array[i - 2]->last))
+			line = ft_build_line(lem_in, line, i);
+			// if (lem_in->array[i] && lem_in->array[i]->last && !dup)
+			// {
+			// 	dup = lem_in->array[i]->last;
+			// 	lem_in->depth -= lem_in->array[i]->last;
+			// }
+			// else if (dup && lem_in->array[i] && dup != lem_in->array[i]->last)
+			// {
+			// 	lem_in->depth -= lem_in->array[i]->last;
+			// 	dup = lem_in->array[i]->last;
+			// }
+			if (++i > j * lem_in->depth)
 				break ;
 		}
 		ft_printf("%s\n", line);
