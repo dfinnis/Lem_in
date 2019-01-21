@@ -108,6 +108,22 @@ t_groups	*ft_sort_paths(t_groups *group)
 	return (group);
 }
 
+t_groups	*ft_update_size(t_groups *group)
+{
+	t_group *tmp;
+	int		i;
+
+	i = 0;
+	tmp = group->group;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	group->size = i;
+	return(group);
+}
+
 void		ft_group_paths(t_lem_in *lem_in)
 {
 	t_paths		*first_path;
@@ -129,6 +145,7 @@ void		ft_group_paths(t_lem_in *lem_in)
 			second_path = second_path->next;
 		}
 		new_group = ft_sort_paths(new_group); // to allways have the shortest path in front??
+		new_group = ft_update_size(new_group);
 		first_path = first_path->next;
 	}
 }

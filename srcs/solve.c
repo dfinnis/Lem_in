@@ -12,20 +12,26 @@
 
 #include "lem_in.h"
 
-static int	ft_find_length(t_group *path, int depth, int ants)
+static int	ft_find_length(t_group *path, int depth, int ants, int size)
 {
 	t_group	*tmp;
 	int		j;
 	int		steps;
+	int		modulo;
 
 	tmp = path;
 	j = 1;
-	steps = 1;
-	while (tmp && j++ <= depth)
+	modulo = 0;
+	if (ants % depth)
+		modulo = 1;
+	steps = tmp->path->length - 2 + (ants / depth) + modulo;
+	while (tmp && j <= depth && j <= size)
 	{
-		if (steps < tmp->path->length - 2 + (ants / depth))
-			steps = tmp->path->length - 2 + (ants / depth);
+		if (steps < tmp->path->length - 2 + (ants / depth) + modulo)
+			steps = tmp->path->length - 2 + (ants / depth) + modulo;
+		ft_printf("path length - %i, steps - %i, depth - %i, size -%i\n", tmp->path->length, steps, depth, size);
 		tmp = tmp->next;
+		j++;
 	}
 	return (steps);
 }
@@ -52,13 +58,15 @@ void		ft_lem_in_solve(t_lem_in *lem_in)
 	tmp = lem_in->groups;
 	while (tmp)
 	{
-		i = 0;
+		i = 1;
 		path = tmp->group;
-		while (++i <= lem_in->ant_c)
+		while (i <= lem_in->ant_c && i <= tmp->size)
 		{
-			steps = ft_find_length(path, i, lem_in->ant_c);
+			steps = ft_find_length(path, i, lem_in->ant_c, tmp->size);
 			if (steps < lem_in->length)
 				ft_store_shortest(lem_in, tmp, steps, i);
+			ft_printf("i - %i, depth - %i, steps - %i, length - %i\n\n", i, lem_in->depth, steps, lem_in->length);
+			i++;
 		} //removed path incrementation
 		tmp = tmp->next;
 	}

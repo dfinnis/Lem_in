@@ -122,7 +122,7 @@ void		ft_display_results(t_lem_in *lem_in)
 		while (i <= lem_in->ant_c)
 		{
 			line = ft_build_line(lem_in, line, i++);
-			if (i > j * lem_in->depth) //too many ants in one line???
+			if (i > j * lem_in->depth)
 				break ;
 		}
 		ft_printf("%s\n", line);

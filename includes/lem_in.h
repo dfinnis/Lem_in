@@ -133,6 +133,7 @@ typedef struct		s_groups
 	struct s_group	*group;
 	struct s_group	*last;
 	struct s_groups	*next;
+	int				size;
 }					t_groups;
 
 /*

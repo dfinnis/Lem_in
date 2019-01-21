@@ -59,6 +59,26 @@ static void	ft_print_path(t_lem_in *lem_in, t_paths *paths)
 	ft_printf("\n");
 }
 
+void		ft_display_shortest(t_lem_in *lem_in)
+{
+	t_groups	*groups;
+	t_group		*group;
+	int			i;
+	
+	i = 1;
+	groups = lem_in->shortest;
+	ft_printf(BRIGHT "The chosen group:\n\n" RESET);
+	group = groups->group;
+	while (group)
+	{
+		ft_printf("-- path %i --\n", i++);
+		ft_print_path(lem_in, group->path);
+		group = group->next;
+	}
+	ft_printf("depth - %i\n", lem_in->depth);
+	ft_printf("steps - %i\n", lem_in->length);
+}
+
 void		ft_display_groups(t_lem_in *lem_in)
 {
 	t_groups	*groups;
@@ -82,4 +102,5 @@ void		ft_display_groups(t_lem_in *lem_in)
 		}
 		groups = groups->next;
 	}
+	ft_display_shortest(lem_in);
 }
