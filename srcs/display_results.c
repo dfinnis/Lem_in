@@ -20,11 +20,31 @@ static void	ft_initialize_ant(t_ant **array, t_lem_in *lem_in)
 	(*array)->traveled = 1;
 }
 
+int			ft_reset_path(t_lem_in *lem_in, int i, t_group *tmp, int j)
+{
+	int	steps;
+	int	dp;
+	int	ret;
+
+	dp = 1;
+	ret = 0;
+	steps = ft_find_length(tmp, lem_in->depth, lem_in->ant_c - i, j);
+	while (dp < lem_in->depth)
+	{
+		if (steps > ft_find_length(tmp, dp, lem_in->ant_c - i, j))
+			ret = dp;
+		dp++;
+		// ft_printf("dp - %i, steps - %i, ants - %i, path size - %i\n", dp, steps, lem_in->ant_c-i, tmp->path->length);
+	}
+	return (ret);
+}
+
 static void	ft_populate_array(t_lem_in *lem_in)
 {
 	t_ant	**array;
 	int		i;
 	int		j;
+	int		dp;
 	t_group	*tmp;
 
 	i = 0;
@@ -33,14 +53,20 @@ static void	ft_populate_array(t_lem_in *lem_in)
 	while (i < lem_in->ant_c)
 	{
 		tmp = lem_in->shortest->group;
-		j = 0;
-		while (tmp && j < lem_in->depth && i < lem_in->ant_c)
+		j = 1;
+		while (tmp && j <= lem_in->depth && i < lem_in->ant_c)
 		{
 			ft_initialize_ant(&array[i], lem_in);
 			array[i]->path = tmp->path->highway;
 			tmp = tmp->next;
 			j++;
 			i++;
+			if (j < lem_in->depth && (dp = ft_reset_path(lem_in, i - 1, tmp, j - 1)))
+			{
+				// ft_printf("dp - %i, ants - %i, path size - %i\n", dp, lem_in->ant_c-i, tmp->path->length);
+				array[i - 1]->last = lem_in->depth - dp;
+				break ;
+			}
 		}
 	}
 	array[i] = NULL;
@@ -122,7 +148,7 @@ void		ft_display_results(t_lem_in *lem_in)
 		while (i <= lem_in->ant_c)
 		{
 			line = ft_build_line(lem_in, line, i++);
-			if (i > j * lem_in->depth)
+			if (i > j * (lem_in->depth - lem_in->array[i - 2]->last))
 				break ;
 		}
 		ft_printf("%s\n", line);

@@ -143,6 +143,7 @@ typedef struct		s_ant
 {
 	struct s_path	*path;
 	int				traveled;
+	int				last;
 	int				end;
 }					t_ant;
 
@@ -216,6 +217,7 @@ void				ft_group_paths(t_lem_in *lem_in);
 ** 		solve.c
 */
 void				ft_lem_in_solve(t_lem_in *lem_in);
+int					ft_find_length(t_group *path, int depth, int ants, int size);
 
 /*
 ** 		display_results.c
