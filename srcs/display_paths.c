@@ -56,7 +56,7 @@ static void	ft_print_path(t_lem_in *lem_in, t_paths *paths)
 			ft_printf("%s\n", path->room->name);
 		path = path->next;
 	}
-	ft_printf("\n");
+	ft_printf("length = %i\n\n", paths->length);
 }
 
 void		ft_display_shortest(t_lem_in *lem_in)
