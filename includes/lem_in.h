@@ -74,6 +74,7 @@ typedef struct		s_room
 	int				lvl;
 	int				flow;
 	int				visited;
+	int				block;
 	struct s_room	*next;
 	struct s_room	**links;
 }					t_room;
