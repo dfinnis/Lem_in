@@ -40,26 +40,25 @@ void		ft_reset_flow(t_lem_in *lem_in)
 	}
 }
 
-static int	ft_bfs_flow(t_lem_in *lem_in, t_room *top_room, int i)
-{
-	if (top_room == lem_in->end && top_room->links[i] == lem_in->start)
-		i++;
-	if (top_room->links[i] && top_room->links[i]->visited == 0
-		&& top_room->links[i]->flow == 1 && !top_room->links[i]->block)
-	{
-		ft_add_to_queue(lem_in, top_room->links[i]);
-		top_room->links[i]->lvl = top_room->lvl + 1;
-		top_room->links[i]->visited = 1;
-	}
-	if (top_room->links[i])
-		i++;
-	return (i);
-}
+// static int	ft_bfs_flow(t_lem_in *lem_in, t_room *top_room, int i)
+// {
+// 	if (top_room == lem_in->end && top_room->links[i] == lem_in->start)
+// 		i++;
+// 	if (top_room->links[i] && top_room->links[i]->visited == 0
+// 		&& top_room->links[i]->flow == 1 && !top_room->links[i]->block)
+// 	{
+// 		ft_add_to_queue(lem_in, top_room->links[i]);
+// 		top_room->links[i]->lvl = top_room->lvl + 1;
+// 		top_room->links[i]->visited = 1;
+// 	}
+// 	if (top_room->links[i])
+// 		i++;
+// 	return (i);
+// }
 
 static int	ft_bfs(t_lem_in *lem_in)
 {
 	int		i;
-	int		add;
 	t_room	*top_room;
 
 	ft_reset_visited(lem_in);
@@ -70,13 +69,12 @@ static int	ft_bfs(t_lem_in *lem_in)
 		top_room = lem_in->queue->room;
 		ft_pop_queue(lem_in);
 		i = 0;
-		add = 0;
 		while (top_room->links[i])
 			i = ft_bfs_no_flow(lem_in, top_room, i);
-		i = 0;
-		if (!lem_in->queue)
-			while (top_room->links[i])
-				i = ft_bfs_flow(lem_in, top_room, i);
+		// i = 0;
+		// if (!lem_in->queue)
+		// 	while (top_room->links[i])
+		// 		i = ft_bfs_flow(lem_in, top_room, i);
 	}
 	ft_free_queue(lem_in->queue);
 	lem_in->queue = NULL;
@@ -118,17 +116,17 @@ void		ft_solve_algo(t_lem_in *lem_in)
 			ft_add_direct_path(lem_in);
 		i++;
 	}
-	while (lem_in->end->links[++j])
-		lem_in->end->links[j]->block = 1;
-	while (--j >= 0)
-	{
-		if (lem_in->end->links[j + 1])
-			lem_in->end->links[j + 1]->block = 1;
-		lem_in->end->links[j]->block = 0;
+	// while (lem_in->end->links[++j])
+	// 	lem_in->end->links[j]->block = 1;
+	// while (--j >= 0)
+	// {
+	// 	if (lem_in->end->links[j + 1])
+	// 		lem_in->end->links[j + 1]->block = 1;
+	// 	lem_in->end->links[j]->block = 0;
 		while (ft_bfs(lem_in))
 			ft_bfs_loop(lem_in);
-		ft_reset_flow(lem_in);
-	}
+		// ft_reset_flow(lem_in);
+	// }
 	if (!lem_in->paths)
 		ft_lem_in_error(lem_in, "no path");
 	else
