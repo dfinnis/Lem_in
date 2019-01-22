@@ -215,10 +215,22 @@ t_groups			*ft_add_to_group(t_groups *group,
 void				ft_group_paths(t_lem_in *lem_in);
 
 /*
+** 		path_sort.c
+*/
+t_groups			*ft_sort_paths(t_groups *group);
+t_groups			*ft_update_size(t_groups *group);
+
+/*
+** 		build_ants.c
+*/
+void				ft_populate_array(t_lem_in *lem_in);
+
+/*
 ** 		solve.c
 */
 void				ft_lem_in_solve(t_lem_in *lem_in);
-int					ft_find_length(t_group *path, int depth, int ants, int size);
+int					ft_find_length(t_group *path, int depth, int ants,
+	int size);
 
 /*
 ** 		display_results.c

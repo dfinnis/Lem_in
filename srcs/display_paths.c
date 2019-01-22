@@ -64,7 +64,7 @@ void		ft_display_shortest(t_lem_in *lem_in)
 	t_groups	*groups;
 	t_group		*group;
 	int			i;
-	
+
 	i = 1;
 	groups = lem_in->shortest;
 	ft_printf(BRIGHT "The chosen group:\n\n" RESET);
