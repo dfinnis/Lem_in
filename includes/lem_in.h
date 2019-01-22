@@ -50,6 +50,7 @@ typedef struct		s_lem_in
 	struct s_groups	*shortest;
 	int				length;
 	int				depth;
+	int				org_depth;
 	struct s_ant	**array;
 	int				turn_count;
 	int				flag_t;

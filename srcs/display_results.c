@@ -26,14 +26,17 @@ int			ft_reset_path(t_lem_in *lem_in, int i, t_group *tmp, int depth)
 	int	dp;
 	int	ret;
 
-	dp = lem_in->depth;
+	dp = 1;
 	ret = 0;
 	steps = ft_find_length(tmp, lem_in->depth, lem_in->ant_c - i, depth);
-	while (dp > 1)
+	while (dp < lem_in->depth)
 	{
 		if (steps > ft_find_length(tmp, dp, lem_in->ant_c - i, depth))
+		{
+			steps = ft_find_length(tmp, dp, lem_in->ant_c - i, depth);
 			ret = dp;
-		dp--;
+		}
+		dp++;
 	}
 	return (ret);
 }
@@ -43,7 +46,7 @@ static void	ft_populate_array(t_lem_in *lem_in)
 	t_ant	**array;
 	int		i;
 	int		j;
-	// int		dp;
+	int		dp;
 	t_group	*tmp;
 
 	i = 0;
@@ -53,17 +56,15 @@ static void	ft_populate_array(t_lem_in *lem_in)
 	{
 		j = 1;
 		tmp = lem_in->shortest->group;
-		// dp = ft_reset_path(lem_in, i, tmp, lem_in->depth);
-		// if (dp != 0)
-		// {
-		// 	j = lem_in->depth - dp;
-		// 	array[i - 1]->last = j;
-		// }
+		if ((dp = ft_reset_path(lem_in, i + 1, tmp, lem_in->depth)))
+			lem_in->depth = dp;
 		while (tmp && j <= lem_in->depth && i < lem_in->ant_c)
 		{
 			ft_initialize_ant(&array[i], lem_in);
 			array[i]->path = tmp->path->highway;
 			tmp = tmp->next;
+			if (j == 1 && i != 0)
+				array[i]->last = 1;
 			j++;
 			i++;
 		}
@@ -148,18 +149,12 @@ void		ft_display_results(t_lem_in *lem_in)
 		while (i <= lem_in->ant_c)
 		{
 			line = ft_build_line(lem_in, line, i);
-			// if (lem_in->array[i] && lem_in->array[i]->last && !dup)
-			// {
-			// 	dup = lem_in->array[i]->last;
-			// 	lem_in->depth -= lem_in->array[i]->last;
-			// }
-			// else if (dup && lem_in->array[i] && dup != lem_in->array[i]->last)
-			// {
-			// 	lem_in->depth -= lem_in->array[i]->last;
-			// 	dup = lem_in->array[i]->last;
-			// }
-			if (++i > j * lem_in->depth)
+			i++;
+			if (lem_in->array[i - 1] && lem_in->array[i - 1]->last && lem_in->array[i - 1]->traveled == 1)
+			{
+				lem_in->array[i - 1]->last = 0;
 				break ;
+			}
 		}
 		ft_printf("%s\n", line);
 		free(line);
