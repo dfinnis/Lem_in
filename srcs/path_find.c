@@ -97,8 +97,8 @@ void		ft_solve_algo(t_lem_in *lem_in)
 			ft_add_direct_path(lem_in);
 		i++;
 	}
-		while (ft_bfs(lem_in))
-			ft_bfs_loop(lem_in);
+	while (ft_bfs(lem_in))
+		ft_bfs_loop(lem_in);
 	if (!lem_in->paths)
 		ft_lem_in_error(lem_in, "no path");
 	else
