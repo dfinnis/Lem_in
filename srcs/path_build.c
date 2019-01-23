@@ -82,7 +82,7 @@ void			ft_recover_path(t_lem_in *lem_in)
 	t_queue		*queue;
 
 	queue = lem_in->queue;
-	while (queue && queue->next)
+	while (queue && queue->room != lem_in->start)
 		queue = queue->next;
 	path = ft_add_path(lem_in);
 	ft_add_to_path(path, lem_in->start, lem_in);

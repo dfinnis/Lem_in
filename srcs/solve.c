@@ -17,14 +17,18 @@ int			ft_find_length(t_group *path, int depth, int ants, int size)
 	t_group	*tmp;
 	int		j;
 	int		steps;
+	int		modulo;
 
 	tmp = path;
 	j = 1;
-	steps = tmp->path->length - 2 + (ants / depth);
+	modulo = 0;
+	// if (ants % depth)
+	// 	modulo = 1;
+	steps = tmp->path->length - 2 + (ants / depth) + modulo;
 	while (tmp && j <= depth && j <= size)
 	{
-		if (steps <= tmp->path->length - 2 + (ants / depth))
-			steps = tmp->path->length - 2 + (ants / depth);
+		if (steps <= tmp->path->length - 2 + (ants / depth) + modulo)
+			steps = tmp->path->length - 2 + (ants / depth) + modulo;
 		tmp = tmp->next;
 		j++;
 	}

@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-static int	ft_bfs_no_flow(t_lem_in *lem_in, t_room *top_room, int i, t_queue *queue)
+static int	ft_bfs_no_flow(t_lem_in *lem_in, t_room *top_room, int i, t_queue *queue, int *add)
 {
 	if (top_room == lem_in->end && top_room->links[i] == lem_in->start)
 		i++;
@@ -21,6 +21,7 @@ static int	ft_bfs_no_flow(t_lem_in *lem_in, t_room *top_room, int i, t_queue *qu
 	{
 		queue = ft_add_to_queue(lem_in, top_room->links[i], queue);
 		top_room->links[i]->visited = 1;
+		*add = 1;
 	}
 	if (top_room->links[i])
 		i++;
@@ -47,23 +48,25 @@ static int	ft_bfs(t_lem_in *lem_in)
 	int		i;
 	t_room	*top_room;
 	t_queue	*queue;
+	int		add;
 
 	ft_reset_visited(lem_in);
 	queue = ft_add_to_queue(lem_in, lem_in->end, NULL);
 	lem_in->end->visited = 1;
-	while (queue && queue->room != lem_in->start)
+	while (queue)
 	{
 		top_room = queue->room;
 		i = 0;
+		add = 0;
 		while (top_room->links[i])
-			i = ft_bfs_no_flow(lem_in, top_room, i, queue);
+			i = ft_bfs_no_flow(lem_in, top_room, i, queue, &add);
 		i = 0;
-		if (!lem_in->queue)
+		if (!add)
 			while (top_room->links[i])
 				i = ft_bfs_flow(lem_in, top_room, i, queue);
 		queue = ft_pop_queue(queue);
 	}
-	if (queue && queue->room == lem_in->start)
+	if (lem_in->start->visited == 1)
 		return (1);
 	else
 		return (0);
@@ -103,8 +106,8 @@ void		ft_solve_algo(t_lem_in *lem_in)
 			ft_add_direct_path(lem_in);
 		i++;
 	}
-	while (ft_bfs(lem_in))
-		ft_bfs_loop(lem_in);
+		while (ft_bfs(lem_in))
+			ft_bfs_loop(lem_in);
 	if (!lem_in->paths)
 		ft_lem_in_error(lem_in, "no path");
 	else
