@@ -74,7 +74,6 @@ typedef struct		s_room
 	int				lvl;
 	int				flow;
 	int				visited;
-	int				block;
 	struct s_room	*next;
 	struct s_room	**links;
 }					t_room;
@@ -96,6 +95,7 @@ typedef	struct		s_queue
 {
 	struct s_room	*room;
 	struct s_queue	*next;
+	struct s_queue	*parent;
 }					t_queue;
 
 /*
@@ -190,8 +190,8 @@ void				ft_solve_algo(t_lem_in *lem_in);
 /*
 ** 		path_queue.c
 */
-void				ft_add_to_queue(t_lem_in *lem_in, t_room *room);
-void				ft_pop_queue(t_lem_in *lem_in);
+t_queue				*ft_add_to_queue(t_lem_in *lem_in, t_room *room, t_queue *parent);
+t_queue				*ft_pop_queue(t_queue *queue);
 void				ft_reset_visited(t_lem_in *lem_in);
 void				ft_sort_group(t_lem_in *lem_in);
 

@@ -12,36 +12,34 @@
 
 #include "lem_in.h"
 
-void		ft_add_to_queue(t_lem_in *lem_in, t_room *room)
+t_queue		*ft_add_to_queue(t_lem_in *lem_in, t_room *room, t_queue *parent)
 {
 	t_queue *new;
+	t_queue *tmp;
 
 	if (!(new = (t_queue *)malloc(sizeof(t_queue))))
 		ft_lem_in_error(lem_in, "malloc fail in ft_add_to_queue");
 	new->room = room;
 	new->next = NULL;
-	if (lem_in->queue)
-	{
-		lem_in->last_queue->next = new;
-		lem_in->last_queue = new;
-	}
+	new->parent = parent;
+	tmp = parent;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	if (tmp)
+		tmp->next = new;
 	else
 	{
-		lem_in->queue = new;
-		lem_in->last_queue = new;
+		parent = new;
+		lem_in->queue = parent;
 	}
+	return (parent);
 }
 
-void		ft_pop_queue(t_lem_in *lem_in)
+t_queue		*ft_pop_queue(t_queue *queue)
 {
-	t_queue *tmp;
-
-	tmp = lem_in->queue;
-	if (lem_in->queue)
-		lem_in->queue = lem_in->queue->next;
-	if (tmp)
-		free(tmp);
-	tmp = NULL;
+	if (queue)
+		queue = queue->next;
+	return (queue);
 }
 
 void		ft_reset_visited(t_lem_in *lem_in)

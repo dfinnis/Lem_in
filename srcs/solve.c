@@ -60,7 +60,7 @@ void		ft_lem_in_solve(t_lem_in *lem_in)
 		while (i <= lem_in->ant_c && i <= tmp->size)
 		{
 			steps = ft_find_length(path, i, lem_in->ant_c, tmp->size);
-			if (steps <= lem_in->length) //path->path->length == 9)
+			if (steps <= lem_in->length)
 				ft_store_shortest(lem_in, tmp, steps, i);
 			i++;
 		}

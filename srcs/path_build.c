@@ -78,21 +78,19 @@ void			ft_add_direct_path(t_lem_in *lem_in)
 
 void			ft_recover_path(t_lem_in *lem_in)
 {
-	int			i;
 	t_paths		*path;
+	t_queue		*queue;
 
+	queue = lem_in->queue;
+	while (queue && queue->next)
+		queue = queue->next;
 	path = ft_add_path(lem_in);
 	ft_add_to_path(path, lem_in->start, lem_in);
-	while (path->last->room != lem_in->end)
+	if (queue->room == lem_in->start)
+		queue = queue->parent;
+	while (queue)
 	{
-		i = 0;
-		while ((path->last->room->links[i]
-			&& path->last->room->links[i]->lvl != (path->last->room->lvl - 1))
-			|| (path->last->room->links[i]->lvl == 0
-			&& path->last->room->links[i] != lem_in->end)
-			|| path->last->room->links[i] == lem_in->start
-			|| !path->last->room->links[i]->visited)
-			i++;
-		ft_add_to_path(path, path->last->room->links[i], lem_in);
+		ft_add_to_path(path, queue->room, lem_in);
+		queue = queue->parent;
 	}
 }
