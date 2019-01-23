@@ -50,7 +50,6 @@ void		ft_reset_visited(t_lem_in *lem_in)
 	while (room)
 	{
 		room->visited = 0;
-		room->lvl = 0;
 		room = room->next;
 	}
 }

@@ -71,7 +71,6 @@ typedef struct		s_room
 	char			*name;
 	long long		x;
 	long long		y;
-	int				lvl;
 	int				flow;
 	int				visited;
 	struct s_room	*next;

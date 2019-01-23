@@ -1,16 +1,10 @@
-algo problems: (probably in solve.c)
-[] test2 we 38 them: 35
-[] test3 we: 33 them: 32
-[] test_big we: 34 (wrong) them: 52
-[] test_big2 we: 103 (wrong) them: 110
+[] reach benchmarks
 
->>>
-some fixed, but still problems:
-out4(test_big) and out5(test_big2) has dublicate paths...
-
-DONE:
-[] wrote aditional function to find the end - need to norm
-[] modified solve
+in big_sup/big_2.map
+- path 1: 52 times / size 25
+- path 2: 23 times / size 53
+- path 3: 20 times / size 56
+- path 4: 5 times / size 71
 
 LEAKS:
 [] sometimes indirectly lost, but seems to be in valgind:
