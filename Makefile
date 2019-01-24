@@ -25,7 +25,7 @@ LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
 
 SRCS_FILES = lem_in.c parse.c parse_room.c parse_support.c build_graph.c \
-path_find.c path_queue.c path_build.c path_prep.c path_group.c path_sort.c \
+path_find.c path_queue.c path_build.c path_prep.c path_group.c \
 build_ants.c path_solve.c \
 display_results.c display_parse.c display_links.c display_paths.c \
 error.c free.c free_ants.c

@@ -207,9 +207,11 @@ void				ft_add_direct_path(t_lem_in *lem_in);
 void				ft_recover_path(t_lem_in *lem_in);
 
 /*
-** 		path_select.c
+** 		path_prep.c
 */
 void				ft_remove_duplicates(t_lem_in *lem_in);
+t_groups			*ft_sort_paths(t_groups *group);
+t_groups			*ft_update_size(t_groups *group);
 
 /*
 ** 		path_group.c
@@ -218,12 +220,6 @@ t_groups			*ft_add_group(t_lem_in *lem_in);
 t_groups			*ft_add_to_group(t_groups *group,
 	t_paths *path, t_lem_in *lem_in);
 void				ft_group_paths(t_lem_in *lem_in);
-
-/*
-** 		path_sort.c
-*/
-t_groups			*ft_sort_paths(t_groups *group);
-t_groups			*ft_update_size(t_groups *group);
 
 /*
 ** 		build_ants.c
