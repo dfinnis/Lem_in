@@ -1,4 +1,4 @@
-echo "generator test -> place the generator in the root and run the script"
+echo "performance test -> place the 'generator' in the root and run the script"
 echo " "
 
 #one
@@ -17,11 +17,9 @@ done
 echo " "
 echo "\x1b[1m--flow-one\x1B[0m"
 echo "\x1B[32mavg moves diff: $(($sum / $(($count - 1))))\x1B[0m"
-echo " "
 
 #time of one
-echo "\x1b[1mtime test\x1B[0m"
-echo "$(time ./lem-in -t < 1 | tail -n 2 | head -n 1 | cut -d ' ' -f 3 | head -n 1)"
+echo "$(time ./lem-in -t < 1 | tail -n 1)"
 
 #ten
 case=50
@@ -39,11 +37,9 @@ done
 echo " "
 echo "\x1b[1m--flow-ten\x1B[0m"
 echo "\x1B[32mavg moves diff: $(($sum / $(($count - 1))))\x1B[0m"
-echo " "
 
 #time of ten
-echo "\x1b[1mtime test\x1B[0m"
-echo "$(time ./lem-in -t < 1 | tail -n 2 | head -n 1 | cut -d ' ' -f 3 | head -n 1)"
+echo "$(time ./lem-in -t < 1 | tail -n 1)"
 
 #thousand
 case=50
@@ -61,11 +57,9 @@ done
 echo " "
 echo "\x1b[1m--flow-thousand\x1B[0m"
 echo "\x1B[32mavg moves diff: $(($sum / $(($count - 1))))\x1B[0m"
-echo " "
 
 #time of thousand
-echo "\x1b[1mtime test\x1B[0m"
-echo "$(time ./lem-in -t < 1 | tail -n 2 | head -n 1 | cut -d ' ' -f 3 | head -n 1)"
+echo "$(time ./lem-in -t < 1 | tail -n 1)"
 
 #big
 case=25
@@ -83,11 +77,9 @@ done
 echo " "
 echo "\x1b[1m--big\x1B[0m"
 echo "\x1B[32mavg moves diff: $(($sum / $(($count - 1))))\x1B[0m"
-echo " "
 
 #time of big
-echo "\x1b[1mtime test\x1B[0m"
-echo "$(time ./lem-in -t < 1 | tail -n 2 | head -n 1 | cut -d ' ' -f 3 | head -n 1)"
+echo "$(time ./lem-in -t < 1 | tail -n 1)"
 
 #big-superposition
 case=25
@@ -105,8 +97,6 @@ done
 echo " "
 echo "\x1b[1m--big-superposition\x1B[0m"
 echo "\x1B[32mavg moves dif: $(($sum / $(($count - 1))))\x1B[0m"
-echo " "
 
 #time of big-superposition
-echo "\x1b[1mtime test\x1B[0m"
-echo "$(time ./lem-in -t < 1 | tail -n 2 | head -n 1 | cut -d ' ' -f 3 | head -n 1)"
+echo "$(time ./lem-in -t < 1 | tail -n 1)"
