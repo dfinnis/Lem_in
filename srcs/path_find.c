@@ -36,7 +36,7 @@ static int	ft_bfs_flow(t_lem_in *lem_in, t_room *room, int i, t_queue *queue)
 		&& room->links[i]->flow == 1)
 		|| (room->links[i] && room->links[i] == lem_in->start))
 	{
-		ft_add_to_queue(lem_in, room->links[i], queue);
+		queue = ft_add_to_queue(lem_in, room->links[i], queue);
 		room->links[i]->visited = 1;
 	}
 	if (room->links[i])
