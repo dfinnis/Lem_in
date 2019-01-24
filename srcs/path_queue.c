@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 15:58:19 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/20 15:58:23 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/01/24 15:12:45 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_queue		*ft_add_to_queue(t_lem_in *lem_in, t_room *room, t_queue *parent)
 		tmp->next = new;
 	else
 	{
+		ft_free_queue(lem_in->queue);
 		parent = new;
 		lem_in->queue = parent;
 	}

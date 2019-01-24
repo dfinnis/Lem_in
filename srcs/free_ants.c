@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 16:31:25 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/01/20 16:31:26 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/01/24 15:14:09 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_free_queue(t_queue *queue)
 		free(tmp);
 		tmp = NULL;
 	}
+	free(queue);
+	queue = NULL;
 }
 
 void	ft_free_ants(t_ant **ant)
