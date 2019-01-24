@@ -123,13 +123,13 @@ all: lib $(NAME)
 
 g:
 	@make -C ../ g
-	@gcc -c $(FLAGS) $(G) $(SRCS) -I $(INC)
+	@gcc -c $(FLAGS) $(G) $(SRCS)
 	@ar rc $(NAME) $(OBJ) $(LIB_PATH)
 	@ranlib $(NAME)
 
 fsanitize:
 	@make -C ../ fsanitize
-	@gcc -c $(FLAGS) $(G) $(FSAN) $(SRCS) -I $(INC)
+	@gcc -c $(FLAGS) $(G) $(FSAN) $(SRCS)
 	@ar rc $(NAME) $(OBJ) $(LIB_PATH)
 	@ranlib $(NAME)
 
@@ -138,9 +138,9 @@ $(NAME): $(OBJ)
 	@ranlib $(NAME)
 
 $(OBJ): $(SRCS)
-	@gcc -c $(FLAGS) $(SRCS) -I $(INC)
+	@gcc -c $(FLAGS) $(SRCS)
 
-lib: 
+lib:
 	@make -C ../ all
 
 libfclean:
