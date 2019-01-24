@@ -43,6 +43,7 @@ t_groups	*ft_add_to_group(t_groups *group, t_paths *path, t_lem_in *lem_in)
 		ft_lem_in_error(lem_in, "malloc fail in ft_add_to_group");
 	new->path = path;
 	new->next = NULL;
+	new->times = 0;
 	if (!group->group)
 		group->group = new;
 	if (group->last)
@@ -110,6 +111,7 @@ void		ft_group_paths(t_lem_in *lem_in)
 		}
 		new_group = ft_sort_paths(new_group);
 		new_group = ft_update_size(new_group);
+		new_group = ft_sort_paths(new_group);
 		first_path = first_path->next;
 	}
 }

@@ -27,17 +27,17 @@ static int	ft_bfs_no_flow(t_lem_in *lem_in, t_room *room, int i, t_queue *queue,
 	return (i);
 }
 
-static int	ft_bfs_flow(t_lem_in *lem_in, t_room *room, int i, t_queue *queue)
-{
-	if (room == lem_in->end && room->links[i] == lem_in->start)
-		i++;
-	if ((room->links[i] && !room->links[i]->visited && room->links[i]->flow == 1)
-		|| (room->links[i] && room->links[i] == lem_in->start))
-		ft_add_to_queue(lem_in, room->links[i], queue);
-	if (room->links[i])
-		i++;
-	return (i);
-}
+// static int	ft_bfs_flow(t_lem_in *lem_in, t_room *room, int i, t_queue *queue)
+// {
+// 	if (room == lem_in->end && room->links[i] == lem_in->start)
+// 		i++;
+// 	if ((room->links[i] && !room->links[i]->visited && room->links[i]->flow == 1)
+// 		|| (room->links[i] && room->links[i] == lem_in->start))
+// 		ft_add_to_queue(lem_in, room->links[i], queue);
+// 	if (room->links[i])
+// 		i++;
+// 	return (i);
+// }
 
 static int	ft_bfs(t_lem_in *lem_in)
 {
@@ -56,10 +56,10 @@ static int	ft_bfs(t_lem_in *lem_in)
 		queue->room->visited = 1;
 		while (queue->room->links[i])
 			i = ft_bfs_no_flow(lem_in, queue->room, i, queue, &add);
-		i = 0;
-		if (!add)
-			while (queue->room->links[i])
-				i = ft_bfs_flow(lem_in, queue->room, i, queue);
+		// i = 0;
+		// if (!add)
+		// 	while (queue->room->links[i])
+		// 		i = ft_bfs_flow(lem_in, queue->room, i, queue);
 		queue = queue->next;
 	}
 	return (0);

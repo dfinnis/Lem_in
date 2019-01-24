@@ -75,7 +75,7 @@ void		ft_display_shortest(t_lem_in *lem_in)
 		ft_print_path(lem_in, group->path);
 		group = group->next;
 	}
-	ft_printf("depth - %i\n", lem_in->org_depth);
+	ft_printf("depth - %i\n", lem_in->depth);
 }
 
 void		ft_display_groups(t_lem_in *lem_in)

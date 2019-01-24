@@ -35,13 +35,6 @@ t_queue		*ft_add_to_queue(t_lem_in *lem_in, t_room *room, t_queue *parent)
 	return (parent);
 }
 
-t_queue		*ft_pop_queue(t_queue *queue)
-{
-	if (queue)
-		queue = queue->next;
-	return (queue);
-}
-
 void		ft_reset_visited(t_lem_in *lem_in)
 {
 	t_room *room;

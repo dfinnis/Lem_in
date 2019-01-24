@@ -50,7 +50,6 @@ typedef struct		s_lem_in
 	struct s_groups	*shortest;
 	int				length;
 	int				depth;
-	int				org_depth;
 	struct s_ant	**array;
 	int				turn_count;
 	int				flag_t;
@@ -123,6 +122,7 @@ typedef struct		s_paths
 typedef struct		s_group
 {
 	struct s_paths	*path;
+	int				times;
 	struct s_group	*next;
 }					t_group;
 
@@ -224,6 +224,7 @@ t_groups			*ft_update_size(t_groups *group);
 ** 		build_ants.c
 */
 void				ft_populate_array(t_lem_in *lem_in);
+int					ft_count_total(t_lem_in *lem_in);
 
 /*
 ** 		solve.c
