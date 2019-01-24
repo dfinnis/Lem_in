@@ -73,7 +73,7 @@ $(OBJS_DIR):
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@echo "Compiling:" $(GREEN) $< $(DEFAULT)
-	gcc $(FLAGS) -g -c $< -o $@ -I $(INC)
+	gcc $(FLAGS) -c $< -o $@ -I $(INC)
 
 clean:
 	@make -C $(LIBFT)/ clean
