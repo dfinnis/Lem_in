@@ -52,6 +52,7 @@ typedef struct		s_lem_in
 	int				depth;
 	struct s_ant	**array;
 	int				turn_count;
+	int				queue_add;
 	int				flag_t;
 	int				flag_a;
 	int				flag_r;
@@ -184,14 +185,18 @@ void				ft_build_graph(t_lem_in *lem_in);
 /*
 ** 		path_find.c
 */
-void				ft_solve_algo(t_lem_in *lem_in);
+
+int					ft_bfs(t_lem_in *lem_in);
+int					ft_bfs_withflow(t_lem_in *lem_in);
+void				ft_bfs_loop(t_lem_in *lem_in);
 
 /*
 ** 		path_queue.c
 */
-t_queue				*ft_add_to_queue(t_lem_in *lem_in, t_room *room, t_queue *parent);
-t_queue				*ft_pop_queue(t_queue *queue);
+t_queue				*ft_add_to_queue(t_lem_in *lem_in, t_room *room,
+	t_queue *parent);
 void				ft_reset_visited(t_lem_in *lem_in);
+void				ft_reset_flow(t_lem_in *lem_in);
 void				ft_sort_group(t_lem_in *lem_in);
 
 /*
@@ -227,11 +232,12 @@ void				ft_populate_array(t_lem_in *lem_in);
 int					ft_count_total(t_lem_in *lem_in);
 
 /*
-** 		solve.c
+** 		path_solve.c
 */
-void				ft_lem_in_solve(t_lem_in *lem_in);
 int					ft_find_length(t_group *path, int depth, int ants,
 	int size);
+void				ft_lem_in_solve(t_lem_in *lem_in);
+void				ft_solve_algo(t_lem_in *lem_in);
 
 /*
 ** 		display_results.c
@@ -247,7 +253,7 @@ void				ft_display_rooms(t_lem_in *lem_in);
 void				ft_display_links(t_lem_in *lem_in);
 
 /*
-**		display_rl.c
+**		display_links.c
 */
 void				ft_display_room_links(t_lem_in *lem_in);
 
@@ -269,7 +275,7 @@ void				ft_parse_error(t_lem_in *lem_in);
 void				ft_lem_in_free(t_lem_in *lem_in);
 
 /*
-**		free_more.c
+**		free_ants.c
 */
 void				ft_free_ants(t_ant **ant);
 void				ft_free_queue(t_queue *queue);

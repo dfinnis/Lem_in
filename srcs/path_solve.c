@@ -12,29 +12,10 @@
 
 #include "lem_in.h"
 
-// int			ft_find_length(t_group *path, int depth, int ants, int size)
-// {
-// 	t_group	*tmp;
-// 	int		j;
-// 	int		steps;
-
-// 	tmp = path;
-// 	j = 1;
-// 	steps = tmp->path->length - 2 + (ants / depth);
-// 	while (tmp && j <= depth && j <= size)
-// 	{
-// 		if (steps <= tmp->path->length - 2 + (ants / depth))
-// 			steps = tmp->path->length - 2 + (ants / depth);
-// 		tmp = tmp->next;
-// 		j++;
-// 	}
-// 	return (steps);
-// }
-
-int		ft_count(t_group *group, int ant_c, int depth)
+int			ft_count(t_group *group, int ant_c, int depth)
 {
-	int sum;
-	int	i;
+	int		sum;
+	int		i;
 	t_group *paths;
 
 	i = 0;
@@ -80,5 +61,30 @@ void		ft_lem_in_solve(t_lem_in *lem_in)
 			i++;
 		}
 		tmp = tmp->next;
+	}
+}
+
+void		ft_solve_algo(t_lem_in *lem_in)
+{
+	int		i;
+
+	i = 0;
+	while (lem_in->start->links[i])
+	{
+		if (lem_in->start->links[i] == lem_in->end)
+			ft_add_direct_path(lem_in);
+		i++;
+	}
+	while (ft_bfs(lem_in))
+		ft_bfs_loop(lem_in);
+	ft_reset_flow(lem_in);
+	while (ft_bfs_withflow(lem_in))
+		ft_bfs_loop(lem_in);
+	if (!lem_in->paths)
+		ft_lem_in_error(lem_in, "no path");
+	else
+	{
+		ft_remove_duplicates(lem_in);
+		ft_group_paths(lem_in);
 	}
 }

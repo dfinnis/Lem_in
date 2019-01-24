@@ -20,10 +20,10 @@ static void	ft_initialize_ant(t_ant **array, t_lem_in *lem_in)
 	(*array)->traveled = 1;
 }
 
-int		ft_count_total(t_lem_in *lem_in)
+int			ft_count_total(t_lem_in *lem_in)
 {
-	int sum;
-	int	i;
+	int		sum;
+	int		i;
 	t_group *paths;
 
 	i = 0;
@@ -37,11 +37,11 @@ int		ft_count_total(t_lem_in *lem_in)
 	return (sum);
 }
 
-static	void	ft_path_count(t_lem_in *lem_in)
+static void	ft_path_count(t_lem_in *lem_in)
 {
-	int count;
-	int	i;
-	int	j;
+	int		count;
+	int		i;
+	int		j;
 	t_group *paths;
 
 	i = lem_in->depth;
@@ -50,7 +50,7 @@ static	void	ft_path_count(t_lem_in *lem_in)
 	{
 		j = 0;
 		paths = lem_in->shortest->group;
-		while(j++ < i)
+		while (j++ < i)
 			paths = paths->next;
 		paths->times = count / (i + 1) - (paths->path->length - 2);
 		count -= count / (i + 1);
@@ -62,7 +62,7 @@ void		ft_populate_array(t_lem_in *lem_in)
 	t_ant	**array;
 	int		ants;
 	int		deep;
-	t_group	*tmp;
+	t_group	*g;
 
 	ants = 0;
 	if (!(array = (t_ant **)malloc(sizeof(t_ant *) * (lem_in->ant_c + 1))))
@@ -71,13 +71,13 @@ void		ft_populate_array(t_lem_in *lem_in)
 	while (ants < lem_in->ant_c)
 	{
 		deep = 1;
-		tmp = lem_in->shortest->group;
-		while (tmp && deep++ <= lem_in->depth && ants < lem_in->ant_c && tmp->times)
+		g = lem_in->shortest->group;
+		while (g && deep++ <= lem_in->depth && ants < lem_in->ant_c && g->times)
 		{
 			ft_initialize_ant(&array[ants], lem_in);
-			array[ants++]->path = tmp->path->highway;
-			tmp->times--;
-			tmp = tmp->next;
+			array[ants++]->path = g->path->highway;
+			g->times--;
+			g = g->next;
 			if (deep == 2 && ants != 1)
 				array[ants - 1]->last = 1;
 		}

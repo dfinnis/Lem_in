@@ -47,6 +47,18 @@ void		ft_reset_visited(t_lem_in *lem_in)
 	}
 }
 
+void		ft_reset_flow(t_lem_in *lem_in)
+{
+	t_room *room;
+
+	room = lem_in->room;
+	while (room)
+	{
+		room->flow = 0;
+		room = room->next;
+	}
+}
+
 void		ft_sort_group(t_lem_in *lem_in)
 {
 	t_group	*tmp;
