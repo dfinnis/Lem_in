@@ -52,7 +52,7 @@ int		ft_find_coordinate(char *line, int n)
 {
 	while (line[n] && ft_isdigit(line[n]))
 		n--;
-	if (line[n] == '-')
+	if (line[n] == '+')
 		n--;
 	return (n);
 }

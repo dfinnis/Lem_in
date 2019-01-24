@@ -14,7 +14,7 @@
 
 static void	ft_usage(t_lem_in *lem_in)
 {
-	ft_putstr("usage:\t./lem-in ");
+	ft_putstr("\nusage:\t./lem-in ");
 	ft_putstr("[-t] [-a] [-r] [-l] [-rl] [-p] [-g] [-all] < map.map\n");
 	ft_putstr("\n\t[-t] display number of turns\n");
 	ft_putstr("\t[-a] display number of ants\n");
@@ -23,6 +23,7 @@ static void	ft_usage(t_lem_in *lem_in)
 	ft_putstr("\t[-rl] display rooms with links\n");
 	ft_putstr("\t[-p] display paths\n");
 	ft_putstr("\t[-g] display path groups\n");
+	ft_putstr("\t[-wc] display map without comments\n");
 	ft_putstr("\t[-all] display all\n\n");
 	ft_lem_in_free(lem_in);
 	exit(1);
@@ -30,30 +31,28 @@ static void	ft_usage(t_lem_in *lem_in)
 
 static void	ft_read_flags(t_lem_in *lem_in, int argc, char **argv)
 {
-	int		i;
-
-	i = 1;
-	while (i < argc)
+	while (--argc)
 	{
-		if (ft_strcmp(argv[i], "-a") == 0)
+		if (ft_strcmp(argv[argc], "-a") == 0)
 			lem_in->flag_a = 1;
-		else if (ft_strcmp(argv[i], "-r") == 0)
+		else if (ft_strcmp(argv[argc], "-r") == 0)
 			lem_in->flag_r = 1;
-		else if (ft_strcmp(argv[i], "-l") == 0)
+		else if (ft_strcmp(argv[argc], "-l") == 0)
 			lem_in->flag_l = 1;
-		else if (ft_strcmp(argv[i], "-rl") == 0)
+		else if (ft_strcmp(argv[argc], "-rl") == 0)
 			lem_in->flag_rl = 1;
-		else if (ft_strcmp(argv[i], "-p") == 0)
+		else if (ft_strcmp(argv[argc], "-p") == 0)
 			lem_in->flag_p = 1;
-		else if (ft_strcmp(argv[i], "-g") == 0)
+		else if (ft_strcmp(argv[argc], "-g") == 0)
 			lem_in->flag_g = 1;
-		else if (ft_strcmp(argv[i], "-t") == 0)
+		else if (ft_strcmp(argv[argc], "-t") == 0)
 			lem_in->flag_t = 1;
-		else if (ft_strcmp(argv[i], "-all") == 0)
+		else if (ft_strcmp(argv[argc], "-wc") == 0)
+			lem_in->flag_wc = 1;
+		else if (ft_strcmp(argv[argc], "-all") == 0)
 			lem_in->flag_all = 1;
 		else
 			ft_usage(lem_in);
-		i++;
 	}
 }
 
@@ -101,6 +100,8 @@ int			main(int argc, char **argv)
 	ft_build_graph(&lem_in);
 	ft_solve_algo(&lem_in);
 	ft_lem_in_solve(&lem_in);
+	if (lem_in.flag_wc)
+		ft_display_mirror(&lem_in);
 	ft_display_results(&lem_in);
 	ft_display_bonus(&lem_in);
 	ft_lem_in_free(&lem_in);

@@ -93,3 +93,11 @@ void	ft_is_room(t_lem_in *lem_in, char *link)
 	if (!found)
 		ft_lem_in_error(lem_in, "link to unknown room");
 }
+
+void	ft_room_error(t_lem_in *lem_in, t_room *new)
+{
+	if (new->name[0] == 'L')
+		ft_lem_in_error(lem_in, "room name starts with 'L'");
+	if (!NAME_SPACE && ft_strchr(new->name, ' '))
+		ft_lem_in_error(lem_in, "room name contains space");
+}

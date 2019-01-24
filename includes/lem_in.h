@@ -60,6 +60,7 @@ typedef struct		s_lem_in
 	int				flag_rl;
 	int				flag_p;
 	int				flag_g;
+	int				flag_wc;
 	int				flag_all;
 }					t_lem_in;
 
@@ -163,6 +164,7 @@ void				ft_lem_in_parse(t_lem_in *lem_in);
 **		parse_room.c
 */
 void				ft_add_room(t_lem_in *lem_in, t_room **new);
+void				ft_check_duplicate(t_lem_in *lem_in, t_room *new);
 int					ft_find_coordinate(char *line, int n);
 void				ft_max_coordinate(t_lem_in *lem_in, int coordinate);
 void				ft_coordinate_isdigit(t_lem_in *lem_in, char line);
@@ -170,12 +172,11 @@ void				ft_coordinate_isdigit(t_lem_in *lem_in, char line);
 /*
 **		parse_support.c
 */
-
-void				ft_check_duplicate(t_lem_in *lem_in, t_room *new);
 void				ft_start_end(t_lem_in *lem_in, t_room *new);
 void				ft_add_link(t_lem_in *lem_in, t_link **new);
 void				ft_is_room(t_lem_in *lem_in, char *link);
 t_room				*ft_find_room(t_lem_in *lem_in, char to_from);
+void				ft_room_error(t_lem_in *lem_in, t_room *new);
 
 /*
 ** 		build_graph.c
@@ -247,6 +248,11 @@ void				ft_display_turn_count(t_lem_in *lem_in);
 void				ft_display_ants(t_lem_in *lem_in);
 void				ft_display_rooms(t_lem_in *lem_in);
 void				ft_display_links(t_lem_in *lem_in);
+
+/*
+**		display_mirror.c
+*/
+void				ft_display_mirror(t_lem_in *lem_in);
 
 /*
 **		display_links.c

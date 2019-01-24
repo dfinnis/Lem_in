@@ -16,10 +16,15 @@ static void	ft_parse_ants(t_lem_in *lem_in)
 {
 	int	i;
 
-	i = -1;
-	while (lem_in->line[++i])
+	i = 0;
+	while (lem_in->line[i] == ' ' || lem_in->line[i] == '+')
+		i++;
+	while (lem_in->line[i])
+	{
 		if (!(ft_isdigit(lem_in->line[i])))
 			ft_lem_in_error(lem_in, "invalid first line: number of ants");
+		i++;
+	}
 	if (!(lem_in->ant_c = ft_atoi(lem_in->line)))
 		ft_lem_in_error(lem_in, "invalid first line: number of ants");
 	if (lem_in->ant_c < 1 || lem_in->ant_c > MAX_ANTS)
@@ -29,9 +34,15 @@ static void	ft_parse_ants(t_lem_in *lem_in)
 static void	ft_parse_comment(t_lem_in *lem_in)
 {
 	if (ft_strcmp(lem_in->line, "##start") == 0)
+	{
 		lem_in->start_flag = 1;
+		lem_in->end_flag = 0;
+	}
 	else if (ft_strcmp(lem_in->line, "##end") == 0)
+	{
 		lem_in->end_flag = 1;
+		lem_in->start_flag = 0;
+	}
 }
 
 static void	ft_parse_room(t_lem_in *lem_in)
@@ -53,12 +64,11 @@ static void	ft_parse_room(t_lem_in *lem_in)
 	n = ft_find_coordinate(lem_in->line, n);
 	new->x = ft_atoi_intmax(lem_in->line + n + 1);
 	ft_max_coordinate(lem_in, new->x);
+	if (n < 0)
+		ft_lem_in_error(lem_in, "empty room name");
 	if (!(new->name = ft_strndup(lem_in->line, n)))
 		ft_lem_in_error(lem_in, "strndup fail in ft_parse_room");
-	if (new->name[0] == 'L')
-		ft_lem_in_error(lem_in, "room name starts with 'L'");
-	if (!NAME_SPACE && ft_strchr(new->name, ' '))
-		ft_lem_in_error(lem_in, "room name contains space");
+	ft_room_error(lem_in, new);
 	ft_check_duplicate(lem_in, new);
 	ft_start_end(lem_in, new);
 }
@@ -68,6 +78,7 @@ static void	ft_parse_link(t_lem_in *lem_in)
 	t_link	*new;
 	t_link	*tmp;
 
+	ft_parse_error(lem_in);
 	tmp = lem_in->link;
 	ft_add_link(lem_in, &new);
 	if (!(new->from = ft_find_room(lem_in, 'f')))
@@ -93,7 +104,8 @@ void		ft_lem_in_parse(t_lem_in *lem_in)
 {
 	get_next_line(0, &lem_in->line);
 	ft_parse_ants(lem_in);
-	ft_printf("%s\n", lem_in->line);
+	if (!lem_in->flag_wc)
+		ft_printf("%s\n", lem_in->line);
 	ft_freestr(lem_in->line);
 	while (get_next_line(0, &lem_in->line) == 1)
 	{
@@ -105,9 +117,12 @@ void		ft_lem_in_parse(t_lem_in *lem_in)
 			ft_parse_room(lem_in);
 		else
 			ft_lem_in_error(lem_in, "line not comment, command, room or link");
-		ft_printf("%s\n", lem_in->line);
+		if (!lem_in->flag_wc)
+			ft_printf("%s\n", lem_in->line);
 		ft_freestr(lem_in->line);
 	}
-	ft_parse_error(lem_in);
-	ft_printf("\n");
+	if (!lem_in->link)
+		ft_lem_in_error(lem_in, "no links");
+	if (!lem_in->flag_wc)
+		ft_printf("\n");
 }
