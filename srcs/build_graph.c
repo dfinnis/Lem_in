@@ -65,8 +65,8 @@ void		ft_build_graph(t_lem_in *lem_in)
 		}
 		room = room->next;
 	}
-	if (!lem_in->start->links)
+	if (lem_in->start && !lem_in->start->links)
 		ft_lem_in_error(lem_in, "start has no links");
-	if (!lem_in->end->links)
+	if (lem_in->end && !lem_in->end->links)
 		ft_lem_in_error(lem_in, "end has no links");
 }

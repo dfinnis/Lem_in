@@ -14,7 +14,7 @@
 
 static int	ft_bfs_noflow(t_lem_in *lem_in, t_room *room, int i, t_queue *queue)
 {
-	if (room == lem_in->end && room->links[i] == lem_in->start)
+	while (room == lem_in->end && room->links[i] == lem_in->start)
 		i++;
 	if ((room->links[i] && !room->links[i]->visited && !room->links[i]->flow)
 		|| (room->links[i] && room->links[i] == lem_in->start))
@@ -30,7 +30,7 @@ static int	ft_bfs_noflow(t_lem_in *lem_in, t_room *room, int i, t_queue *queue)
 
 static int	ft_bfs_flow(t_lem_in *lem_in, t_room *room, int i, t_queue *queue)
 {
-	if (room == lem_in->end && room->links[i] == lem_in->start)
+	while (room == lem_in->end && room->links[i] == lem_in->start)
 		i++;
 	if ((room->links[i] && !room->links[i]->visited
 		&& room->links[i]->flow == 1)

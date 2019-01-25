@@ -104,7 +104,7 @@ void		ft_lem_in_parse(t_lem_in *lem_in)
 {
 	get_next_line(0, &lem_in->line);
 	ft_parse_ants(lem_in);
-	if (!lem_in->flag_wc)
+	if (lem_in->flag_wc)
 		ft_printf("%s\n", lem_in->line);
 	ft_freestr(lem_in->line);
 	while (get_next_line(0, &lem_in->line) == 1)
@@ -117,12 +117,13 @@ void		ft_lem_in_parse(t_lem_in *lem_in)
 			ft_parse_room(lem_in);
 		else
 			ft_lem_in_error(lem_in, "line not comment, command, room or link");
-		if (!lem_in->flag_wc)
+		if (lem_in->flag_wc)
 			ft_printf("%s\n", lem_in->line);
 		ft_freestr(lem_in->line);
 	}
+	ft_parse_error(lem_in);
 	if (!lem_in->link)
 		ft_lem_in_error(lem_in, "no links");
-	if (!lem_in->flag_wc)
+	if (lem_in->flag_wc)
 		ft_printf("\n");
 }
