@@ -40,7 +40,11 @@ GREEN = "\033[0;32m"
 RED = "\033[0;31m"
 DEFAULT = "\033[0m"
 
-all: $(LEM_IN)
+all: comp_libft $(LEM_IN)
+
+comp_libft:
+	@echo "Compiling:" $(GREEN) Libft $(DEFAULT)
+	make -C $(LIBFT)
 
 norm:
 	norminette -R CheckForbiddenSourceHeader $(INC) $(SRCS_DIR)
@@ -65,10 +69,6 @@ $(LEM_IN): $(LIBFT_A) $(OBJS_DIR) $(OBJS_PATH)
 	@echo "Compiling:" $(GREEN) $(LEM_IN) $(DEFAULT)
 	gcc $(FLAGS) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) -I $(INC)
 
-$(LIBFT_A):
-	@echo "Compiling:" $(GREEN) Libft $(DEFAULT)
-	make -C $(LIBFT)
-
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 
@@ -86,4 +86,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: all norm clean fclean re g fsanitize
+.PHONY: all comp_libft norm clean fclean re g fsanitize
