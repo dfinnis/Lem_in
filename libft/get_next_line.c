@@ -6,7 +6,7 @@
 /*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 14:52:16 by svaskeli          #+#    #+#             */
-/*   Updated: 2019/01/09 14:05:40 by svaskeli         ###   ########.fr       */
+/*   Updated: 2019/01/25 14:17:09 by svaskeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int			get_next_line(const int fd, char **line)
 		if (!(str = ft_strnew(1)))
 			return (-1);
 		if ((k = read(fd, str, 1)) == -1)
-			return (-1);
+			exit(1);
 		if ((g = ft_gnl_error(line, str)) == 1)
 			return (1);
 		else if (g == -1)
