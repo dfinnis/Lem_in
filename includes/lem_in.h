@@ -20,7 +20,7 @@
 
 # define NAME_SPACE 1
 # define LINK_SELF 1
-# define LINK_DUP 1
+# define LINK_DUP 0
 # define MAX_INT 0
 # define MAX_ANTS 20000
 

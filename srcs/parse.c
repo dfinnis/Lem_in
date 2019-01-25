@@ -93,8 +93,7 @@ static void	ft_parse_link(t_lem_in *lem_in)
 		while (tmp)
 		{
 			if (new->from == tmp->from && new->to == tmp->to)
-				ft_lem_in_error(lem_in, "link duplicated \
-					(to accept duplicated links set LINK_DUP to 1)");
+				ft_lem_in_error(lem_in, "link duplicated");
 			tmp = tmp->next;
 		}
 	}
