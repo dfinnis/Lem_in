@@ -23,7 +23,7 @@ static void	ft_usage(t_lem_in *lem_in)
 	ft_putstr("\t[-rl] display rooms with links\n");
 	ft_putstr("\t[-p] display paths\n");
 	ft_putstr("\t[-g] display path groups\n");
-	ft_putstr("\t[-wc] display map without comments\n");
+	ft_putstr("\t[-wc] display map with comments\n");
 	ft_putstr("\t[-all] display all\n\n");
 	ft_lem_in_free(lem_in);
 	exit(1);
@@ -100,7 +100,7 @@ int			main(int argc, char **argv)
 	ft_build_graph(&lem_in);
 	ft_solve_algo(&lem_in);
 	ft_lem_in_solve(&lem_in);
-	if (lem_in.flag_wc)
+	if (!lem_in.flag_wc)
 		ft_display_mirror(&lem_in);
 	ft_display_results(&lem_in);
 	ft_display_bonus(&lem_in);
