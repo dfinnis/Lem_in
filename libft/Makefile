@@ -115,7 +115,7 @@ $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
-$(OBJ): $(SRCS)
+$(OBJ): $(SRCS) $(INC)
 	@gcc -c $(FLAGS) $(SRCS)
 
 clean:
