@@ -20,6 +20,7 @@ SRCS_DIR = srcs/
 OBJS_DIR = objs/
 
 INC = includes/
+HEADER = $(INC)lem_in.h
 
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
@@ -71,7 +72,7 @@ $(LIBFT_A):
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADER)
 	@echo "Compiling:" $(GREEN) $< $(DEFAULT)
 	gcc $(FLAGS) -c $< -o $@ -I $(INC)
 
