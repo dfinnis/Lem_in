@@ -15,16 +15,16 @@
 static void	ft_usage(t_lem_in *lem_in)
 {
 	ft_putstr("\nusage:\t./lem-in ");
-	ft_putstr("[-t] [-a] [-r] [-l] [-rl] [-p] [-g] [-wc] [-all] < map.map\n");
-	ft_putstr("\n\t[-t] display number of turns\n");
-	ft_putstr("\t[-a] display number of ants\n");
+	ft_putstr("[-a] [-r] [-l] [-rl] [-p] [-g] [-t] [-all] [-wc] < map.map\n");
+	ft_putstr("\n\t[-a] display number of ants\n");
 	ft_putstr("\t[-r] display rooms\n");
 	ft_putstr("\t[-l] display links\n");
 	ft_putstr("\t[-rl] display rooms with links\n");
 	ft_putstr("\t[-p] display paths\n");
 	ft_putstr("\t[-g] display path groups\n");
-	ft_putstr("\t[-wc] display map with comments\n");
-	ft_putstr("\t[-all] display all\n\n");
+	ft_putstr("\t[-t] display number of turns\n");
+	ft_putstr("\t[-all] display all\n");
+	ft_putstr("\t[-wc] display map with comments\n\n");
 	ft_lem_in_free(lem_in);
 	exit(1);
 }
