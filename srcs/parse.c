@@ -93,7 +93,8 @@ static void	ft_parse_link(t_lem_in *lem_in)
 	{
 		while (tmp && tmp->next)
 		{
-			if (new->from == tmp->from && new->to == tmp->to)
+			if ((new->from == tmp->from && new->to == tmp->to)
+				|| (new->from == tmp->to && new->to == tmp->from))
 				ft_lem_in_error(lem_in, "link duplicated");
 			tmp = tmp->next;
 		}
