@@ -137,7 +137,7 @@ $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ) $(LIB_PATH)
 	@ranlib $(NAME)
 
-$(OBJ): $(SRCS)
+$(OBJ): $(SRCS) $(INC)
 	@gcc -c $(FLAGS) $(SRCS)
 
 lib:
@@ -157,4 +157,4 @@ fclean: clean libfclean
 
 re: fclean all
 
-.PHONY : all clean fclean re g fsanitize
+.PHONY : all lib libfclean libclean clean fclean re g fsanitize
