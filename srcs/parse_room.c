@@ -57,13 +57,10 @@ int		ft_find_coordinate(char *line, int n)
 	return (n);
 }
 
-void	ft_max_coordinate(t_lem_in *lem_in, int coordinate)
+void	ft_max_coordinate(t_lem_in *lem_in, long long coordinate)
 {
-	(void)lem_in;
-	(void)coordinate;
-	// coordinate > 2147483647 || coordinate < -2147483648 will always be false
-	// if (MAX_INT && (coordinate > 2147483647 || coordinate < -2147483648))
-	// 	ft_lem_in_error(lem_in, "coordinate outside of int range");
+	if (MAX_INT && (coordinate > 2147483647 || coordinate < -2147483648))
+		ft_lem_in_error(lem_in, "coordinate outside of int range");
 }
 
 void	ft_coordinate_isdigit(t_lem_in *lem_in, char line)

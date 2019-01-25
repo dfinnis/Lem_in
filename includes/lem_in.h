@@ -166,7 +166,7 @@ void				ft_lem_in_parse(t_lem_in *lem_in);
 void				ft_add_room(t_lem_in *lem_in, t_room **new);
 void				ft_check_duplicate(t_lem_in *lem_in, t_room *new);
 int					ft_find_coordinate(char *line, int n);
-void				ft_max_coordinate(t_lem_in *lem_in, int coordinate);
+void				ft_max_coordinate(t_lem_in *lem_in, long long coordinate);
 void				ft_coordinate_isdigit(t_lem_in *lem_in, char line);
 
 /*

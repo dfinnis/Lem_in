@@ -90,7 +90,7 @@ static void	ft_parse_link(t_lem_in *lem_in)
 			(to accept links to self set LINK_SELF to 1)");
 	if (!LINK_DUP)
 	{
-		while (tmp)
+		while (tmp && tmp->next)
 		{
 			if (new->from == tmp->from && new->to == tmp->to)
 				ft_lem_in_error(lem_in, "link duplicated");
