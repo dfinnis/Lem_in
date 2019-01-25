@@ -19,7 +19,8 @@ FLAGS = -Wall -Werror -Wextra
 SRCS_DIR = srcs/
 OBJS_DIR = objs/
 
-INC = includes/
+INC = includes
+INC_FILE = $(INC)/lem_in.h
 
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
@@ -60,7 +61,7 @@ fsanitize:
 	mv $(OBJS) $(OBJS_DIR)
 	gcc $(FLAGS) $(G_FLAG) $(FSAN) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) -I $(INC)
 
-$(LEM_IN): $(LIBFT_A) $(OBJS_DIR) $(OBJS_PATH)
+$(LEM_IN): $(LIBFT_A) $(OBJS_DIR) $(OBJS_PATH) $(INC_FILE)
 	@echo "Compiling:" $(GREEN) $(LEM_IN) $(DEFAULT)
 	gcc $(FLAGS) $(OBJS_PATH) $(LIBFT_A) -o $(LEM_IN) -I $(LIBFT) -I $(INC)
 
