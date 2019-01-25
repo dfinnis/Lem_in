@@ -102,12 +102,12 @@ FLAGS = -Wall -Werror -Wextra
 all: $(NAME)
 
 g:
-	@gcc -c -I $(INC) -I $(FLAGS) $(G) $(SRCS)
+	@gcc -c $(FLAGS) $(G) $(SRCS)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
 fsanitize:
-	@gcc -c -I $(INC) -I $(FLAGS) $(G) $(FSAN) $(SRCS)
+	@gcc -c $(FLAGS) $(G) $(FSAN) $(SRCS)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
@@ -115,8 +115,8 @@ $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
-$(OBJ): $(SRCS)
-	@gcc -c -I $(INC) -I $(FLAGS) $(SRCS)
+$(OBJ): $(SRCS) $(INC)
+	@gcc -c $(FLAGS) $(SRCS)
 
 clean:
 	@/bin/rm -f $(OBJ)
