@@ -66,10 +66,11 @@ static void	ft_parse_room(t_lem_in *lem_in)
 	ft_max_coordinate(lem_in, new->x);
 	if (n < 0)
 		ft_lem_in_error(lem_in, "empty room name");
+	if (lem_in->line[n] != ' ')
+		ft_lem_in_error(lem_in, "room incorrectly formatted");
 	if (!(new->name = ft_strndup(lem_in->line, n)))
 		ft_lem_in_error(lem_in, "strndup fail in ft_parse_room");
 	ft_room_error(lem_in, new);
-	ft_check_duplicate(lem_in, new);
 	ft_start_end(lem_in, new);
 }
 

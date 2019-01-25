@@ -100,4 +100,5 @@ void	ft_room_error(t_lem_in *lem_in, t_room *new)
 		ft_lem_in_error(lem_in, "room name starts with 'L'");
 	if (!NAME_SPACE && ft_strchr(new->name, ' '))
 		ft_lem_in_error(lem_in, "room name contains space");
+	ft_check_duplicate(lem_in, new);
 }
