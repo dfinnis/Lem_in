@@ -55,13 +55,75 @@ Here is our solution to pdf_example3.map again.
 
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/solution.png" width="25%">
 
-On the first line (the first turn) we see 2 ants moved. With 4 ants the algo chose to take the 2 longer paths to minimize number of turns. In the first (and second) turn 1 ant is sent down each path.
+On the first line (the first turn) we see 2 ants moved. With 4 ants the algo chose to take the 2 longer paths to minimize number of turns. In the first (and second) turn 1 ant is sent down each path. This solution takes 5 turns, it is 5 lines long.
 
 With 1 or 2 ants the algo would chose the 1 shorter path (start -> 1 -> 2 -> end).
 
+
 ## Flags
 
-* -all, print all the following
+* -all, display all the following.
+
+```./lem-in -all < maps/pdf_example3.map```
+
+
+* -a, display number of ants.
+
+```./lem-in -a < maps/pdf_example3.map```
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/a.png" width="17%">
+
+
+* -r, display rooms.
+
+```./lem-in -r < maps/pdf_example3.map```
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/r.png" width="42%">
+
+
+* -l, display links.
+
+```./lem-in -l < maps/pdf_example3.map```
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/l.png" width="42%">
+
+
+* -rl, display rooms with links.
+
+A graph is created by linking the rooms.
+
+```./lem-in -rl < maps/pdf_example3.map```
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/rl.png" width="42%">
+
+
+* -p, display paths.
+
+All possible paths from start to end.
+
+```./lem-in -p < maps/pdf_example3.map```
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/p.png" width="12%">
+
+
+* -g, display path groups.
+
+Paths grouped by which are possible to take at the same time without blocking each other.
+
+```./lem-in -g < maps/pdf_example3.map```
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/g1.png" width="15%">
+
+The chosen group (depending on how many ants) is then shown.
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/g2.png" width="15%">
+
+
+* -t, display number of turns.
+
+```./lem-in -t < maps/pdf_example3.map```
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/t.png" width="17%">
 
 
 
