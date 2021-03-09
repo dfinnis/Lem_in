@@ -36,7 +36,7 @@ Then run *lem-in* with a map redirected into stdin. You'll find example maps in 
 ## Map format
 
 1. number_of_ants
-2. rooms (name, coord_x, coord_y)
+2. rooms (name coord_x coord_y)
 3. links (name1-name2)
 
 In the example above (maps/pdf_example3.map), the first line denotes 4 ants, the second line denotes a room named *3*.
@@ -53,42 +53,42 @@ L(ant number)-(room number). For example ```L1-1``` means ant *1* moves to room 
 
 Here is our solution to pdf_example3.map again.
 
-<img src="https://github.com/dfinnis/Lem_in/blob/master/img/solution.png" width="25%">
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/solution.png" width="23%">
 
-On the first line (the first turn) we see 2 ants moved. With 4 ants the algo chose to take the 2 longer paths to minimize number of turns. In the first (and second) turn 1 ant is sent down each path. This solution takes 5 turns, it is 5 lines long.
+On the first line (the first turn) we see 2 ants moved. With 4 ants our algo chose to take the 2 longer paths to minimize number of turns. In the first (and second) turn 1 ant is sent down each path. This solution takes 5 turns, it is 5 lines long.
 
-With 1 or 2 ants the algo would chose the 1 shorter path (start -> 1 -> 2 -> end).
+With 1 or 2 ants our algo choses the 1 shorter path (start -> 1 -> 2 -> end).
 
 
 ## Flags
 
-#### -all, display all the following.
+### -all, display all the following.
 
 ```./lem-in -all < maps/pdf_example3.map```
 
 
-#### -a, display number of ants.
+### -a, display number of ants.
 
 ```./lem-in -a < maps/pdf_example3.map```
 
-<img src="https://github.com/dfinnis/Lem_in/blob/master/img/a.png" width="17%">
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/a.png" width="16%">
 
 
-#### -r, display rooms.
+### -r, display rooms.
 
 ```./lem-in -r < maps/pdf_example3.map```
 
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/r.png" width="42%">
 
 
-#### -l, display links.
+### -l, display links.
 
 ```./lem-in -l < maps/pdf_example3.map```
 
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/l.png" width="42%">
 
 
-#### -rl, display rooms with links.
+### -rl, display rooms with links.
 
 After parsing, a graph is created by linking the rooms.
 
@@ -97,7 +97,7 @@ After parsing, a graph is created by linking the rooms.
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/rl.png" width="42%">
 
 
-#### -p, display paths.
+### -p, display paths.
 
 Next we find all possible paths from start to end.
 
@@ -106,7 +106,7 @@ Next we find all possible paths from start to end.
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/p.png" width="12%">
 
 
-#### -g, display path groups.
+### -g, display path groups.
 
 Then paths are grouped by which are possible to take at the same time without blocking each other.
 
@@ -114,12 +114,12 @@ Then paths are grouped by which are possible to take at the same time without bl
 
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/g1.png" width="15%">
 
-We choose a group depending on how many ants, to minimize turns.
+Finally, we choose a group depending on how many ants, in order to minimize turns.
 
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/g2.png" width="15%">
 
 
-#### -t, display number of turns.
+### -t, display number of turns.
 
 ```./lem-in -t < maps/pdf_example3.map```
 
