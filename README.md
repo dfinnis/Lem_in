@@ -2,7 +2,7 @@
 
 Find the fastest way to get *n* ants across a colony (network of rooms and tunnels).
 
-Max flow algorithm using breadth-first path search, based on Edmonds–Karp.
+Max flow algorithm using breadth-first path search, based on [Edmonds–Karp](https://en.wikipedia.org/wiki/Edmonds%E2%80%93Karp_algorithm).
 
 ### Goal
 
@@ -126,19 +126,24 @@ Finally, we choose a group depending on how many ants, in order to minimize turn
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/t.png" width="17%">
 
 
-
 ## Tests
-
-<img src="https://github.com/dfinnis/Lem_in/blob/master/img/test.png" width="42%">
 
 ### Generator
 
+42 provides this handy map generator.
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/generator.png" width="90%">
+
+Importantly, each map generated tells you how many lines (turns) are required.
+
+### Test script
+
+I wrote a test script using the generator to test random maps of different sizes and complexity.
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/test.png" width="42%">
 
 
 ## Team
 
 I wrote this project in a team with the wonderful [@svaskeli](https://github.com/sharvas)
 
-## References
-
-[Edmonds-Karp wiki](https://en.wikipedia.org/wiki/Edmonds%E2%80%93Karp_algorithm)
