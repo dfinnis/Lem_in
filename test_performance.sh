@@ -8,7 +8,7 @@ unit_test()
 	MAP=$1
 	echo "\x1b[1m$MAP\x1B[0m"
 	case=25
-	count=1
+	count=0
 	sum=0
 	while [ $count -lt $(expr $case + 1) ]
 	do
@@ -16,12 +16,26 @@ unit_test()
 		arg1=$(./generator $MAP > 1 && cat 1 | grep "#Here" | cut -d ' ' -f 8 | head -n 1)
 		arg2=$(./lem-in -t < 1 | tail -n 2 | head -n 1 | cut -d ' ' -f 2)
 		diff=$(($arg2 - $arg1))
+		# echo $diff ##########################
 		sum=$(($sum + $diff))
 		count=$(($count + 1))
 	done
+	count=$(($count - 1))
 	echo
-	echo "\x1B[32mavg moves diff: $(($sum / $(($count - 1))))\x1B[0m"
-	# time
+
+	# echo $sum
+	# echo $count
+	mean=$(($sum / $count))
+	# echo "\x1B[32mavg moves diff: $mean\x1B[0m"
+
+	if [ $mean -le "0" ]
+	then
+		echo "\x1B[32mavg moves diff: $mean\x1B[0m"
+	else
+		echo "\x1B[33mavg moves diff: $mean\x1B[0m"
+	fi
+
+	time
 	echo "$(time ./lem-in -t < 1 | tail -n 1)"
 	rm 1
 }
