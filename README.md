@@ -26,9 +26,9 @@ Make the binary *lem-in*.
 
 Then run *lem-in* with a map redirected into stdin. You'll find example maps in maps/.
 
-```./lem-in < maps/pdf_example1.map```
+```./lem-in < maps/pdf_example3.map```
 
-<img src="https://github.com/dfinnis/Lem_in/blob/master/img/example1.png" width="42%">
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/example3.png" width="45%">
 
 *lem-in* prints the map then the solution.
 
@@ -39,20 +39,25 @@ Then run *lem-in* with a map redirected into stdin. You'll find example maps in 
 2. rooms (name, coord_x, coord_y)
 3. links (name1-name2)
 
-For example:
+In the example above (maps/pdf_example3.map), the first line denotes 4 ants, the second line denotes a room named *3*.
+This map can be represented:
 
-<img src="https://github.com/dfinnis/Lem_in/blob/master/img/map.png" width="42%">
-
-Can be represented.
-
-<img src="https://github.com/dfinnis/Lem_in/blob/master/img/map2.png" width="20%">
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/map2.png" width="17%">
 
 Note: for this map, the best choice of path(s) depends on the number of ants.
 
 
 ## Solution format
 
+L(ant number)-(room number). For example ```L1-1``` means ant *1* moves to room *1*.
 
+Here is our solution to pdf_example3.map again.
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/solution.png" width="25%">
+
+On the first line (the first turn) we see 2 ants moved. With 4 ants the algo chose to take the 2 longer paths to minimize number of turns. In the first (and second) turn 1 ant is sent down each path.
+
+With 1 or 2 ants the algo would chose the 1 shorter path (start -> 1 -> 2 -> end).
 
 ## Flags
 
