@@ -130,7 +130,7 @@ Finally, we choose a group depending on how many ants, in order to minimize turn
 
 ### Generator
 
-42 provides this handy map generator.
+42 provides this handy map generator, you'll find it in the root of this repo.
 
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/generator.png" width="90%">
 
