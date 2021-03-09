@@ -3,11 +3,13 @@ printf "\E[H\E[2J"
 echo "\x1b[1mLaunching Lem-in Performance Test...\x1B[0m\n"
 
 #### -- unit_test() -- ####
+case_start=160
 unit_test()
 {
 	MAP=$1
 	echo "\x1b[1m$MAP\x1B[0m"
-	case=25
+	case=$case_start
+	case_start=$(($case_start / 2))
 	count=0
 	sum=0
 	best=4242
@@ -15,6 +17,7 @@ unit_test()
 	sum_time=0
 	best_time=420000000000
 	worst_time=-420000000000
+
 	while [ $count -lt $case ]
 	do
 		target=$(./generator $MAP > 1 && cat 1 | grep "#Here" | cut -d ' ' -f 8 | head -n 1)
