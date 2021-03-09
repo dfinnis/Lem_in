@@ -21,9 +21,13 @@ Run *lem-in* with a map redirected into stdin. You'll find example maps in maps/
 
 ```./lem-in < maps/1.map```
 
-## Input format
+## Map format
 
 ## Flags
+
+## Tests
+
+<img src="https://github.com/dfinnis/Lem_in/blob/master/img/test.png" width="42%">
 
 ## Team
 
