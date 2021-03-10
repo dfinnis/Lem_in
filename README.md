@@ -138,7 +138,9 @@ Importantly, each map generated tells you how many lines (turns) are required.
 
 ### Test script
 
-I wrote a test script using the generator to test random maps of different sizes and complexity.
+I wrote test_performance.sh using the generator to test random maps of different sizes and complexity.
+
+```./test_performance.sh```
 
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/test.png" width="42%">
 
