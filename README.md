@@ -57,7 +57,7 @@ Here is our solution to pdf_example3.map again.
 
 On the first line (the first turn) we see 2 ants moved. With 4 ants our algo chose to take the 2 longer paths to minimize number of turns. In the first (and second) turn 1 ant is sent down each path. This solution takes 5 turns, it is 5 lines long.
 
-With 1 or 2 ants our algo choses the 1 shorter path (start -> 1 -> 2 -> end).
+With 1 ant our algo choses the 1 shorter path (start -> 1 -> 2 -> end).
 
 
 ## Flags
