@@ -16,16 +16,13 @@ The algorithm must be able to use the best combination of paths according to the
 
 ## Getting Started
 
-First clone this repo.
-
+First clone this repo. <br>
 ```git clone https://github.com/dfinnis/Lem_in.git; cd Lem_in```
 
-Make the binary *lem-in*.
-
+Make the binary *lem-in*. <br>
 ```make```
 
-Then run *lem-in* with a map redirected into stdin. You'll find example maps in maps/.
-
+Then run *lem-in* with a map redirected into stdin. You'll find example maps in maps/. <br>
 ```./lem-in < maps/pdf_example3.map```
 
 <img src="https://github.com/dfinnis/Lem_in/blob/master/img/example3.png" width="45%">
