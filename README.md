@@ -11,7 +11,9 @@ The goal is to bring them to room ##end in as few turns as possible.
 Each room can only contain one ant at a time (except ##start and ##end).
 The algorithm must be able to use the best combination of paths according to the number of ants.
 
-#### Final Score 125/100
+See the [subject](https://github.com/dfinnis/Lem_in/blob/master/subject.pdf) for more details.
+
+*Final Score 125/100*
 
 
 ## Getting Started
